@@ -3,19 +3,18 @@ import styled from 'styled-components'
 
 function LoginBtn() {
   return (
-    <Div>
-        <span>로그인</span>
-    </Div>
+    <Button bgColor='#03DAC6'>로그인</Button>
   )
 }
 
 export default LoginBtn
 
-const Div = styled.div`
+const Button = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #03DAC6;
+    background-color: ${({bgColor}) => bgColor ? bgColor : 'white'};
+    border: none;
     border-radius: 5px;
     width: 5rem;
     height: 2.5rem;
