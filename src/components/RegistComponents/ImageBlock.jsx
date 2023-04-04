@@ -1,5 +1,5 @@
-import axios from 'axios';
 import React, { useState } from 'react'
+import { FirstPreview, OtherPreview, PreviewContainer } from './RegistStyled';
 
 function ImageBlock() {
     const [imageURL, setImageURL] = useState([])
@@ -17,15 +17,18 @@ function ImageBlock() {
         formData.append('images', imageLists)
         // await axios.post(`${process.env.REACT_APP_SERVER_URL}/products/upload`,formData)
         }
-    console.log(imageURL)
   return (
     <div>
         <label htmlFor='file'>
-            <img src = {imageURL[0]} alt="" style={{width:'200px', height:"200px"}}/>
+            <FirstPreview src = {imageURL[0]} alt=""/>
         </label>
-        <img src = {imageURL[1]} alt="" style={{width:'100px', height:"100px"}}/>
-        <img src = {imageURL[2]} alt="" style={{width:'100px', height:"100px"}}/>
-        <img src = {imageURL[3]} alt="" style={{width:'100px', height:"100px"}}/>
+        <PreviewContainer>
+            <OtherPreview src = {imageURL[1]} alt=""/>
+            <OtherPreview src = {imageURL[2]} alt=""/>
+            <OtherPreview src = {imageURL[3]} alt=""/>
+            <OtherPreview src = {imageURL[4]} alt=""/>
+        </PreviewContainer>
+        
         <input type={'file'} id='file' multiple style={{display:'none'}} onChange={onImageChangeHandler}/>
     </div>
     
