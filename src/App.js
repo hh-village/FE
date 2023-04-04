@@ -1,15 +1,19 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-
+import { NavermapsProvider } from "react-naver-maps";
 import Router from "./shared/Router";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient();
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
-      <Router />
+      <NavermapsProvider
+          ncpClientId="l4pkkagxjm"
+        >
+        <ReactQueryDevtools initialIsOpen={false} />
+        <Router/>
+      </NavermapsProvider>
     </QueryClientProvider>
   );
 }
