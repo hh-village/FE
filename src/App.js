@@ -1,6 +1,16 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+import Router from "./shared/Router";
+
+const queryClient = new QueryClient();
+
 function App() {
   return (
-    <div>시작</div>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
+      <Router />
+    </QueryClientProvider>
   );
 }
 
