@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Detail from "../pages/Detail"
+import Home from "../pages/Home"
 import Intro from "../pages/Intro"
 import Login from "../pages/Login"
 import MyPage from "../pages/MyPage"
@@ -19,3 +20,5 @@ const Router = () => {
         </BrowserRouter>
     )
 }
+
+export default Router;
