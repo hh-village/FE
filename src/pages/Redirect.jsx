@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { setCookie } from '../shared/Cookies';
-import jwtDecode from 'jwt-decode';
+import jwtDecode from 'jwt-decode'
 
 function Redirect() {
   const navi = useNavigate();
@@ -34,10 +34,8 @@ function Redirect() {
         setCookie("token", res.headers.authorization.substring(7), {path:"/"});
 
         const decodeData = jwtDecode(res.headers.authorization);
-        console.log("dd", decodeData);
         setCookie("userID", decodeData.auth, {path: "/"});
         setCookie("nickname", decodeData.sub, {path: "/"});
-
         alert(res.data.message);
         navi("/");
     }
@@ -45,6 +43,5 @@ function Redirect() {
 
   return ;
 }
-
 
 export default Redirect

@@ -8,37 +8,47 @@ import useInput from '../hooks/useInput'
 import { getCookie } from '../shared/Cookies'
 import { DescInput, RegistTitle, TitleInput } from '../components/RegistComponents/RegistStyled'
 import NaverMap from '../components/RegistComponents/Map'
+import { useSelector } from 'react-redux'
 
 function Regist() {
   const {mutate, isLoading, isError, isSuccess} = useMutation({
     mutationKey:['mutate'],
     mutationFn: async(values)=>{
+      console.log(values)
       const accessToken = getCookie('token')
       await axios.post(`${process.env.REACT_APP_SERVER_URL}/products`,values,{
         headers:{
-          Authorization: `Bearer ${accessToken}`
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "multipart/form-data"
         }
       })
     }
   })
 
-  const [state, setState] = useState({
-    address : '',
-    lat : '',
-    log : '',
-  })
+  const { image, locX, locY } = useSelector(state => state.Post)
 
   const { values, onChange } = useInput({
     title: "",
     description: "",
-    price: "",
-    location: "",
-    Image : [],
+    price: '',
+    latitude : 0,
+    longitude : 0,
+    images : '',
   })
+
+
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    mutate(values)
+    mutate({
+      ...values,
+      images:image,
+      latitude : locX,
+      longitude : locY,
+    })
   }
+  
+  console.log(locY, locX)
+ 
 
   return (
     <>
@@ -68,19 +78,14 @@ function Regist() {
         >
           <form onSubmit={onSubmitHandler}>
             <input
+              type={'number'}
               name='price'
               placeholder='가격을 책정해주세요'
               value={values.price}
               onChange={onChange}
             />
-            <input
-              name='location'
-              placeholder='위치를 찍어주세요'
-              value={values.location}
-              onChange={onChange}
-            />
             <NaverMap/>
-            <button type='submit'> 등록하기 </button>
+            <button style={{marginTop:'10px'}}> 등록하기 </button>
           </form>
         </Div>
       </MaxWidthDiv>
