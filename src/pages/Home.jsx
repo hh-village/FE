@@ -7,8 +7,11 @@ function Home() {
   return (
     <FlexDiv>
       <HeaderNav />
-      <MaxWidthDiv height="100vh">
+      <MaxWidthDiv fDirection="column" height="100vh">
         <SearchInput />
+        <div style={{marginTop:"3rem"}}>
+          <h1>내 근처에서 대여할 물품을 찾아보세요!</h1>
+        </div>
       </MaxWidthDiv>
     </FlexDiv>
   )
