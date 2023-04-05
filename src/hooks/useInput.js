@@ -5,11 +5,15 @@ const useInput = (initialValues) => {
 
   const onChange = (event) => {
     const {name, value} = event.target
-    console.log(name)
-    setValues({ ...values, [name] : value });
+    if(name === 'price'){
+      setValues({
+        ...values,
+        [name] : Number(value)
+      })
+    }else{
+      setValues({ ...values, [name] : value });
+    }
   };
-
-  console.log(values)
 
   return {
     values,

@@ -36,3 +36,25 @@ export const DescInput = styled.textarea`
     padding: 20px;
     resize: none;
 `
+export const MapSearch = styled.input`
+    width: 100%;
+    height: 50px;
+    font-size:25px;
+    text-indent:0.5em;
+    border: none;
+`
+export const SearchButton = styled.button`
+    width: 50px;
+    height: 50px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
+export const Searchdiv = styled.button`
+    margin-top: 10px;
+    border: 2px solid gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`

@@ -1,21 +1,33 @@
 import React, { useState } from 'react'
 import { FirstPreview, OtherPreview, PreviewContainer } from './RegistStyled';
+import { useDispatch } from 'react-redux'
+import { storeImage } from '../../redux/modules/Post';
+
 
 function ImageBlock() {
+    const dispatch = useDispatch();
     const [imageURL, setImageURL] = useState([])
 
     const onImageChangeHandler = async(event) => {
         event.preventDefault();
         const imageLists = event.target.files
+
+        //이미지 미리보기
         const ImageURLLists = []
         for (let i = 0; i < imageLists.length; i++) {
             const currentImageUrl = URL.createObjectURL(imageLists[i]);
             ImageURLLists.push(currentImageUrl)
         }
         setImageURL(ImageURLLists)
+
+        //여기서부터 서버통신 시작
         const formData = new FormData()
-        formData.append('images', imageLists)
-        // await axios.post(`${process.env.REACT_APP_SERVER_URL}/products/upload`,formData)
+        formData.append('images', Object.values(imageLists))
+        
+        for (let value of Object.values(imageLists)) {
+            console.log(value);
+        }
+        dispatch(storeImage(Object.values(imageLists)))
         }
   return (
     <div>
