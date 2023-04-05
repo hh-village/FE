@@ -7,13 +7,18 @@ import { MaxWidthDiv } from './globalStyle'
 function SearchInput() {
   return (
     <MaxWidthDiv boxShadow="none" padding="8rem 0rem 0rem 0rem">
-        <input type="text" />
+        <Input type="text" />
         <Button bgColor='#03DAC6'>찾아보기</Button>
     </MaxWidthDiv>
   )
 }
 
 export default SearchInput
+
+const Input = styled.input`
+  width: 5rem;
+  height: 2.5rem;
+`
 
 const Button = styled.button`
     display: flex;

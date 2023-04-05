@@ -36,6 +36,17 @@ export const Div = styled.div`
     flex-direction: ${({fDirection}) => fDirection ? 'column' : 'row'};
     justify-content : ${({jc}) => jc ? jc : 'start'};
     align-items: ${({alignItem}) => alignItem ? alignItem : 'start'};
+    width : ${({width})=>width};
+    height : ${({height})=>height};
+    margin : ${({margin}) => margin ? margin: 0};
+    padding : ${({padding}) => padding ? padding: 0};
+    margin-top : ${({marginTop}) => marginTop};
+    padding-top : ${({paddingTop}) => paddingTop};
+    background-color: ${({bgColor}) => bgColor ? bgColor : 'white'};
+    border-top: ${({borderTop}) => borderTop};
+    border-bottom: ${({borderBottom}) => borderBottom};
+    top: ${({top}) => top ? top : 0};
+    bottom: ${({bottom}) => bottom ? bottom : 0};
     gap : ${({gap}) => gap ? gap : 0};
 `
 
