@@ -4,6 +4,10 @@ import HeaderNav from '../components/global/HeaderNav'
 import SearchInput from '../components/global/SearchInput'
 
 function Home() {
+  const testData = [
+    {}
+  ]
+
   return (
     <FlexDiv>
       <HeaderNav />
@@ -11,6 +15,9 @@ function Home() {
         <SearchInput />
         <div style={{marginTop:"3rem"}}>
           <h1>내 근처에서 대여할 물품을 찾아보세요!</h1>
+        </div>
+        <div>
+
         </div>
       </MaxWidthDiv>
     </FlexDiv>
