@@ -8,6 +8,10 @@ import SlideBtn from '../components/detail/SlideBtn'
 import { FlexDiv, MaxWidthDiv, Div } from '../components/global/globalStyle'
 import HeaderNav from '../components/global/HeaderNav'
 import { getCookie } from '../shared/Cookies'
+import React, { useState } from 'react'
+import { MaxWidthDiv } from '../components/global/globalStyle'
+import HeaderNav from '../components/global/HeaderNav'
+import ConsumerRegister from '../components/detail/ConsumerRegister'
 
 function Detail() {
   const { id } = useParams();
@@ -62,6 +66,12 @@ function Detail() {
         </Div>
       </MaxWidthDiv>
     </FlexDiv>
+    <>
+      <HeaderNav/>
+      <MaxWidthDiv>
+        <ConsumerRegister/>
+      </MaxWidthDiv>
+    </>
   )
 }
 
