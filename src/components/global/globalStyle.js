@@ -14,6 +14,7 @@ export const FlexDiv = styled.div`
     top: ${({top}) => top ? top : 0};
     bottom: ${({bottom}) => bottom ? bottom : 0};
     gap : ${({gap}) => gap ? gap : 0};
+    z-index: ${({zIndex}) => zIndex};
     box-shadow: ${({boxShadow}) => boxShadow ? boxShadow : '1px 1px 5px rgb(0, 0, 0, 0.2)'};
     ${({etc}) => etc};
 `
