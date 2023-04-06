@@ -9,6 +9,7 @@ import { FlexDiv, MaxWidthDiv, Div } from '../components/global/globalStyle'
 import HeaderNav from '../components/global/HeaderNav'
 import { getCookie } from '../shared/Cookies'
 import ConsumerRegister from '../components/detail/ConsumerRegister'
+import RegisterReserve from '../components/detail/RegisterReserve'
 
 function Detail() {
   const { id } = useParams();
@@ -61,11 +62,16 @@ function Detail() {
                   <h2>{data?.title}</h2>
                   <span>{data?.price}</span>
                   <span>{data?.location}</span>
+                  {!data?.checkOwner ? (
+                    <ConsumerRegister reservationList = {data?.reservationList} id={id}/>
+                  ): (
+                    <RegisterReserve reservationList = {data?.reservationList}/>
+                  )}
                 </div>
               </Div>
             </Div>
         </Div>
-        <ConsumerRegister reservationList = {data?.reservationList} id={id}/>
+        
       </MaxWidthDiv>
     </FlexDiv>
   )
