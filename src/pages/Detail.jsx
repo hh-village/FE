@@ -1,25 +1,21 @@
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { nanoid } from 'nanoid'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import SlideBtn from '../components/detail/SlideBtn'
 import { FlexDiv, MaxWidthDiv, Div } from '../components/global/globalStyle'
 import HeaderNav from '../components/global/HeaderNav'
 import { getCookie } from '../shared/Cookies'
-import React, { useState } from 'react'
-import { MaxWidthDiv } from '../components/global/globalStyle'
-import HeaderNav from '../components/global/HeaderNav'
 import ConsumerRegister from '../components/detail/ConsumerRegister'
-import RegisterReserve from '../components/detail/RegisterReserve'
 
 function Detail() {
   const { id } = useParams();
   const [count, setCount] = useState(1);
 
-  const { data } = useQuery({
-    queryKey: ["GET_KAKAO_LOGIN"],
+  const { data, refetch } = useQuery({
+    queryKey: ["GET_Details"],
     queryFn: async () => {
       const token = getCookie("token");
       const res = await axios.get(`http://3.39.187.56/products/${parseInt(id)}`,
@@ -29,8 +25,12 @@ function Detail() {
         }
       });
       return res.data.data;
-    },
+    }
   })
+
+  useEffect(()=>{
+    refetch();
+  },[])
 
   console.log(data);
 
@@ -65,15 +65,9 @@ function Detail() {
               </Div>
             </Div>
         </Div>
+        <ConsumerRegister reservationList = {data?.reservationList} id={id}/>
       </MaxWidthDiv>
     </FlexDiv>
-    <>
-      <HeaderNav/>
-      <MaxWidthDiv>
-        <ConsumerRegister/>
-        <RegisterReserve/>
-      </MaxWidthDiv>
-    </>
   )
 }
 
