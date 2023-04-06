@@ -6,6 +6,7 @@ import { ReservationDateClick, SelectOption, SelectWrapper } from "./detailStyle
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import {getCookie} from '../../shared/Cookies'
+import { Div } from "../global/globalStyle";
 
 const ConsumerRegister = () => {
     const [startDate, setStartDate] = useState(new Date());
@@ -52,20 +53,19 @@ const ConsumerRegister = () => {
     })
 
     return (
-        <div style={{padding:'7rem 0 0 0'}}>
-          <SelectWrapper>
-            <SelectOption>
-              
-            </SelectOption>
-            <SelectOption>
-              
-            </SelectOption>
-            <SelectOption>
-              
-            </SelectOption>
-          </SelectWrapper>
-          <div>
-                <div style={{display:'flex'}}>
+        <Div width="100%" fDirection="row">
+            <SelectWrapper>
+                <SelectOption>
+                    
+                </SelectOption>
+                <SelectOption>
+                    
+                </SelectOption>
+                <SelectOption>
+                    
+                </SelectOption>
+            </SelectWrapper>
+            <Div>
                 <DatePicker
                     locale={ko}
                     startDate={startDate}
@@ -87,9 +87,8 @@ const ConsumerRegister = () => {
                         })
                     }}
                 >등록하기</button>    
-                </div>
-            </div>
-        </div>
+            </Div>
+        </Div>
 
     )
 }
