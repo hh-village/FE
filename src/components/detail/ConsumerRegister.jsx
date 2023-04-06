@@ -3,14 +3,16 @@ import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"; // 이렇게 가져와야 기본 디자인이 설정된다
 import ko from "date-fns/locale/ko"; // 달력을 한글 지원으로 바꾸는 용도
 import { ReservationDateClick, SelectOption, SelectWrapper } from "./detailStyle";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { QueryClient, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import {getCookie} from '../../shared/Cookies'
 import { Div } from "../global/globalStyle";
+import { queries } from "@testing-library/react";
 
-const ConsumerRegister = () => {
+const ConsumerRegister = (props) => {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date())
+    const queryClient = useQueryClient();
     const CustomInput = ({ value, onClick }) => (
         <ReservationDateClick onClick={onClick}>
         {value}
@@ -22,24 +24,17 @@ const ConsumerRegister = () => {
         setEndDate(end);
     }
 
-    const sDate = `${startDate.getFullYear()}-0${startDate.getMonth()+1}-0${startDate.getDate()}`
-    const eDate = `${endDate?.getFullYear()}-0${endDate?.getMonth()+1}-${endDate?.getDate()}`
+    const sDate = `${startDate.getFullYear()}-${String(startDate.getMonth()+1).padStart(2,'0')}-${String(startDate.getDate()).padStart(2,'0')}`
+    const eDate = `${endDate?.getFullYear()}-${String(endDate?.getMonth()+1).padStart(2,'0')}-${String(endDate?.getDate()).padStart(2,'0')}`
+    
+    console.log(sDate, eDate)
+
     const accessToken = getCookie('token')
 
-    // const { data } = useQuery({
-    //     queryKey:['reservationList'],
-    //     queryFn : async()=> {
-    //         await axios.get(`${process.env.REACT_APP_SERVER_URL}/products/2`,{
-    //             headers:{
-    //                 Authorization: `Bearer ${accessToken}`
-    //             }
-    //         })
-    //     }
-    // })
     const { mutate } = useMutation({
         mutationKey:['reservePost'],
         mutationFn: async(reserveDate) => {
-            await axios.post(`${process.env.REACT_APP_SERVER_URL}/products/1/reserve`,reserveDate,
+            await axios.post(`${process.env.REACT_APP_SERVER_URL}/products/${props.id}/reserve`,reserveDate,
             { 
                 headers: {
                     Authorization:`Bearer ${accessToken}`
@@ -48,24 +43,48 @@ const ConsumerRegister = () => {
             )
         },
         onSuccess : ()=>{
-            alert('good')
+            queryClient.invalidateQueries(['GET_Details'])
+        },
+        onError : (error) => {
+            alert(error.response.data.message)
+        }
+    })
+
+    const DeleteReservation = useMutation({
+        mutationKey:['DeleteReservation'],
+        mutationFn: async(id)=>{
+            await axios.delete(`${process.env.REACT_APP_SERVER_URL}/products/reservation/${id}`,{
+                headers:{
+                    Authorization:`Bearer ${accessToken}`
+                }
+            })
+        },
+        onSuccess:()=>{
+            queryClient.invalidateQueries(['GET_Details'])
+        },
+        onError:(error)=>{
+            alert(error.response.data.message)
         }
     })
 
     return (
-        <Div width="100%" fDirection="row">
-            <SelectWrapper>
+        <div style={{padding:'7rem 0 0 0'}}>
+          <SelectWrapper>
+            {props.reservationList?.map((item)=>{
+                return(
                 <SelectOption>
-                    
+                    {item.startDate}
+                    {item.endDate}
+                    {item.nickname}
+                    <div onClick={()=>{
+                        DeleteReservation.mutate(item.id)
+                    }}>삭제</div>
                 </SelectOption>
-                <SelectOption>
-                    
-                </SelectOption>
-                <SelectOption>
-                    
-                </SelectOption>
-            </SelectWrapper>
-            <Div>
+                )
+            })}
+          </SelectWrapper>
+          <div>
+                <div style={{display:'flex'}}>
                 <DatePicker
                     locale={ko}
                     startDate={startDate}
