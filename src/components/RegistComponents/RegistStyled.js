@@ -29,10 +29,10 @@ export const PreviewContainer = styled.div`
     margin-left: 40px;
 `
 export const DescInput = styled.textarea`
-    height: 57px;
-    width: 580px;
+    height: 200px;
+    width: 462px;
     font-size: 20px;
-    margin: 30px 0 117px 40px;
+    margin: 142px 0 10px 20px;
     padding: 20px;
     resize: none;
 `
@@ -44,16 +44,39 @@ export const MapSearch = styled.input`
     border: none;
 `
 export const SearchButton = styled.button`
-    width: 50px;
+    width: 60px;
     height: 50px;
     border: none;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #ededed;
+    :hover{
+        background-color: #e8e8e8;
+    }
 `
-export const Searchdiv = styled.button`
-    margin-top: 10px;
+export const Searchdiv = styled.div`
+    width: 502px;
     border: 2px solid gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    margin: 10px 0 10px 20px;
+`
+export const PriceInput = styled.input`
+    width: 435px;
+    height: 50px;
+`
+export const PriceDiv = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0 10px 20px;
+`
+export const PriceSpan = styled.span`
+    width: 60px;
+    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;

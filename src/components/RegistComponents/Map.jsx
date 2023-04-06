@@ -13,6 +13,7 @@ function Map() {
   const [map, setMap] = useState(null);
   const [center, setCenter] = useState('')
   const dispatch = useDispatch();
+  const [location, setLocation] = useState('')
   const {values, onChange} = useInput({
     address : ''
   })
@@ -30,26 +31,27 @@ function Map() {
     const center = new navermaps.LatLng(yLoc, xLoc)
     if(map) {
       map.panTo(center)
-      dispatch(storeLocation({
-        locX : xLoc, 
-        locY : yLoc
-      }))
     }}
   
-  const onClickMarker = (event) => {
+  const onClickMarker = async(event) => {
     setCenter({
       locX : event.coord.x, 
       locY : event.coord.y
     })
-    dispatch(storeLocation({
-      locX : event.coord.x, 
-      locY : event.coord.y
-    }))
+    const accessToken = getCookie('token')
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/maps/gc?coords=${event.coord.x},${event.coord.y}&output=json&orders=roadaddr`,{
+      headers:{
+        Authorization: `Bearer ${accessToken}`
+      }
+    })
+    setLocation(response.data)
+    dispatch(storeLocation(response.data))
   }
+
   
   return (
     <div>
-      <MapDiv style={{ width: '462px',height: '238px'}}>
+      <MapDiv style={{ width: '505px',height: '238px', marginLeft:'20px'}}>
         <NaverMap
           defaultCenter={new navermaps.LatLng(37.5816, 126.88839)}
           defaultZoom={15}
@@ -70,7 +72,7 @@ function Map() {
           위치
         </SearchButton>
       </Searchdiv>
-        
+        <span style={{marginLeft:'20px'}}>거래 위치: {location}</span>
     </div>
     
   )

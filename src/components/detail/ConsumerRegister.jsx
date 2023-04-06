@@ -20,8 +20,9 @@ const ConsumerRegister = () => {
         setStartDate(start);
         setEndDate(end);
     }
-    const sDate = `${startDate.getFullYear()}-${startDate.getMonth()+1}-${startDate.getDate()}`
-    const eDate = `${endDate?.getFullYear()}-${endDate?.getMonth()+1}-${endDate?.getDate()}`
+
+    const sDate = `${startDate.getFullYear()}-0${startDate.getMonth()+1}-0${startDate.getDate()}`
+    const eDate = `${endDate?.getFullYear()}-0${endDate?.getMonth()+1}-${endDate?.getDate()}`
     const accessToken = getCookie('token')
 
     // const { data } = useQuery({
