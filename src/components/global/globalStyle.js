@@ -43,10 +43,13 @@ export const Div = styled.div`
     margin-top : ${({marginTop}) => marginTop};
     padding-top : ${({paddingTop}) => paddingTop};
     background-color: ${({bgColor}) => bgColor ? bgColor : 'white'};
+    border : ${({border}) => border ? border : 'none'};
     border-top: ${({borderTop}) => borderTop};
     border-bottom: ${({borderBottom}) => borderBottom};
     top: ${({top}) => top ? top : 0};
     bottom: ${({bottom}) => bottom ? bottom : 0};
+    position: ${({position}) => position};
+    overflow: ${({overflow}) => overflow};
     gap : ${({gap}) => gap ? gap : 0};
 `
 
