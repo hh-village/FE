@@ -106,9 +106,9 @@ const ConsumerRegister = (props) => {
                         })
                     }}
                 >등록하기</button>    
-            </Div>
-        </Div>
-
+            </div>
+        </div>
+    </div>
     )
 }
 
