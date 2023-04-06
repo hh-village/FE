@@ -108,7 +108,7 @@ const ConsumerRegister = (props) => {
                 >등록하기</button>    
             </div>
         </div>
-    </div>
+    </div>            
     )
 }
 
