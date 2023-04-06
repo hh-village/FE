@@ -13,7 +13,6 @@ function HeaderNav() {
   useEffect(()=>{
     const token = getCookie("token");
     setToken(token);
-    console.log(token);
   },[location])
 
   return (
