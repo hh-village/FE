@@ -16,7 +16,7 @@ function HeaderNav() {
   },[location])
 
   return (
-    <FlexDiv height="6rem" position="fixed">
+    <FlexDiv height="6rem" position="fixed" zIndex="1">
       <MaxWidthDiv height="100%" jc="space-between" alignItem="center">
           <Div gap="2rem">
             <div>

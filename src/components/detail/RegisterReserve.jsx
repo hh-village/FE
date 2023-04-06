@@ -1,10 +1,11 @@
+import { Div } from "../global/globalStyle";
 import { SelectOption, SelectWrapper } from "./detailStyle"
 import ReserveSelect from "./ReserveSelect"
 
 const RegisterReserve = (props) => {
 
     return (
-        <div style={{padding:'7rem 0 0 0'}}>
+        <Div width="100%">
           <SelectWrapper>
           {props?.reservationList.map((item)=>{
             return(<SelectOption>
@@ -16,7 +17,7 @@ const RegisterReserve = (props) => {
             
           })}
           </SelectWrapper>
-        </div>
+        </Div>
     )
 }
 

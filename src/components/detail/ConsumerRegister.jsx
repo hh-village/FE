@@ -6,6 +6,7 @@ import { ReservationDateClick, SelectOption, SelectWrapper } from "./detailStyle
 import { QueryClient, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import {getCookie} from '../../shared/Cookies'
+import { Div } from "../global/globalStyle";
 import { queries } from "@testing-library/react";
 
 const ConsumerRegister = (props) => {
@@ -105,10 +106,9 @@ const ConsumerRegister = (props) => {
                         })
                     }}
                 >등록하기</button>    
-                </div>
             </div>
         </div>
-
+    </div>            
     )
 }
 

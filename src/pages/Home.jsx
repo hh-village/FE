@@ -4,9 +4,6 @@ import HeaderNav from '../components/global/HeaderNav'
 import SearchInput from '../components/global/SearchInput'
 
 function Home() {
-  const testData = [
-    {}
-  ]
 
   return (
     <FlexDiv>
