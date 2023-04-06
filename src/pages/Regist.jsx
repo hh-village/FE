@@ -6,7 +6,7 @@ import { Div, MaxWidthDiv } from '../components/global/globalStyle'
 import HeaderNav from '../components/global/HeaderNav'
 import useInput from '../hooks/useInput'
 import { getCookie } from '../shared/Cookies'
-import { DescInput, RegistTitle, TitleInput } from '../components/RegistComponents/RegistStyled'
+import { DescInput, PriceDiv, PriceInput, PriceSpan, RegistTitle, TitleInput } from '../components/RegistComponents/RegistStyled'
 import NaverMap from '../components/RegistComponents/Map'
 import { useSelector } from 'react-redux'
 
@@ -25,14 +25,13 @@ function Regist() {
     }
   })
 
-  const { image, locX, locY } = useSelector(state => state.Post)
+  const { image, location } = useSelector(state => state.Post)
 
   const { values, onChange } = useInput({
     title: "",
     description: "",
     price: '',
-    latitude : 0,
-    longitude : 0,
+    location:'',
     images : '',
   })
 
@@ -42,12 +41,11 @@ function Regist() {
     mutate({
       ...values,
       images:image,
-      latitude : locX,
-      longitude : locY,
+      location:location
     })
   }
   
-  console.log(locY, locX)
+  console.log(location)
  
 
   return (
@@ -66,24 +64,27 @@ function Regist() {
             onChange={onChange}
           />
           <ImageBlock/>
-          <DescInput
-            name='description'
-            placeholder='상품설명을 해주세요'
-            value={values.description}
-            onChange={onChange}
-          />
         </Div>
         <Div
           fDirection = {'row'}
         >
           <form onSubmit={onSubmitHandler}>
-            <input
-              type={'number'}
-              name='price'
-              placeholder='가격을 책정해주세요'
-              value={values.price}
-              onChange={onChange}
+          <DescInput
+            name='description'
+            placeholder='상세설명 :기종, 물품, 구매일자, 물품컨디션'
+            value={values.description}
+            onChange={onChange}
+          />
+          <PriceDiv>
+            <PriceSpan>가격</PriceSpan>
+            <PriceInput
+                type={'number'}
+                name='price'
+                placeholder='가격을 책정해주세요'
+                value={values.price}
+                onChange={onChange}
             />
+          </PriceDiv>
             <NaverMap/>
             <button style={{marginTop:'10px'}}> 등록하기 </button>
           </form>

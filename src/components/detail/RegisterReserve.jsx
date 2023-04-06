@@ -19,3 +19,5 @@ const RegisterReserve = () => {
         </div>
     )
 }
+
+export default RegisterReserve;

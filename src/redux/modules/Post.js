@@ -2,8 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
     image:'',
-    locX:0,
-    locY:0,
+    location:''
 }
 
 export const postSlice = createSlice({
@@ -14,8 +13,7 @@ export const postSlice = createSlice({
             state.image = action.payload
         },
         storeLocation : (state, action) => {
-            state.locX = action.payload.locX
-            state.locY = action.payload.locY
+            state.location = action.payload
         }
     }
 })
