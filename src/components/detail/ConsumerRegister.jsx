@@ -43,7 +43,7 @@ const ConsumerRegister = (props) => {
             )
         },
         onSuccess : ()=>{
-            queryClient.invalidateQueries(['GET_Details'])
+            queryClient.invalidateQueries(['GET_DETAIL'])
         },
         onError : (error) => {
             alert(error.response.data.message)
@@ -60,7 +60,7 @@ const ConsumerRegister = (props) => {
             })
         },
         onSuccess:()=>{
-            queryClient.invalidateQueries(['GET_Details'])
+            queryClient.invalidateQueries(['GET_DETAIL'])
         },
         onError:(error)=>{
             alert(error.response.data.message)
@@ -70,7 +70,7 @@ const ConsumerRegister = (props) => {
     return (
         <div style={{padding:'7rem 0 0 0'}}>
           <SelectWrapper>
-            {props.reservationList?.map((item)=>{
+            {props.reservationList.map((item)=>{
                 return(
                 <SelectOption>
                     {item.startDate}
