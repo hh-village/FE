@@ -44,8 +44,6 @@ function Regist() {
       location:location
     })
   }
-  
-  console.log(location)
  
 
   return (

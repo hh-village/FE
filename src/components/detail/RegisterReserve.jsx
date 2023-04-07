@@ -7,7 +7,7 @@ const RegisterReserve = (props) => {
     return (
         <Div width="100%">
           <SelectWrapper>
-          {props?.reservationList.map((item)=>{
+          {props.reservationList.map((item)=>{
             return(<SelectOption>
               <ReserveSelect id = {item.id}/>
               {item.nickname}

@@ -15,7 +15,7 @@ function Detail() {
   const { id } = useParams();
   const [count, setCount] = useState(1);
 
-  const { data, refetch } = useQuery({
+  const { data , isLoading} = useQuery({
     queryKey: ["GET_DETAIL"],
     queryFn: async () => {
       const token = getCookie("token");
@@ -29,10 +29,13 @@ function Detail() {
     }
   })
 
-  useEffect(()=>{
-    refetch()
-  },[id]);
-
+  if(isLoading){
+    return(
+      <div>
+        안녕하세요!
+      </div>
+    )
+  }
   const styleOption = `
         display: flex;
         width: fit-content; 
@@ -41,7 +44,7 @@ function Detail() {
         transition: all 0.5s;
         flex: none;
         transform: translateX(-${(count-1)*(false? 585: 584)}px);
-    `;
+  `;
 
   return (
     <FlexDiv boxShadow="none">
@@ -68,13 +71,12 @@ function Detail() {
               <DescriptionDiv>
                 <span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Error quaerat sed laudantium ipsa suscipit sunt placeat, rem facilis alias ullam nobis doloribus sequi earum consequatur. Harum voluptate neque facilis eos? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quisquam voluptates numquam ipsa voluptas assumenda nam, quo distinctio dignissimos! Harum, quaerat. Fuga dolorem perferendis delectus sunt deleniti labore quibusdam, necessitatibus facere. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus, voluptatum architecto consectetur laudantium blanditiis harum maiores inventore dicta illum autem earum at deserunt atque quod enim pariatur tempora recusandae. Doloribus. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Atque quaerat odio temporibus totam libero non itaque et, accusamus asperiores culpa aliquid vel tempora enim mollitia fugiat in aut dolor dolore. Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi rerum tempore delectus, unde nesciunt asperiores, dolore et quibusdam blanditiis aliquam aspernatur temporibus sapiente illum quam consequuntur ea omnis nulla laudantium.</span>
               </DescriptionDiv>
-              {!data?.checkOwner
+              {data?.checkOwner
               ? <ConsumerRegister reservationList = {data?.reservationList} id = {data?.id}/>
               : <RegisterReserve reservationList = {data?.reservationList}/>
               }
             </Div>
         </Div>
-        
       </MaxWidthDiv>
     </FlexDiv>
   )
