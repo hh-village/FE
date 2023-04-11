@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { nanoid } from 'nanoid'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import SlideBtn from '../components/detail/SlideBtn'
@@ -36,14 +36,15 @@ function Detail() {
       </div>
     )
   }
+
   const styleOption = `
-        display: flex;
-        width: fit-content; 
-        height: 100%;
-        flex-wrap: nowrap;
-        transition: all 0.5s;
-        flex: none;
-        transform: translateX(-${(count-1)*(false? 585: 584)}px);
+    display: flex;
+    width: fit-content; 
+    height: 100%;
+    flex-wrap: nowrap;
+    transition: all 0.5s;
+    flex: none;
+    transform: translateX(-${(count-1)*(false? 585: 584)}px);
   `;
 
   return (
