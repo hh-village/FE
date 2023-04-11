@@ -11,6 +11,7 @@ export const SelectOption = styled.div`
     display: flex;
     align-items: center;
     border-bottom: 1px solid red;
+    gap : 45px;
 `
 export const ReservationDateClick = styled.div`
     width: 20rem;

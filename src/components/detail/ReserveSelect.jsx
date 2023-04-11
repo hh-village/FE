@@ -43,7 +43,7 @@ function ReserveSelect(props) {
             data-value={'rejected'}
             onClick={onClickValue}>항목 3</div>
         </ul>
-      )}
+      )}     
     </div>
   )
 }
