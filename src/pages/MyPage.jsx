@@ -1,10 +1,24 @@
 import React from 'react'
+import { useState } from 'react'
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { FlexDiv, MaxWidthDiv, Div } from '../components/global/globalStyle'
 import HeaderNav from '../components/global/HeaderNav'
 import PagingTap from '../components/mypage/PagingTap'
+import { getCookie } from '../shared/Cookies'
 
 function MyPage() {
+  const navi = useNavigate();
+
+  useEffect(()=>{
+    setMyId(getCookie("userID", {path: "/"}));
+    setMyNickname(getCookie("nickname", {path: "/"}));
+  },[])
+
+  const [myId, setMyId] = useState("")
+  const [myNickname, setMyNickname] = useState("")
+
   return (
     <FlexDiv>
       <HeaderNav />
@@ -18,14 +32,14 @@ function MyPage() {
             <div>
               <Div bgColor="none" gap="0.5rem">
                 <img src="" alt="" />
-                <span>NICKNAME</span>
+                <span>{myId}</span>
                 <button>닉네임 변경</button>
               </Div>
-              <span>USERID</span>
+              <span>{myNickname}</span>
             </div>
           </Div>
           <Div bgColor="none" fDirection="row" gap="1rem" padding="1rem">
-            <Button>대여물품 등록하기</Button>
+            <Button onClick={()=>{navi("/regist")}}>대여물품 등록하기</Button>
             <Button>빌리지 채팅 관리</Button>
             <Button>예약 승인 / 확인 / 취소</Button>
           </Div>

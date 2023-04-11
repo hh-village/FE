@@ -1,22 +1,33 @@
 
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { MaxWidthDiv } from './globalStyle'
 
-function SearchInput() {
-  const [search, setSearch] = useState("");
-  const inputChangeHandler = (e) => {
-    setSearch(e.target.value);
+function SearchInput({ searchData, setSearchData }) {
+
+  const locationName = [
+    "서울", "부산", "대구", "인천", "광주", "대전", "울산", "세종", "경기", "강원", "충청북도", "충청남도", "전라북도", "전라남도", "경상북도", "경상남도", "제주"
+  ]
+
+  const catchSearchDataHandler = (e) => {
+    const { name, value } = e.target;
+    setSearchData((pre) => ({...pre, [name]: value}));
   }
-  console.log(search);
 
   return (
-    <MaxWidthDiv boxShadow="none" padding="8rem 0rem 0rem 0rem">
+    <MaxWidthDiv boxShadow="none" padding="8rem 0rem 0rem 0rem" gap="1rem">
+        <Select name="location" onChange={catchSearchDataHandler}>
+          <option value="">지역을 선택하세요</option>
+          {locationName.map((item) => 
+            <option value={item}>{item}</option>
+          )}
+        </Select>
         <Input
           type="text"
-          value={search}
+          name="productName"
+          value={searchData.productName}
           placeholder="찾으시는 상품을 검색해보세요!"
-          onChange={inputChangeHandler}/>
+          onChange={catchSearchDataHandler}/>
         <Button bgColor='#03DAC6'>찾아보기</Button>
     </MaxWidthDiv>
   )
@@ -24,20 +35,23 @@ function SearchInput() {
 
 export default SearchInput
 
+const Select = styled.select`
+  border: 1px solid #767676;
+  border-radius: 5px;
+  height: 2.5rem;
+`
+
 const Input = styled.input`
   border: 1px solid #e6e6e6;
   border-radius: 5px;
   width: 100%;
-  height: 2.5rem;
+  height: 2.3rem;
   padding-left: 1rem;
   &::placeholder {
-    color: #e6e6e6;
+    color: #767676;
   }
 
   &:focus {
-    &::placeholder{
-      display: none;
-    }
     border: 1px solid #767676;
   }
 `
@@ -48,7 +62,7 @@ const Button = styled.button`
     align-items: center;
     border: none;
     background-color: ${({bgColor}) => bgColor ? bgColor : 'white'};
-    color: ${({color}) => color ? color : 'white'};
+    color: ${({color}) => color ? color : 'black'};
     border-radius: 5px;
     font-weight: 700;
     width: 10rem;
