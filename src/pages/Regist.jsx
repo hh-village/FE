@@ -1,13 +1,13 @@
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import React, { useState } from 'react'
-import ImageBlock from '../components/RegistComponents/ImageBlock'
+import ImageBlock from '../components/regist/ImageBlock'
 import { Div, MaxWidthDiv } from '../components/global/globalStyle'
 import HeaderNav from '../components/global/HeaderNav'
 import useInput from '../hooks/useInput'
 import { getCookie } from '../shared/Cookies'
-import { DescInput, PriceDiv, PriceInput, PriceSpan, RegistTitle, TitleInput } from '../components/RegistComponents/RegistStyled'
-import NaverMap from '../components/RegistComponents/Map'
+import { DescInput, PriceDiv, PriceInput, PriceSpan, RegistTitle, TitleInput } from '../components/regist/RegistStyled'
+import NaverMap from '../components/regist/Map'
 import { useSelector } from 'react-redux'
 
 function Regist() {

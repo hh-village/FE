@@ -6,6 +6,7 @@ import Login from "../pages/Login"
 import MyPage from "../pages/MyPage"
 import Regist from "../pages/Regist"
 import Redirect from "../pages/Redirect"
+import Chat from "../pages/Chat"
 
 const Router = () => {
     return(
@@ -17,6 +18,7 @@ const Router = () => {
                 <Route path='/detail/:id' element={<Detail />} />
                 <Route path='/regist' element={<Regist />} />
                 <Route path='/mypage' element={<MyPage />} />
+                <Route path='/chat/:id' element={<Chat />} />
                 <Route path='/oauth/social/callback' element={<Redirect />} />
             </Routes>
         </BrowserRouter>

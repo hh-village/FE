@@ -29,6 +29,8 @@ function Detail() {
     }
   })
 
+  console.log(data)
+
   if(isLoading){
     return(
       <div>
@@ -74,7 +76,7 @@ function Detail() {
               </DescriptionDiv>
               {data?.checkOwner
               ? <ConsumerRegister reservationList = {data?.reservationList} id = {data?.id}/>
-              : <RegisterReserve reservationList = {data?.reservationList}/>
+              : <RegisterReserve reservationList = {data?.reservationList} id = {data?.id}/>
               }
             </Div>
         </Div>
