@@ -24,8 +24,8 @@ function HeaderNav() {
               <span>Village</span>
             </div>
             <Div gap="2rem">
-              <span>서비스 소개</span>
-              <span>팀원 소개</span>
+              <span>내 물품 빌려주기</span>
+              <span>물품 대여</span>
             </Div>
           </Div>
           <Div>
