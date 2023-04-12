@@ -13,7 +13,7 @@ function Intro() {
   const { data, refetch } = useQuery({
     queryKey: ["GET_RESERVATIONS"],
     queryFn: async () => {
-      const res = await axios.get("http://3.39.187.56/products/reservations")
+      const res = await axios.get("http://3.37.127.30/products/reservations")
       return res.data.data;
     }
   })
@@ -24,16 +24,16 @@ function Intro() {
     refetch()
   },[doneReserve]);
 
-  const test = [
-    "01님이 10님의 물건을 대여하였습니다",
-    "02님이 20님의 물건을 대여하였습니다",
-    "03님이 30님의 물건을 대여하였습니다",
-    "04님이 40님의 물건을 대여하였습니다",
-    "05님이 50님의 물건을 대여하였습니다",
-    "06님이 60님의 물건을 대여하였습니다",
-    "07님이 70님의 물건을 대여하였습니다",
-    "08님이 80님의 물건을 대여하였습니다",
-  ]
+  // const test = [
+  //   "01님이 10님의 물건을 대여하였습니다",
+  //   "02님이 20님의 물건을 대여하였습니다",
+  //   "03님이 30님의 물건을 대여하였습니다",
+  //   "04님이 40님의 물건을 대여하였습니다",
+  //   "05님이 50님의 물건을 대여하였습니다",
+  //   "06님이 60님의 물건을 대여하였습니다",
+  //   "07님이 70님의 물건을 대여하였습니다",
+  //   "08님이 80님의 물건을 대여하였습니다",
+  // ]
   
   return (
     <FlexDiv>
