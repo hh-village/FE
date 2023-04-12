@@ -17,8 +17,8 @@ function Redirect() {
 
         const decodeData = jwtDecode(res.headers.authorization);
         console.log("dd", decodeData);
-        setCookie("userID", decodeData.auth, {path: "/"});
-        setCookie("nickname", decodeData.sub, {path: "/"});
+        setCookie("nickname", decodeData.auth, {path: "/"});
+        setCookie("userID", decodeData.sub, {path: "/"});
 
         alert(res.data.message);
         navi("/");
@@ -34,8 +34,8 @@ function Redirect() {
         setCookie("token", res.headers.authorization.substring(7), {path:"/"});
 
         const decodeData = jwtDecode(res.headers.authorization);
-        setCookie("userID", decodeData.auth, {path: "/"});
-        setCookie("nickname", decodeData.sub, {path: "/"});
+        setCookie("nickname", decodeData.auth, {path: "/"});
+        setCookie("userID", decodeData.sub, {path: "/"});
         alert(res.data.message);
         navi("/");
     }
