@@ -80,8 +80,8 @@ function Detail() {
                 <span>예약 수 : {data?.reservationList.length}</span>
               </Div>
               {data?.checkOwner
-              ? <ConsumerRegister reservationList = {data?.reservationList} id = {data?.id}/>
-              : <RegisterReserve reservationList = {data?.reservationList} id = {data?.id}/>
+              ? <RegisterReserve reservationList = {data?.reservationList} id = {data?.id}/>
+              :  <ConsumerRegister reservationList = {data?.reservationList} id = {data?.id}/>
               }
             </Div>
         </Div>

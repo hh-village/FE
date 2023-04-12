@@ -1,9 +1,11 @@
+import axios from 'axios'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { FlexDiv, MaxWidthDiv } from '../components/global/globalStyle'
 import HeaderNav from '../components/global/HeaderNav'
 import NaverBtn from '../components/login/NaverBtn'
+import { setCookie } from '../shared/Cookies'
 
 function Login() {
   const REST_API_KEY = 'd748b149dfbb43afd8cb87be1ae85845';
@@ -14,7 +16,13 @@ function Login() {
   const kakaoLogin = () => {
     window.location.href = KAKAO_AUTH_URL
   }
-  
+  const onClickAdmin = async() => {
+    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/test/login/test`)
+    setCookie('token',response.headers.authorization.substring(7))
+    setCookie('nickname', response.data.data)
+    navi('/')
+  }
+
   return (
     <FlexDiv>
       <HeaderNav />
@@ -22,8 +30,8 @@ function Login() {
         <div>
           <img src="" alt="mainLogo" />
         </div>
-        <LikeBtnDiv color='#000000'>
-          <span>구글 로그인</span>
+        <LikeBtnDiv color='#000000' onClick={onClickAdmin}>
+          <span>관리자 로그인</span>
         </LikeBtnDiv>
         <LikeBtnDiv bgColor="#FEE500" color='black' onClick={kakaoLogin}>
           <span>카카오 로그인</span>
