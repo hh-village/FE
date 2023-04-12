@@ -21,7 +21,7 @@ function Home() {
     queryKey: ["GET_PRODUCTS"],
     queryFn: async () => {
       // const token = getCookie("token");
-      const res = await axios.get(`http://3.39.187.56/products?name=${searchData.productName}&location=${searchData.location}`)
+      const res = await axios.get(`http://3.37.127.30/products?name=${searchData.productName}&location=${searchData.location}`)
       console.log(res);
       return res.data.data;
     }
@@ -49,7 +49,7 @@ function Home() {
             height={data.length > 1 ? "100%" : null}
             onClick={()=>{navi(`/detail/${item.id}`)}}
           >
-            <img src={item.primeImageUrl} alt="" style={{width:"100%", height:"100%"}}/>
+            <img src={item.image} alt="" style={{width:"100%", height:"100%"}}/>
             <div>
               <img src="" alt=""/>
               <span>{item?.title}</span>

@@ -1,3 +1,5 @@
+import { useMutation } from '@tanstack/react-query'
+import axios from 'axios'
 import React from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
@@ -16,8 +18,29 @@ function MyPage() {
     setMyNickname(getCookie("nickname", {path: "/"}));
   },[])
 
-  const [myId, setMyId] = useState("")
-  const [myNickname, setMyNickname] = useState("")
+  const [myId, setMyId] = useState("");
+  const [myNickname, setMyNickname] = useState("");
+  const [changedNickname, setChangedNickname] = useState("");
+  const [changeState, setChangeState] = useState(false);
+
+  const changeNicknameHandler = () => {
+    setChangeState(!changeState);
+  }
+
+  const changeInputHandler = (e) => {
+    setChangedNickname(e.target.value);
+  }
+
+  const { mutate } = useMutation({
+    mutationFn: async (payload) => {
+      const token = getCookie("token");
+      axios.patch(`${process.env.REACT_APP_SERVER_URL}/users`, payload, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+    }
+  });
 
   return (
     <FlexDiv>
@@ -32,10 +55,17 @@ function MyPage() {
             <div>
               <Div bgColor="none" gap="0.5rem">
                 <img src="" alt="" />
-                <span>{myId}</span>
-                <button>닉네임 변경</button>
+                {changeState
+                  ? <input type="text" placeholder={myNickname} onChange={changeInputHandler}/>
+                  : <span>{myNickname}</span>
+                }
+                {changeState
+                  ? <button onClick={()=>{mutate({"nickname" : changedNickname})}}>수정완료</button>
+                  // ? <button onClick={()=>{}}>수정완료</button>
+                  : <button onClick={changeNicknameHandler}>닉네임 변경</button>
+                }
               </Div>
-              <span>{myNickname}</span>
+              <span>{myId}</span>
             </div>
           </Div>
           <Div bgColor="none" fDirection="row" gap="1rem" padding="1rem">

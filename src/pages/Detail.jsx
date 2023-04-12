@@ -10,6 +10,7 @@ import HeaderNav from '../components/global/HeaderNav'
 import { getCookie } from '../shared/Cookies'
 import ConsumerRegister from '../components/detail/ConsumerRegister'
 import RegisterReserve from '../components/detail/RegisterReserve'
+import Map from '../components/regist/Map'
 
 function Detail() {
   const { id } = useParams();
@@ -19,7 +20,7 @@ function Detail() {
     queryKey: ["GET_DETAIL"],
     queryFn: async () => {
       const token = getCookie("token");
-      const res = await axios.get(`http://3.39.187.56/products/${parseInt(id)}`,
+      const res = await axios.get(`http://3.37.127.30/products/${parseInt(id)}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -29,7 +30,7 @@ function Detail() {
     }
   })
 
-  console.log(data)
+  console.log(data);
 
   if(isLoading){
     return(
@@ -62,18 +63,22 @@ function Detail() {
                 </Slide>
               </Div>
               <Div>
-                <h1>지도 넣을 자리</h1>
+                {/* <Map /> */}
               </Div>
             </Div>
             <Div width="100%" fDirection="row" gap="1rem">
               <Div fDirection="row">
                 <h2>{data?.title}</h2>
-                <span>{data?.price}</span>
-                <span>{data?.location}</span>
+                <h3>1일 기준 대여료 : {data?.price} 원</h3>
+                <h4>{data?.location}</h4>
               </Div>
-              <DescriptionDiv>
+              <DescriptionDiv border>
                 <span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Error quaerat sed laudantium ipsa suscipit sunt placeat, rem facilis alias ullam nobis doloribus sequi earum consequatur. Harum voluptate neque facilis eos? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quisquam voluptates numquam ipsa voluptas assumenda nam, quo distinctio dignissimos! Harum, quaerat. Fuga dolorem perferendis delectus sunt deleniti labore quibusdam, necessitatibus facere. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus, voluptatum architecto consectetur laudantium blanditiis harum maiores inventore dicta illum autem earum at deserunt atque quod enim pariatur tempora recusandae. Doloribus. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Atque quaerat odio temporibus totam libero non itaque et, accusamus asperiores culpa aliquid vel tempora enim mollitia fugiat in aut dolor dolore. Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi rerum tempore delectus, unde nesciunt asperiores, dolore et quibusdam blanditiis aliquam aspernatur temporibus sapiente illum quam consequuntur ea omnis nulla laudantium.</span>
               </DescriptionDiv>
+              <Div>
+                <h3>예약현황</h3>
+                <span>예약 수 : {data?.reservationList.length}</span>
+              </Div>
               {data?.checkOwner
               ? <ConsumerRegister reservationList = {data?.reservationList} id = {data?.id}/>
               : <RegisterReserve reservationList = {data?.reservationList} id = {data?.id}/>
@@ -93,15 +98,13 @@ const Slide = styled.div`
 
 const Img = styled.img`
   width: 100%;
-  height: 100%;
   object-fit: fill;
 `
 
 const DescriptionDiv = styled.div`
   width: 100%;
-  height : 30vh;
+  height : 20vh;
   overflow : auto;
-  border: 1px solid #e6e6e6;
   &::-webkit-scrollbar{
     display: none;
   }

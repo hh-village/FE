@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux'
 import { storeLocation } from '../../redux/modules/Post';
 import { getCookie } from '../../shared/Cookies';
 import { MapSearch, SearchButton, Searchdiv } from './RegistStyled';
+import { useLocation } from 'react-router-dom';
 
 
 function Map() {
@@ -13,6 +14,7 @@ function Map() {
   const [map, setMap] = useState(null);
   const [center, setCenter] = useState('')
   const dispatch = useDispatch();
+  const pageLocation = useLocation();
   const [location, setLocation] = useState('')
   const {values, onChange} = useInput({
     address : ''
@@ -61,20 +63,24 @@ function Map() {
         <Marker position={new navermaps.LatLng(center.locY, center.locX)}/>
         </NaverMap>
       </MapDiv>
-      
-      <Searchdiv>
-        <MapSearch 
-          name='address'
-          value={values.address}
-          onChange={onChange}
-          />
-        <SearchButton onClick={onSearchHandler}>
-          위치
-        </SearchButton>
-      </Searchdiv>
-        <span style={{marginLeft:'20px'}}>거래 위치: {location}</span>
+      {
+        pageLocation.pathname === "/detail/*"
+        ? null
+        : <>
+            <Searchdiv>
+              <MapSearch 
+                name='address'
+                value={values.address}
+                onChange={onChange}
+                />
+              <SearchButton onClick={onSearchHandler}>
+                위치
+              </SearchButton>
+            </Searchdiv>
+            <span style={{marginLeft:'20px'}}>거래 위치: {location}</span>
+          </>
+      }
     </div>
-    
   )
 }
 

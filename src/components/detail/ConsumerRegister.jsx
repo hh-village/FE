@@ -8,6 +8,7 @@ import axios from "axios";
 import {getCookie} from '../../shared/Cookies'
 import { Div } from "../global/globalStyle";
 import { queries } from "@testing-library/react";
+import styled from "styled-components";
 
 const ConsumerRegister = (props) => {
     const [startDate, setStartDate] = useState(new Date());
@@ -34,7 +35,7 @@ const ConsumerRegister = (props) => {
     const { mutate } = useMutation({
         mutationKey:['reservePost'],
         mutationFn: async(reserveDate) => {
-            await axios.post(`${process.env.REACT_APP_SERVER_URL}/products/${props.id}/reserve`,reserveDate,
+            await axios.post(`${process.env.REACT_APP_SERVER_URL}/products/${props?.id}/reserve`,reserveDate,
             { 
                 headers: {
                     Authorization:`Bearer ${accessToken}`
@@ -68,17 +69,18 @@ const ConsumerRegister = (props) => {
     })
 
     return (
-        <div style={{padding:'7rem 0 0 0'}}>
+        <div style={{width: "100%", margin: "2rem 0 0 0", gap:"3rem"}}>
           <SelectWrapper>
             {props.reservationList.map((item)=>{
                 return(
                 <SelectOption>
-                    {item.startDate}
-                    {item.endDate}
-                    {item.nickname}
-                    <div onClick={()=>{
+                    <Div fDirection="row" gap="0.5rem">
+                        <span>예약자 : {item.nickname}</span>
+                        <span>예약일 : {item.startDate} ~ {item.endDate}</span>
+                    </Div>
+                    <Button bgColor="red" onClick={()=>{
                         DeleteReservation.mutate(item.id)
-                    }}>삭제</div>
+                    }}>삭제</Button>
                 </SelectOption>
                 )
             })}
@@ -113,3 +115,24 @@ const ConsumerRegister = (props) => {
 }
 
 export default ConsumerRegister;
+
+const Button = styled.button`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: ${({bgColor}) => bgColor ? bgColor : 'white'};
+    color: ${({color}) => color ? color : 'white'};
+    border: none;
+    border-radius: 5px;
+    width: 5rem;
+    height: 2.5rem;
+    cursor: pointer;
+    box-shadow: 1px 1px 5px rgb(0, 0, 0, 0.2);
+    &:hover {
+        box-shadow: 1px 1px 5px rgb(0, 0, 0, 0.5);
+    }
+    &:active {
+        background-color: #018786;
+        box-shadow: inset 1px 1px 5px rgb(0, 0, 0, 0.5);
+    }
+`

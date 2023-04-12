@@ -44,7 +44,7 @@ const PrevBtn = styled.button`
   border : none;
   border-radius: 5px;
   background-color: transparent;
-  z-index: 5;
+  z-index: 1;
 `;
 const NextBtn = styled.button`
   position: absolute;
@@ -57,7 +57,7 @@ const NextBtn = styled.button`
   border : none;
   border-radius: 5px;
   background-color: transparent;
-  z-index: 5;
+  z-index: 1;
 `;
 const BtnImage = styled.img`
   width: 100%;
