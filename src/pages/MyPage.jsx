@@ -8,7 +8,7 @@ import styled from 'styled-components'
 import { FlexDiv, MaxWidthDiv, Div } from '../components/global/globalStyle'
 import HeaderNav from '../components/global/HeaderNav'
 import PagingTap from '../components/mypage/PagingTap'
-import { getCookie } from '../shared/Cookies'
+import { getCookie, setCookie } from '../shared/Cookies'
 
 function MyPage() {
   const navi = useNavigate();
@@ -16,7 +16,7 @@ function MyPage() {
   useEffect(()=>{
     setMyId(getCookie("userID", {path: "/"}));
     setMyNickname(getCookie("nickname", {path: "/"}));
-  },[])
+  },[]);
 
   const [myId, setMyId] = useState("");
   const [myNickname, setMyNickname] = useState("");
@@ -39,13 +39,19 @@ function MyPage() {
           Authorization: `Bearer ${token}`
         }
       });
+    },
+    onSuccess: () => {
+      setCookie("nickname", changedNickname, {path:"/"});
+      setChangeState(!changeState);
+      alert("닉네임 변경 완료!");
+      window.location.reload();
     }
   });
 
   return (
-    <FlexDiv>
+    <FlexDiv boxShadow="none">
       <HeaderNav />
-      <MaxWidthDiv height="100vh" fDirection="row">
+      <MaxWidthDiv fDirection="row">
         <div style={{paddingTop:"7rem"}}>
           <h1>마이페이지</h1>
         </div>
