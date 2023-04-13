@@ -11,7 +11,7 @@ export const __getChatList = createAsyncThunk(
     async(payload, thunkAPI) => {
         const accessToken = getCookie('token')
         try{
-            const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/chat/room/${payload}`,{
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/chat/room?roomId=${payload}`,{
                 headers:{
                     Authorization : `Bearer ${accessToken}`
                 }
