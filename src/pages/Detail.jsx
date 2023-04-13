@@ -63,7 +63,7 @@ function Detail() {
                 </Slide>
               </Div>
               <Div>
-                {/* <Map /> */}
+              {/* <Map /> */}
               </Div>
             </Div>
             <Div width="100%" fDirection="row" gap="1rem">
