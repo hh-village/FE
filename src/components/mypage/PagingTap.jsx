@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { nanoid } from 'nanoid'
 import styled from 'styled-components'
 import { getCookie } from '../../shared/Cookies';
 import { Div } from '../global/globalStyle';
@@ -15,7 +16,7 @@ function PagingTap() {
     }
 
     const { data, refetch } = useQuery({
-        queryKey: [`GET_MYPAGE_${currentBtn}`],
+        queryKey: [`${currentBtn}`],
         queryFn: async () => {
           const token = getCookie("token");
           const res = await axios.get(`http://3.37.127.30/users/${currentBtn}`, {
@@ -23,18 +24,20 @@ function PagingTap() {
                 Authorization: `Bearer ${token}`,
             }
           });
-          return res.data.data;
+          return res.data;
         }
     })
-      
-      useEffect(()=>{
+
+    console.log(data);
+
+    useEffect(()=>{
         refetch()
-      },[currentBtn]);
+    },[currentBtn]);
 
     const btnInfo = [
         { name: "products", title: "내가 작성한 글" },
         { name: "rents", title: "대여중인 항목"},
-        { name: "3", title: "팔로잉"}
+        { name: "3", title: "찜한 상품"}
     ]
 
   return (
@@ -42,18 +45,20 @@ function PagingTap() {
         <Div width="100%" jc="space-around" borderBottom="1px solid #e6e6e6">
             {btnInfo.map((item) => 
                 <LPBtn
+                key={nanoid()}
                 focused={currentBtn}
                 name={item.name}
-                onClick={buttonClickHandler}>{item.title}</LPBtn>
+                onClick={buttonClickHandler}
+                >{item.title}</LPBtn>
             )}
         </Div>
-        <Div>
+        <Div width="100%">
         {(()=>{
             switch(currentBtn) {
                 case "products":
-                    return <MyProducts />
+                    return <MyProducts data={data}/>
                 case "rents":
-                    return <MyRents />
+                    return <MyRents data={data}/>
                 default:
                     return null
             }
