@@ -1,15 +1,16 @@
 import styled from "styled-components";
 
 export const SelectWrapper = styled.div`
-    padding: 0 1rem 0 0;
-    height: 10rem;
+    width: 100%;
+    padding: 0 1rem 0 1rem;
+    height: 15rem;
     overflow: auto;
+    border: 1px solid #e6e6e6;
     &::-webkit-scrollbar {
         background: white;
         width: 6px;
     }
     &::-webkit-scrollbar-thumb {
-        width: 8px;
         background: #dbdbdb;
         border-radius: 10px;
     }

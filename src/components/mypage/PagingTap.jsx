@@ -7,37 +7,33 @@ import { getCookie } from '../../shared/Cookies';
 import { Div } from '../global/globalStyle';
 import MyProducts from './MyProducts';
 import MyRents from './MyRents';
+import MyZzims from './MyZzims';
 
-function PagingTap() {
+function PagingTap({setMyNickname}) {
     const [currentBtn, setCurrentBtn] = useState("products");
 
     const buttonClickHandler = (e) => {
         setCurrentBtn(e.target.name);
     }
 
-    const { data, refetch } = useQuery({
+    const { data } = useQuery({
         queryKey: [`${currentBtn}`],
         queryFn: async () => {
           const token = getCookie("token");
-          const res = await axios.get(`http://3.37.127.30/users/${currentBtn}`, {
+          const res = await axios.get(`http://3.37.127.30/users?key=${currentBtn}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
           });
-          return res.data;
+          setMyNickname(res?.data.data.nickname);
+          return res.data.data;
         }
     })
-
-    console.log(data);
-
-    useEffect(()=>{
-        refetch()
-    },[currentBtn]);
 
     const btnInfo = [
         { name: "products", title: "내가 작성한 글" },
         { name: "rents", title: "대여중인 항목"},
-        { name: "3", title: "찜한 상품"}
+        { name: "zzims", title: "찜한 상품"}
     ]
 
   return (
@@ -59,6 +55,8 @@ function PagingTap() {
                     return <MyProducts data={data}/>
                 case "rents":
                     return <MyRents data={data}/>
+                case "zzims":
+                    return <MyZzims data={data}/>
                 default:
                     return null
             }
