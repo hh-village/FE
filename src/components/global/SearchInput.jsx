@@ -1,4 +1,5 @@
 
+import { nanoid } from 'nanoid'
 import React from 'react'
 import styled from 'styled-components'
 import { MaxWidthDiv } from './globalStyle'
@@ -19,7 +20,7 @@ function SearchInput({ searchData, setSearchData }) {
         <Select name="location" onChange={catchSearchDataHandler}>
           <option value="">지역을 선택하세요</option>
           {locationName.map((item) => 
-            <option value={item}>{item}</option>
+            <option value={item} key={nanoid()}>{item}</option>
           )}
         </Select>
         <Input

@@ -31,8 +31,10 @@ const RegisterReserve = (props) => {
                   <SelectOption>
                     <ReserveSelect id = {item.id}/>
                     <span>{item.nickname}</span>
-                    <span>{item.startDate}</span>
-                    <span>{item.endDate}</span>
+                    <Div fDirection="row" gap="0.5rem">
+                      <span>대여일 : {item.startDate}</span>
+                      <span>반납일 : {item.endDate}</span>
+                    </Div>
                     <button onClick={()=>onClickNavigate(item.nickname)}>대화 시작</button>
                   </SelectOption>)
           })}

@@ -11,7 +11,7 @@ function LogoutBtn() {
     DelCookie("userID", {path: "/"});
     DelCookie("nickname", {path: "/"});
     alert("로그아웃 되었습니다");
-    navi("/intro");
+    navi("/");
   }
   return (
     <Button bgColor='#03DAC6' onClick={kakaoLogout}>로그아웃</Button>
