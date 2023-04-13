@@ -36,14 +36,13 @@ const Chat = () => {
             })
     }
 
-    const onConnected = async () => {
-        const response =  await dispatch(__getChatList(roomId)).unwrap();
-        setRoomList(response.roomList)
-        setChatList([...response.messageList])
+    const onConnected = () => {
         stompClient.subscribe(`/sub/chat/room/${roomId}`,
-        (message)=>{
+        async (message)=>{
             let payloadData = JSON.parse(message.body);
-            // setChatList([...chatList, payloadData])
+            const response =  await dispatch(__getChatList(roomId)).unwrap();
+            setChatList([...response.messageList, payloadData])
+            setRoomList(response.roomList)
         });
     }
 
@@ -76,8 +75,6 @@ const Chat = () => {
         }))
     }
 
-    console.log(chatList)
-
     const chattingOnchange = (event) => {
         const { value } = event.target;
         setUserData({
@@ -87,9 +84,17 @@ const Chat = () => {
         })
     }
 
+    const scrollToBottom = () => {
+		window.scrollTo(0, document.body.scrollHeight);
+	};
+
     useEffect(()=>{
         registUsers();
     },[roomId])
+
+    useEffect(()=>{
+        scrollToBottom()
+    },[chatList])
 
     return (
         <FlexDiv>
