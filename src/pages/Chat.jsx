@@ -1,3 +1,4 @@
+import { nanoid } from "@reduxjs/toolkit";
 import { Stomp } from "@stomp/stompjs";
 import { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
@@ -17,43 +18,43 @@ const Chat = () => {
     const {id} = useParams();
     const [roomId, setRoomId] = useState(id);
     const [chatList, setChatList] = useState([])
+    const [roomList, setRoomList] = useState([])
     const [userData, setUserData] = useState({
-            roomId: '',
-            sender: '',
-            content: '',
-        });
+        roomId: '',
+        sender: '',
+        content: '',
+    });
 
     const registUsers = () => {
         const sockJS = new SockJS(`${process.env.REACT_APP_SERVER_URL}/ws`);
         stompClient = Stomp.over(function() {
             return sockJS;
           });
-        stompClient.connect({},onConnected,onError)
+        stompClient.connect({}, onConnected,
+            (err) => {
+                alert(err)
+            })
     }
 
     const onConnected = async () => {
-        await stompClient.subscribe(`/sub/chat/room/${roomId}`,onMessage)
+        const response =  await dispatch(__getChatList(roomId)).unwrap();
+        setRoomList(response.roomList)
+        setChatList([...response.messageList])
+        stompClient.subscribe(`/sub/chat/room/${roomId}`,
+        (message)=>{
+            let payloadData = JSON.parse(message.body);
+            // setChatList([...chatList, payloadData])
+        });
     }
-
-    const onMessage = (chatMessage) => {
-        let payloadData = JSON.parse(chatMessage.body);
-        setChatList([...chatList, payloadData])
-    }
-
-    const onError = (err) => {
-        console.log(err)
-    }
-
-    
 
     const onClickOtherChats = (id) => {
-        setRoomId(id)
-        dispatch(__getChatList(id))
-        setUserData({
+        setUserData((prev)=>(prev = {
             sender : '',
             roomId : '',
             content : '',
-        })
+        }))
+        setRoomId(prev => prev = id)
+        setChatList(prev => prev = [])
     }
 
     const onSubmitHandler = (event) => {
@@ -67,12 +68,15 @@ const Chat = () => {
             {},
             JSON.stringify(userData)
         )
-        setUserData({
+        setChatList([...chatList, userData])
+        setUserData((prev)=>(prev = {
             sender : '',
             roomId : '',
             content : '',
-        })
+        }))
     }
+
+    console.log(chatList)
 
     const chattingOnchange = (event) => {
         const { value } = event.target;
@@ -82,29 +86,27 @@ const Chat = () => {
             content : value
         })
     }
-    useEffect(() => {
-        dispatch(__getChatList(roomId))
-    },[dispatch, roomId])
 
     useEffect(()=>{
         registUsers();
-    })
-    console.log(chatList)
+    },[roomId])
 
     return (
         <FlexDiv>
             <HeaderNav/>
             <MaxWidthDiv>
                 <MessageRoom>
-                {wholeGet.roomList?.map((item => {
+                {roomList.map((item => {
                     return (item.target 
                     ? (
-                        <TargetRoom>
+                        <TargetRoom key={nanoid()}>
                             {item.roomId}
                         </TargetRoom>
                     )
                     : (
-                        <Room onClick = {() => onClickOtherChats(item.roomId)}>
+                        <Room 
+                        key={nanoid()}
+                        onClick = {() => onClickOtherChats(item.roomId)}>
                             {item.roomId}
                         </Room>
                     ))
@@ -114,7 +116,7 @@ const Chat = () => {
                     <Chatting>
                         {chatList?.map((item)=>{
                             return (
-                                <div>
+                                <div key={nanoid()}>
                                     {item.content}
                                 </div>
                             )

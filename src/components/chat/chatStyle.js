@@ -26,6 +26,16 @@ export const Chatting = styled.div`
     flex-direction : column;
     margin: 0 0 10px 10px;
     gap : 10px;
+    overflow : scroll;
+    &::-webkit-scrollbar {
+        background: white;
+        width: 6px;
+    }
+    &::-webkit-scrollbar-thumb {
+        width: 8px;
+        background: #dbdbdb;
+        border-radius: 10px;
+    }
 `
 
 export const ChatInput = styled.input`

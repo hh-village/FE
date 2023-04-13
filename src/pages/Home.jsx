@@ -21,7 +21,7 @@ function Home() {
     queryKey: ["GET_PRODUCTS"],
     queryFn: async () => {
       // const token = getCookie("token");
-      const res = await axios.get(`http://3.37.127.30/products?name=${searchData.productName}&location=${searchData.location}`)
+      const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/products?name=${searchData.productName}&location=${searchData.location}`)
       console.log(res);
       return res.data.data;
     }

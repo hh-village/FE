@@ -8,8 +8,6 @@ import ReserveSelect from "./ReserveSelect"
 
 const RegisterReserve = (props) => {
     const navigate = useNavigate();
-    const nickname = getCookie('nickname')
-
     const getRoom = useMutation({
       mutationKey:['getRoomId'],
       mutationFn: async(nickname)=> {
