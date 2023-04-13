@@ -69,24 +69,23 @@ const ConsumerRegister = (props) => {
     })
 
     return (
-        <div style={{width: "100%", margin: "2rem 0 0 0", gap:"3rem"}}>
-          <SelectWrapper>
-            {props.reservationList.map((item)=>{
-                return(
-                <SelectOption>
-                    <Div fDirection="row" gap="0.5rem">
-                        <span>예약자 : {item.nickname}</span>
-                        <span>예약일 : {item.startDate} ~ {item.endDate}</span>
-                    </Div>
-                    <Button bgColor="red" onClick={()=>{
-                        DeleteReservation.mutate(item.id)
-                    }}>삭제</Button>
-                </SelectOption>
-                )
-            })}
-          </SelectWrapper>
-          <div>
-                <div style={{display:'flex'}}>
+        <div>
+            <SelectWrapper>
+                {props.reservationList.map((item)=>{
+                    return(
+                        <SelectOption>
+                            <Div fDirection="row" gap="0.5rem">
+                                <span>예약자 : {item.nickname}</span>
+                                <span>예약일 : {item.startDate} ~ {item.endDate}</span>
+                            </Div>
+                            <Button bgColor="red" onClick={()=>{
+                                DeleteReservation.mutate(item.id)
+                            }}>삭제</Button>
+                        </SelectOption>
+                    )
+                })}
+            </SelectWrapper>
+            <div style={{display:'flex'}}>
                 <DatePicker
                     locale={ko}
                     startDate={startDate}
@@ -109,8 +108,7 @@ const ConsumerRegister = (props) => {
                     }}
                 >등록하기</button>    
             </div>
-        </div>
-    </div>            
+        </div>            
     )
 }
 

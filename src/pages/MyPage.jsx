@@ -8,14 +8,13 @@ import styled from 'styled-components'
 import { FlexDiv, MaxWidthDiv, Div } from '../components/global/globalStyle'
 import HeaderNav from '../components/global/HeaderNav'
 import PagingTap from '../components/mypage/PagingTap'
-import { getCookie, setCookie } from '../shared/Cookies'
+import { getCookie } from '../shared/Cookies'
 
 function MyPage() {
   const navi = useNavigate();
 
   useEffect(()=>{
     setMyId(getCookie("userID", {path: "/"}));
-    setMyNickname(getCookie("nickname", {path: "/"}));
   },[]);
 
   const [myId, setMyId] = useState("");
@@ -41,10 +40,11 @@ function MyPage() {
       });
     },
     onSuccess: () => {
-      setCookie("nickname", changedNickname, {path:"/"});
       setChangeState(!changeState);
       alert("닉네임 변경 완료!");
-      window.location.reload();
+    },
+    onError: () => {
+      alert("일시적 오류 입니다!");
     }
   });
 
@@ -80,7 +80,7 @@ function MyPage() {
             <Button>예약 승인 / 확인 / 취소</Button>
           </Div>
         </Div>
-        <PagingTap />
+        <PagingTap setMyNickname={setMyNickname}/>
       </MaxWidthDiv>
     </FlexDiv>
   )

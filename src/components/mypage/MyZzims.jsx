@@ -1,11 +1,11 @@
 import { nanoid } from 'nanoid'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import styled from 'styled-components'
+import styled from 'styled-components';
 import { Div } from '../global/globalStyle'
 
-function MyProducts({data}) {
-  const navi = useNavigate();
+function MyZzims({data}) {
+    const navi = useNavigate();
 
   return (
     <Div fDirection="row" gap="1rem" width="100%">
@@ -19,7 +19,7 @@ function MyProducts({data}) {
       >
         <Img src={item?.image} alt="" />
         <Div fDirection="row" jc="center" bgColor="#e6e6e6">
-          <h3>{item?.title}</h3>
+          <h3>{item?.productTitle}</h3>
           <span>작성일 : {item?.createdAt}</span>
         </Div>
       </CardDiv>
@@ -28,7 +28,7 @@ function MyProducts({data}) {
   )
 }
 
-export default MyProducts
+export default MyZzims
 
 const Img = styled.img`
   width: 100px;
