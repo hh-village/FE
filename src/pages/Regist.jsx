@@ -9,19 +9,24 @@ import { getCookie } from '../shared/Cookies'
 import { DescInput, PriceDiv, PriceInput, PriceSpan, RegistTitle, TitleInput } from '../components/regist/RegistStyled'
 import NaverMap from '../components/regist/Map'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 function Regist() {
+  const navigate = useNavigate();
   const {mutate, isLoading, isError, isSuccess} = useMutation({
     mutationKey:['mutate'],
     mutationFn: async(values)=>{
-      console.log(values)
       const accessToken = getCookie('token')
-      await axios.post(`${process.env.REACT_APP_SERVER_URL}/products`,values,{
+      return await axios.post(`${process.env.REACT_APP_SERVER_URL}/products`,values,{
         headers:{
           Authorization: `Bearer ${accessToken}`,
           "Content-Type": "multipart/form-data"
         }
       })
+    },
+    onSuccess : (response) => {
+      window.alert(response.data.message);
+      navigate('/search')
     }
   })
 

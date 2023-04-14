@@ -65,3 +65,15 @@ export const Button = styled.button`
         box-shadow: inset 1px 1px 5px rgb(0, 0, 0, 0.5);
     }
 `
+export const ButtonWrapper = styled.div`
+    display: flex;
+    width: 560px;
+    justify-content : center;
+    gap: 30px;
+`
+export const DetailBtn = styled.button`
+    width : 326px;
+    height : 80px;
+    font-size : 25px;
+    font-weight : 700;
+`
