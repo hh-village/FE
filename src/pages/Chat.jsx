@@ -1,11 +1,11 @@
 import { nanoid } from "@reduxjs/toolkit";
 import { Stomp } from "@stomp/stompjs";
 import { useEffect, useState } from "react";
-import { connect, useDispatch, useSelector } from "react-redux";
+import {  useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import SockJS from "sockjs-client";
 import { ChatBody, ChatInput, Chatting, MessageRoom, Room, TargetRoom } from "../components/chat/chatStyle";
-import { Div, FlexDiv, MaxWidthDiv } from "../components/global/globalStyle";
+import { FlexDiv, MaxWidthDiv } from "../components/global/globalStyle";
 import HeaderNav from "../components/global/HeaderNav";
 import { __getChatList } from "../redux/modules/Chat";
 import { getCookie } from "../shared/Cookies";
@@ -14,7 +14,6 @@ var stompClient = null;
 
 const Chat = () => {
     const dispatch = useDispatch();
-    const { wholeGet } = useSelector(state => state.Chat)
     const {id} = useParams();
     const [roomId, setRoomId] = useState(id);
     const [chatList, setChatList] = useState([])
@@ -36,14 +35,19 @@ const Chat = () => {
             })
     }
 
-    const onConnected = () => {
-        stompClient.subscribe(`/sub/chat/room/${roomId}`,
-        async (message)=>{
-            let payloadData = JSON.parse(message.body);
-            const response =  await dispatch(__getChatList(roomId)).unwrap();
-            setChatList([...response.messageList, payloadData])
-            setRoomList(response.roomList)
-        });
+    const onConnected = async() => {
+        const response =  await dispatch(__getChatList(roomId)).unwrap();
+        setRoomList([...response.roomList])
+        // setChatList(prev => [...prev])
+        if(response){
+            stompClient.subscribe(`/sub/chat/room/${roomId}`,
+            (message)=>{
+                let payloadData = JSON.parse(message.body);
+                setChatList(prev=>[...prev,payloadData])
+            });
+        }
+        setChatList([...response.messageList])
+        
     }
 
     const onClickOtherChats = (id) => {
@@ -67,7 +71,7 @@ const Chat = () => {
             {},
             JSON.stringify(userData)
         )
-        setChatList([...chatList, userData])
+        // setChatList([...chatList, userData])
         setUserData((prev)=>(prev = {
             sender : '',
             roomId : '',
