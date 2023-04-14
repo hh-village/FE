@@ -41,7 +41,7 @@ const Chat = () => {
         async (message)=>{
             let payloadData = JSON.parse(message.body);
             const response =  await dispatch(__getChatList(roomId)).unwrap();
-            setChatList([...response.messageList, payloadData])
+            setChatList([...response.messageList])
             setRoomList(response.roomList)
         });
     }
