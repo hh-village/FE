@@ -2,9 +2,9 @@
 import { nanoid } from 'nanoid'
 import React from 'react'
 import styled from 'styled-components'
-import { MaxWidthDiv } from './globalStyle'
+import { MaxWidthDiv, Div } from './globalStyle'
 
-function SearchInput({ searchData, setSearchData }) {
+function SearchInput({ searchData, setSearchData, rem }) {
 
   const locationName = [
     "서울", "부산", "대구", "인천", "광주", "대전", "울산", "세종", "경기", "강원", "충청북도", "충청남도", "전라북도", "전라남도", "경상북도", "경상남도", "제주"
@@ -16,7 +16,7 @@ function SearchInput({ searchData, setSearchData }) {
   }
 
   return (
-    <MaxWidthDiv boxShadow="none" padding="8rem 0rem 0rem 0rem" gap="1rem">
+    <Div width="100%" boxShadow="none" padding={`${rem}rem 0rem 0rem 0rem`} gap="1rem">
         <Select name="location" onChange={catchSearchDataHandler}>
           <option value="">지역을 선택하세요</option>
           {locationName.map((item) => 
@@ -30,7 +30,7 @@ function SearchInput({ searchData, setSearchData }) {
           placeholder="찾으시는 상품을 검색해보세요!"
           onChange={catchSearchDataHandler}/>
         <Button bgColor='#03DAC6'>찾아보기</Button>
-    </MaxWidthDiv>
+    </Div>
   )
 }
 
