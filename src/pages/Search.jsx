@@ -9,7 +9,7 @@ import { nanoid } from 'nanoid'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
-function Home() {
+function Search() {
   const navi = useNavigate();
   
   const [searchData, setSearchData] = useState({
@@ -17,7 +17,7 @@ function Home() {
     location: ""
   });
 
-  const { data, refetch } = useQuery({
+  const { data } = useQuery({
     queryKey: ["GET_PRODUCTS"],
     queryFn: async () => {
       // const token = getCookie("token");
@@ -27,9 +27,9 @@ function Home() {
     }
   })
 
-  useEffect(()=>{
-    refetch()
-  },[searchData]);
+  // useEffect(()=>{
+  //   refetch()
+  // },[searchData]);
 
   return (
     <FlexDiv boxShadow="none">
@@ -63,7 +63,7 @@ function Home() {
   )
 }
 
-export default Home
+export default Search
 
 const Cards = styled.div`
   display: flex;

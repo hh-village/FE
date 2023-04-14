@@ -10,6 +10,7 @@ import { setCookie } from '../shared/Cookies'
 function Login() {
   const REST_API_KEY = 'd748b149dfbb43afd8cb87be1ae85845';
   const REDIRECT_URI = 'http://localhost:3000/oauth/social/callback';
+  // const REDIRECT_URI = 'http://team3-village.s3-website.ap-northeast-2.amazonaws.com/oauth/social/callback';
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   const navi = useNavigate();
 
