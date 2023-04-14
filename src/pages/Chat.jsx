@@ -29,28 +29,30 @@ const Chat = () => {
         stompClient = Stomp.over(function() {
             return sockJS;
           });
-        stompClient.connect({}, onConnected,
+        stompClient.connect({}, afterConnected,
             (err) => {
                 alert(err)
             })
     }
 
-    const onConnected = async() => {
+    const afterConnected = async() => {
         const response =  await dispatch(__getChatList(roomId)).unwrap();
         setRoomList([...response.roomList])
         // setChatList(prev => [...prev])
         if(response){
             stompClient.subscribe(`/sub/chat/room/${roomId}`,
             (message)=>{
-                let payloadData = JSON.parse(message.body);
-                setChatList(prev=>[...prev,payloadData])
+                console.log('--------------')
+                const payloadData = JSON.parse(message.body);
+                console.log(payloadData)
+                return setChatList(prev => [...prev,payloadData])
             });
         }
         setChatList([...response.messageList])
-        
     }
 
     const onClickOtherChats = (id) => {
+        stompClient.disconnect();
         setUserData((prev)=>(prev = {
             sender : '',
             roomId : '',
@@ -70,8 +72,7 @@ const Chat = () => {
             `/pub/chat/message`,
             {},
             JSON.stringify(userData)
-        )
-        // setChatList([...chatList, userData])
+        )     
         setUserData((prev)=>(prev = {
             sender : '',
             roomId : '',

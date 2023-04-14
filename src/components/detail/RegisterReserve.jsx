@@ -1,7 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { getCookie } from "../../shared/Cookies";
 import { Div } from "../global/globalStyle";
 import { SelectOption, SelectWrapper } from "./detailStyle"
 import ReserveSelect from "./ReserveSelect"

@@ -2,7 +2,7 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { nanoid } from 'nanoid'
 import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import SlideBtn from '../components/detail/SlideBtn'
 import { FlexDiv, MaxWidthDiv, Div } from '../components/global/globalStyle'
@@ -12,11 +12,14 @@ import ConsumerRegister from '../components/detail/ConsumerRegister'
 import RegisterReserve from '../components/detail/RegisterReserve'
 import Map from '../components/regist/Map'
 import { useEffect } from 'react'
+import { ButtonWrapper, DetailBtn } from '../components/detail/detailStyle'
 
 function Detail() {
   const { id } = useParams();
   const [count, setCount] = useState(1);
   const [zzim, setZzim] = useState();
+  const token = getCookie("token");
+  const navigate = useNavigate();
 
   const { data , isLoading, refetch} = useQuery({
     queryKey: ["GET_DETAIL"],
@@ -35,8 +38,7 @@ function Detail() {
 
   const { mutate } = useMutation({
     mutationFn: async (payload) => {
-      const token = getCookie("token");
-      axios.post(`${process.env.REACT_APP_SERVER_URL}/products/${id}/zzim`, payload, {
+      await axios.post(`${process.env.REACT_APP_SERVER_URL}/products/${id}/zzim`, payload, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -49,7 +51,21 @@ function Detail() {
     refetch()
   },[zzim])
 
-  console.log(data);
+  const DeletePost = useMutation({
+    mutationKey:['DeletePost'],
+    mutationFn: async(id) => {
+      return await axios.delete(`${process.env.REACT_APP_SERVER_URL}/products/${id}`,{
+        headers : {
+          Authorization : `Bearer ${token}`
+        }
+      })
+    },
+    onSuccess : () => {
+      navigate('/search')
+    }
+  })
+
+
 
   if(isLoading){
     return(
@@ -110,6 +126,12 @@ function Detail() {
               {data?.checkOwner
               ? <RegisterReserve reservationList = {data?.reservationList} id = {data?.id}/>
               :  <ConsumerRegister reservationList = {data?.reservationList} id = {data?.id}/>
+              }
+              {data?.checkOwner
+               && (<ButtonWrapper>
+                    <DetailBtn onClick={()=>{}}>수정하기</DetailBtn>
+                    <DetailBtn onClick={()=>{DeletePost.mutate(id)}}>삭제하기</DetailBtn>
+                  </ButtonWrapper>)
               }
             </Div>
         </Div>
