@@ -33,7 +33,7 @@ function MyPage() {
   const { mutate } = useMutation({
     mutationFn: async (payload) => {
       const token = getCookie("token");
-      axios.patch(`${process.env.REACT_APP_SERVER_URL}/users`, payload, {
+      await axios.patch(`${process.env.REACT_APP_SERVER_URL}/users`, payload, {
         headers: {
           Authorization: `Bearer ${token}`
         }

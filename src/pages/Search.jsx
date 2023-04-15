@@ -43,11 +43,11 @@ function Search() {
         <div style={{marginTop:"3rem"}}>
           <h2>내 근처에서 대여할 물품을 찾아보세요!</h2>
         </div>
-        <GridDiv> {/* 메인 상품 카드 영역 */}
+        <GridDiv gridTC="repeat(4, 1fr)"> {/* 메인 상품 카드 영역 */}
         {data?.map((item) => 
           <Cards
             key={nanoid()}
-            height={data.length > 1 ? "100%" : null}
+            height={data.length > 1 && "100%"}
             onClick={()=>{navi(`/detail/${item.id}`)}}
           >
             <img src={item.image} alt="" style={{width:"100%", height:"100%"}}/>
