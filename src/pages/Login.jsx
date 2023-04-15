@@ -18,7 +18,7 @@ function Login() {
     window.location.href = KAKAO_AUTH_URL
   }
   const onClickAdmin = async() => {
-    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/test/login/dongchan`)
+    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/test/login/test`)
     setCookie('token',response.headers.authorization.substring(7))
     setCookie('nickname', response.data.data)
     navi('/')

@@ -1,3 +1,5 @@
+import { useMutation } from '@tanstack/react-query';
+import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { getCookie } from '../../shared/Cookies';
@@ -6,13 +8,26 @@ import LoginBtn from './LoginBtn'
 import LogoutBtn from './LogoutBtn';
 
 function HeaderNav() {
+  const accessToken = getCookie("token");
   const [token, setToken] = useState("");
   const location = useLocation();
   const navi = useNavigate();
+  const onNavigateChat = useMutation({
+    mutationKey:['onNavigateChat'],
+    mutationFn: async()=>{
+      return await axios.get(`${process.env.REACT_APP_SERVER_URL}/chat/room?`,{
+        headers : {
+          Authorization: `Bearer ${accessToken}`
+        }
+      })
+    },
+    onSuccess : (response) => {
+      navi(`/chat/${response.data.data.roomList.filter(item => item.target === true)[0].roomId}`)
+    }
+  })
 
   useEffect(()=>{
-    const token = getCookie("token");
-    setToken(token);
+    setToken(accessToken);
   },[location])
 
   return (
@@ -37,6 +52,7 @@ function HeaderNav() {
                     <LogoutBtn />
                   </Div>
                 : <Div jc="center" alignItem="center" gap="1rem">
+                    <button onClick={()=>{onNavigateChat.mutate()}}> 빌리지 채팅 </button>
                     <span onClick={()=>{navi("/mypage")}} style={{cursor:"pointer"}}>마이페이지</span>
                     <LogoutBtn />
                   </Div>
