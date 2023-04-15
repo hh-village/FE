@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const SelectWrapper = styled.div`
     width: 100%;
@@ -51,6 +51,7 @@ export const Button = styled.button`
     align-items: center;
     background-color: ${({bgColor}) => bgColor ? bgColor : 'white'};
     color: ${({color}) => color ? color : 'white'};
+    display: ${({display})=> display ? display : null};
     border: none;
     border-radius: 5px;
     width: 5rem;
@@ -77,3 +78,42 @@ export const DetailBtn = styled.button`
     font-size : 25px;
     font-weight : 700;
 `
+export const Block = styled.button`
+    width: 5rem;
+    height: 2.5rem;
+    background: none;
+    border: none;
+`
+export const Status = styled.div`
+    width: 7rem;
+    height: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    border: none;
+    border-radius : 5px;
+    font-size : 20px;
+    background: #e6e6e6;
+    color: white;
+    ${({theme})=>{
+        switch(theme){
+            case 'rejected' :
+                return css`
+                    background: #B00020;
+                `
+            case 'accepted' :
+                return css`
+                    background: #03DAC6;
+                `
+            case 'waiting' : 
+                return css`
+                    background : gray;
+                `
+            case 'returned' :
+                return css`
+                    background: #3700B3;
+                ` 
+        }
+    }}
+` 

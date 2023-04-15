@@ -27,15 +27,15 @@ const RegisterReserve = (props) => {
           <SelectWrapper>
           {props.reservationList.map((item)=>{
             return(
-                  <SelectOption>
-                    <ReserveSelect id = {item.id}/>
-                    <span>{item.nickname}</span>
-                    <Div fDirection="row" gap="0.5rem">
-                      <span>대여일 : {item.startDate}</span>
-                      <span>반납일 : {item.endDate}</span>
-                    </Div>
-                    <button onClick={()=>onClickNavigate(item.nickname)}>대화 시작</button>
-                  </SelectOption>)
+              <SelectOption>
+                <ReserveSelect id = {item.id}/>
+                <span>{item.nickname}</span>
+                <Div fDirection="row" gap="0.5rem">
+                  <span>대여일 : {item.startDate}</span>
+                  <span>반납일 : {item.endDate}</span>
+                </Div>
+                <button onClick={()=>onClickNavigate(item.nickname)}>대화 시작</button>
+              </SelectOption>)
           })}
           </SelectWrapper>
         </Div>
@@ -43,6 +43,3 @@ const RegisterReserve = (props) => {
 }
 
 export default RegisterReserve; 
-
-// 구매자 페이지 -> token (nickname), POST ID
-// 대여자 페이지 -> 각 댓글 nickname, POST ID

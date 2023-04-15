@@ -1,12 +1,11 @@
-import { useState } from "react";
-import { ReservationDateClick, Selections, SelectOption, SelectWrapper, Button } from "./detailStyle";
+import {  SelectOption, SelectWrapper, Button, Block } from "./detailStyle";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Calander from './Calander'
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {getCookie} from '../../shared/Cookies'
 import { Div } from "../global/globalStyle";
-import styled from "styled-components";
+import StatusBlock from "./StatusBlock";
 
 const ConsumerRegister = (props) => {
     const queryClient = useQueryClient();
@@ -67,11 +66,16 @@ const ConsumerRegister = (props) => {
                 {props.reservationList.map((item)=>{
                     return(
                     <SelectOption>
+                        <StatusBlock status = {item.status}/>
                         <Div fDirection="row" gap="0.5rem">
                             <span>예약자 : {item.nickname}</span>
                             <span>예약일 : {item.startDate} ~ {item.endDate}</span>
                         </Div>
-                        <Button bgColor="red" onClick={()=>DeleteReservation.mutate(item.id)}>삭제</Button>
+                        {item.checkOwner ? (
+                            <Button bgColor="red" onClick={()=>DeleteReservation.mutate(item.id)}>삭제</Button>
+                        ):(
+                            <Block disabled></Block>
+                        )}
                     </SelectOption>
                     )
                 })}
