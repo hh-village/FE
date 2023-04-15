@@ -21,8 +21,8 @@ export const FlexDiv = styled.div`
 
 export const GridDiv = styled.div`
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 2rem;
+    grid-template-columns: ${({gridTC}) => gridTC};
+    grid-gap: 1rem;
     flex-direction: ${({fDirection}) => fDirection ? 'column' : 'row'};
     justify-content : ${({jc}) => jc ? jc : 'start'};
     align-items: ${({alignItem}) => alignItem ? alignItem : 'start'};
