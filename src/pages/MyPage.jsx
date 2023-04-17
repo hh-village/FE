@@ -5,7 +5,6 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import DropDown from '../components/detail/\bDropDown'
 import { FlexDiv, MaxWidthDiv, Div } from '../components/global/globalStyle'
 import HeaderNav from '../components/global/HeaderNav'
 import PagingTap from '../components/mypage/PagingTap'
@@ -75,7 +74,6 @@ function MyPage() {
             <img src="" alt="userProfileImg" />
             <div>
               <Div bgColor="none" gap="0.5rem">
-                <DropDown/>
                 <img src="" alt="" />
                 {changeState
                   ? <input type="text" placeholder={myNickname} onChange={changeInputHandler}/>

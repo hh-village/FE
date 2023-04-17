@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Div } from "../global/globalStyle";
-import DropDown from "./\bDropDown";
+import DropDown from "./DropDown";
 import { ChatBtn, SelectOption, SelectWrapper } from "./detailStyle"
 
 const RegisterReserve = (props) => {
