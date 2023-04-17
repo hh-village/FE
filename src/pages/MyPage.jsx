@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
+import DropDown from '../components/detail/\bDropDown'
 import { FlexDiv, MaxWidthDiv, Div } from '../components/global/globalStyle'
 import HeaderNav from '../components/global/HeaderNav'
 import PagingTap from '../components/mypage/PagingTap'
@@ -12,10 +13,11 @@ import { getCookie } from '../shared/Cookies'
 
 function MyPage() {
   const navi = useNavigate();
+  const token = getCookie("token");
 
-  useEffect(()=>{
-    setMyId(getCookie("userID", {path: "/"}));
-  },[]);
+  // useEffect(()=>{
+  //   setMyId(getCookie("userID", {path: "/"}));
+  // },[]);
 
   const [myId, setMyId] = useState("");
   const [myNickname, setMyNickname] = useState("");
@@ -32,7 +34,6 @@ function MyPage() {
 
   const { mutate } = useMutation({
     mutationFn: async (payload) => {
-      const token = getCookie("token");
       await axios.patch(`${process.env.REACT_APP_SERVER_URL}/users`, payload, {
         headers: {
           Authorization: `Bearer ${token}`
@@ -48,6 +49,20 @@ function MyPage() {
     }
   });
 
+  const onNavigateChat = useMutation({
+    mutationKey:['onNavigateChat'],
+    mutationFn: async()=>{
+      return await axios.get(`${process.env.REACT_APP_SERVER_URL}/chat/room?`,{
+        headers : {
+          Authorization: `Bearer ${token}`
+        }
+      })
+    },
+    onSuccess : (response) => {
+      navi(`/chat/${response.data.data.roomList.filter(item => item.target === true)[0].roomId}`)
+    }
+  })
+
   return (
     <FlexDiv boxShadow="none">
       <HeaderNav />
@@ -60,6 +75,7 @@ function MyPage() {
             <img src="" alt="userProfileImg" />
             <div>
               <Div bgColor="none" gap="0.5rem">
+                <DropDown/>
                 <img src="" alt="" />
                 {changeState
                   ? <input type="text" placeholder={myNickname} onChange={changeInputHandler}/>
@@ -78,8 +94,10 @@ function MyPage() {
             </div>
           </Div>
           <Div bgColor="none" fDirection="row" gap="1rem" padding="1rem">
-            <Button onClick={()=>{navi("/regist")}}>대여물품 등록하기</Button>
-            <Button>빌리지 채팅 관리</Button>
+            <Button onClick={()=>{navi("/Regist")}}>대여물품 등록하기</Button>
+            <Button onClick={()=>{
+              onNavigateChat.mutate()
+            }}>빌리지 채팅 관리</Button>
             <Button>예약 승인 / 확인 / 취소</Button>
           </Div>
         </Div>

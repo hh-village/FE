@@ -4,7 +4,14 @@ import './App.css';
 import Router from "./shared/Router";
 // import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions : {
+    queries : {
+      retry: false,
+      refetchOnWindowFocus : false,
+    }
+  }  
+});
 
 function App() {
   return (
