@@ -35,7 +35,6 @@ function Calander({ChatwithOwner,reservePost, id}){
                 selected={startDate}
                 onChange={onChangeDate}
                 selectsRange
-                numberOfMonths ={'2'}
                 // showAnim={"slide"}
                 minDate={new Date()} 
                 dateFormat={"yyyy.MM.dd (eee)"}

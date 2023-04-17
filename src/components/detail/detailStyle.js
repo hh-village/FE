@@ -16,7 +16,7 @@ export const SelectWrapper = styled.div`
     }
 `
 export const SelectOption = styled.div`
-    height: 5rem;
+    height: 137px;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -117,3 +117,50 @@ export const Status = styled.div`
         }
     }}
 ` 
+export const DropdownMenu = styled.div`
+    display: flex;
+    flex-direction : column;
+    justify-content:center;
+    position: absolute;
+    align-items : center;
+    border-radius: 2px;
+    height: 120px;
+    width : 118px;
+    background: #8E8E8E;
+`
+export const DropHeader = styled.div`
+    height: 34px;
+    width : 118px;
+    border-radius: 2px;
+    display: flex;
+    justify-content : center;
+    align-items : center;
+    background: #CDCDCD;
+    color : #ffffff;
+    cursor: pointer;
+`
+export const DropOption = styled.div`
+    height: 30px;
+    width : 118px;
+    display: flex;
+    border-radius: 2px;
+    justify-content : center;
+    align-items : center;
+    background: #8E8E8E;
+    color : #ffffff;
+    cursor: pointer;
+    :hover{
+        background: #CDCDCD;
+    }
+`
+export const ChatBtn = styled.div`
+    height: 34px;
+    width : 118px;
+    display: flex;
+    justify-content : center;
+    align-items:center;
+    cursor: pointer;
+    background: #363636;
+    color: #ffffff;
+    border-radius: 2px;
+`

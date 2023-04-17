@@ -4,15 +4,14 @@ import styled from 'styled-components'
 import { DelCookie } from '../../shared/Cookies'
 
 function LogoutBtn() {
-  const navi = useNavigate();
-
+  const navi = useNavigate()
   const kakaoLogout = () => {
+    navi("/");
     DelCookie("token", {path: "/"});
     DelCookie("userID", {path: "/"});
     DelCookie("nickname", {path: "/"});
     alert("로그아웃 되었습니다");
     window.location.reload();
-    navi("/");
   }
   return (
     <Button bgColor='#03DAC6' onClick={kakaoLogout}>로그아웃</Button>

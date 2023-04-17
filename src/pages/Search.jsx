@@ -27,10 +27,6 @@ function Search() {
     }
   })
 
-  // useEffect(()=>{
-  //   refetch()
-  // },[searchData]);
-
   return (
     <FlexDiv boxShadow="none">
       <HeaderNav />

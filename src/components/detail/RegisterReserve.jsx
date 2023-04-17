@@ -2,8 +2,8 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Div } from "../global/globalStyle";
-import { SelectOption, SelectWrapper } from "./detailStyle"
-import ReserveSelect from "./ReserveSelect"
+import DropDown from "./\bDropDown";
+import { ChatBtn, SelectOption, SelectWrapper } from "./detailStyle"
 
 const RegisterReserve = (props) => {
     const navigate = useNavigate();
@@ -28,13 +28,17 @@ const RegisterReserve = (props) => {
           {props.reservationList.map((item)=>{
             return(
               <SelectOption>
-                <ReserveSelect id = {item.id}/>
+                {/* <ReserveSelect id = {item.id}/> */}
+               
                 <span>{item.nickname}</span>
                 <Div fDirection="row" gap="0.5rem">
                   <span>대여일 : {item.startDate}</span>
                   <span>반납일 : {item.endDate}</span>
                 </Div>
-                <button onClick={()=>onClickNavigate(item.nickname)}>대화 시작</button>
+                <div style={{display:'flex', flexDirection:'column', gap :'12px'}}>
+                  <DropDown/>
+                  <ChatBtn onClick={()=>onClickNavigate(item.nickname)}>채팅하기</ChatBtn>
+                </div>
               </SelectOption>)
           })}
           </SelectWrapper>

@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { QueryClient, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import axios from 'axios'
 import { nanoid } from 'nanoid'
 import React, { useState } from 'react'
@@ -20,6 +20,7 @@ function Detail() {
   const [zzim, setZzim] = useState();
   const token = getCookie("token");
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const { data , isLoading, refetch} = useQuery({
     queryKey: ["GET_DETAIL"],
@@ -38,18 +39,17 @@ function Detail() {
 
   const { mutate } = useMutation({
     mutationFn: async (payload) => {
-      await axios.post(`${process.env.REACT_APP_SERVER_URL}/products/${id}/zzim`, payload, {
+      return await axios.post(`${process.env.REACT_APP_SERVER_URL}/products/${id}/zzim`, payload, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-      setZzim(!zzim)
+    },
+    onSuccess : (response) => {
+      setZzim(response.data.data)
+      queryClient.invalidateQueries(['GET_DETAIL'])
     }
   });
-
-  useEffect(()=>{
-    refetch()
-  },[zzim])
 
   const DeletePost = useMutation({
     mutationKey:['DeletePost'],
@@ -64,7 +64,6 @@ function Detail() {
       navigate('/search')
     }
   })
-
 
 
   if(isLoading){
