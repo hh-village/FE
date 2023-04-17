@@ -66,8 +66,11 @@ function MyPage() {
                   : <span>{myNickname}</span>
                 }
                 {changeState
-                  ? <button onClick={()=>{mutate({"nickname" : changedNickname})}}>수정완료</button>
-                  // ? <button onClick={()=>{}}>수정완료</button>
+                  ? 
+                    <>
+                      <button onClick={()=>{mutate({"nickname" : changedNickname})}}>수정완료</button>
+                      <button onClick={changeNicknameHandler}>취소</button>
+                    </>
                   : <button onClick={changeNicknameHandler}>닉네임 변경</button>
                 }
               </Div>

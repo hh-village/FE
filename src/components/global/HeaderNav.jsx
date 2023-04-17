@@ -34,14 +34,9 @@ function HeaderNav() {
     <FlexDiv height="6rem" position="fixed" zIndex="2">
       <MaxWidthDiv height="100%" jc="space-between" alignItem="center">
           <Div gap="2rem">
-            <div onClick={()=>{navi("/")}}>
-              <img src="" alt="mainLogo" />
-              <span>Village</span>
-            </div>
-            <Div gap="2rem">
-              <span>내 물품 빌려주기</span>
-              <span>물품 대여</span>
-            </Div>
+            <img src="/images/Village.png" alt="mainLogo" style={{width:"8rem"}} onClick={()=>{navi("/")}} />
+            <span style={{marginTop: "auto", marginBottom: "auto"}}>내 물품 빌려주기</span>
+            <span style={{marginTop: "auto", marginBottom: "auto"}}>물품 대여</span>
           </Div>
           <Div>
             {location.pathname === "/login"

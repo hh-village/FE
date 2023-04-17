@@ -17,7 +17,9 @@ function Search() {
     location: ""
   });
 
-  const { data } = useQuery({
+  console.log(searchData);
+
+  const { data, refetch } = useQuery({
     queryKey: ["GET_PRODUCTS"],
     queryFn: async () => {
       // const token = getCookie("token");
@@ -27,9 +29,9 @@ function Search() {
     }
   })
 
-  // useEffect(()=>{
-  //   refetch()
-  // },[searchData]);
+  useEffect(()=>{
+    refetch()
+  },[searchData]);
 
   return (
     <FlexDiv boxShadow="none">

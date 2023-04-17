@@ -63,7 +63,7 @@ const ConsumerRegister = (props) => {
     return (
         <div style={{width: "100%", margin: "2rem 0 0 0", gap:"3rem"}}>
             <SelectWrapper>
-                {props.reservationList.map((item)=>{
+                {props.reservationList?.map((item)=>{
                     return(
                     <SelectOption>
                         <StatusBlock status = {item.status}/>
