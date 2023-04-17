@@ -22,7 +22,7 @@ export const FlexDiv = styled.div`
 export const GridDiv = styled.div`
     display: grid;
     grid-template-columns: ${({gridTC}) => gridTC};
-    grid-gap: 1rem;
+    grid-gap: 1.5rem;
     flex-direction: ${({fDirection}) => fDirection ? 'column' : 'row'};
     justify-content : ${({jc}) => jc ? jc : 'start'};
     align-items: ${({alignItem}) => alignItem ? alignItem : 'start'};

@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom'
 
 function Regist() {
   const navigate = useNavigate();
-  const {mutate, isLoading, isError, isSuccess} = useMutation({
+  const { mutate } = useMutation({
     mutationKey:['mutate'],
     mutationFn: async(values)=>{
       const accessToken = getCookie('token')

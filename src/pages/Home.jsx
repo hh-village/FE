@@ -75,8 +75,10 @@ function Home() {
         <h2>새로 등록된 대여 물품을 확인해보세요!</h2>
         <GridDiv gridTC="repeat(4, 1fr)">
           {data?.productList?.map((item) => 
-            <Div fDirection="row" onClick={()=>{navi(`/detail/${item?.id}`)}}>
-              <CardImg src={item?.image} alt="" />
+            <Div fDirection="row" width="100%" onClick={()=>{navi(`/detail/${item?.id}`)}}>
+              <div style={{width:"277px", height: "304px"}}>
+                <CardImg src={item?.image} alt="" style={{width: "100%", height: "100%"}}/>
+              </div>
               <span>{item?.title}</span>
               <span>{item?.price}</span>
               <span>{item?.location}</span>
@@ -106,7 +108,9 @@ function Home() {
         <GridDiv gridTC="repeat(2, 1fr)">
           {data?.randomProduct?.map((item) => 
             <Div gap="1rem" height="100%" border="1px solid #e6e6e6">
-              <CardImg src={item?.image} alt="" />
+              <Div>
+                <CardImg src={item?.image} alt="" />
+              </Div>
               <Div fDirection="row" jc="space-between" width="100%" height="100%">
                 <Div fDirection="row">
                   <span>{item?.title}</span>
@@ -154,6 +158,7 @@ const Img = styled.img`
 `
 
 const CardImg = styled.img`
-  width: 100px;
-  height: 100px;
+  border: 1px solid black;
+  width: 210px;
+  height: 210px;
 `
