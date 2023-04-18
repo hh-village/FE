@@ -72,7 +72,7 @@ export const RoomTitle = styled.div`
     margin: 100px 0 37px 24px;
 `
 export const RoomProfile = styled.img`
-    margin-left : 26px;
+    margin : 0 16px 0 26px;
     height: 60px;
     width : 60px;
     border-radius : 30px;
