@@ -1,40 +1,12 @@
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { nanoid } from 'nanoid'
 import styled from 'styled-components'
-import { getCookie } from '../../shared/Cookies';
 import { Div } from '../global/globalStyle';
 import MyProducts from './MyProducts';
 import MyRents from './MyRents';
 import MyZzims from './MyZzims';
 
-function PagingTap({setMyNickname}) {
-    const [currentBtn, setCurrentBtn] = useState("products");
-
-    const buttonClickHandler = (e) => {
-        setCurrentBtn(e.target.name);
-    }
-
-    const { data } = useQuery({
-        queryKey: [`${currentBtn}`],
-        queryFn: async () => {
-          const token = getCookie("token");
-          const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/users?key=${currentBtn}`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            }
-          });
-          setMyNickname(res?.data.data.nickname);
-          return res.data.data;
-        }
-    })
-
-    const btnInfo = [
-        { name: "products", title: "내가 작성한 글" },
-        { name: "rents", title: "대여중인 항목"},
-        { name: "zzims", title: "찜한 상품"}
-    ]
+function PagingTap({data, btnInfo, currentBtn, buttonClickHandler}) {
 
   return (
     <Div width="100%" marginTop="3rem" fDirection="row" gap="3rem">

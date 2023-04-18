@@ -2,6 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import styled from 'styled-components';
 import { getCookie } from '../../shared/Cookies';
 import { FlexDiv, MaxWidthDiv, Div } from './globalStyle'
 import LoginBtn from './LoginBtn'
@@ -35,8 +36,8 @@ function HeaderNav() {
       <MaxWidthDiv height="100%" jc="space-between" alignItem="center">
           <Div gap="2rem">
             <img src="/images/Village.png" alt="mainLogo" style={{width:"8rem"}} onClick={()=>{navi("/")}} />
-            <span style={{marginTop: "auto", marginBottom: "auto"}}>내 물품 빌려주기</span>
-            <span style={{marginTop: "auto", marginBottom: "auto"}}>물품 대여</span>
+            <Span style={{marginTop: "auto", marginBottom: "auto"}} onClick={()=>{navi("/search")}}>전체상품조회</Span>
+            <Span style={{marginTop: "auto", marginBottom: "auto"}} onClick={()=>{navi("/regist")}}>물품등록-누른 후 새로고침 필요</Span>
           </Div>
           <Div>
             {location.pathname === "/login"
@@ -63,3 +64,7 @@ function HeaderNav() {
 }
 
 export default HeaderNav
+
+const Span = styled.span`
+  cursor: pointer;
+`
