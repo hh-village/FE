@@ -2,23 +2,21 @@ import styled from "styled-components";
 
 export const MessageRoom = styled.div`
     display : flex;
-    margin : 6em 0 6em 0 ;
+    margin-top : 6em;
     flex-direction : column;
-    gap : 30px;
-    border : 12px solid gray;
-    padding : 20px;
-    border-right : none;
+    border : 2px solid gray;
+    width:585px;
+    height: calc(100vh - 12em);
 `
 
 export const ChatBody = styled.div`
-    width : 1000px;
-    height : 600px;
+    width:585px;
+    height: calc(100vh - 12em);
     display : flex;
     justify-content: flex-end;
-    margin : 6em 0 6em 0 ;
-    padding : 20px;
+    margin-top: 6em;
     flex-direction : column;
-    border : 12px solid gray;
+    border : 2px solid gray;
 `
 export const Chatting = styled.div`
     display: flex;
@@ -49,11 +47,33 @@ export const ChatInput = styled.input`
 `
 
 export const TargetRoom = styled.div`
+    display: flex;
+    align-items : center;
+    height:105px;
     width : 100%;
-    background-color : gray;
+    background-color : #EEEBFF;
     cursor : pointer;
 `
 
 export const Room = styled.div`
+    display: flex;
+    align-items : center;
+    height:105px;
+    width : 100%;
     cursor : pointer;
+    :hover{
+        background-color : #EEEBFF;
+    }
+`
+
+export const RoomTitle = styled.div`
+    font-size : 32px;
+    font-weight : 600;
+    margin: 100px 0 37px 24px;
+`
+export const RoomProfile = styled.img`
+    margin-left : 26px;
+    height: 60px;
+    width : 60px;
+    border-radius : 30px;
 `

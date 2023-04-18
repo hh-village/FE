@@ -20,7 +20,7 @@ function PagingTap({setMyNickname}) {
         queryKey: [`${currentBtn}`],
         queryFn: async () => {
           const token = getCookie("token");
-          const res = await axios.get(`http://3.37.127.30/users?key=${currentBtn}`, {
+          const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/users?key=${currentBtn}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }

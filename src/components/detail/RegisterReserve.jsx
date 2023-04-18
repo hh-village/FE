@@ -29,15 +29,16 @@ const RegisterReserve = (props) => {
             return(
               <SelectOption>
                 {/* <ReserveSelect id = {item.id}/> */}
-               
-                <span>{item.nickname}</span>
-                <Div fDirection="row" gap="0.5rem">
-                  <span>대여일 : {item.startDate}</span>
-                  <span>반납일 : {item.endDate}</span>
+               <img src={item.profile} style={{width:'75px', height:'75px', borderRadius:'40px', border : '1px solid gray', marginLeft:'20px'}}/>
+                <Div  fDirection="row" gap="0.5rem">
+                  <span>{item.nickname}</span>
+                  <span>예약일 : {item.startDate} ~ {item.endDate}</span>
                 </Div>
                 <div style={{display:'flex', flexDirection:'column', gap :'12px'}}>
-                  <DropDown/>
-                  <ChatBtn onClick={()=>onClickNavigate(item.nickname)}>채팅하기</ChatBtn>
+                  <DropDown status = {item.status}/>
+                  <div>
+                    <ChatBtn onClick={()=>onClickNavigate(item.nickname)}>채팅하기</ChatBtn>
+                  </div>
                 </div>
               </SelectOption>)
           })}

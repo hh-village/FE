@@ -30,7 +30,7 @@ function Redirect() {
     (async () => {
       try {
         const code = new URL(window.location.href).searchParams.get('code')
-        const res = await axios.get(`http://3.37.127.30/users/login?code=${code}`)
+        const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/users/login?code=${code}`)
         
         setCookie("token", res.headers.authorization.substring(7), {path:"/"});
 

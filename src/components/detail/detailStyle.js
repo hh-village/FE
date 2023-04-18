@@ -1,11 +1,10 @@
 import styled, { css } from "styled-components";
 
 export const SelectWrapper = styled.div`
-    width: 100%;
-    padding: 0 1rem 0 1rem;
+    margin-top:12px;
+    width: 570px;
     height: 15rem;
     overflow: auto;
-    border: 1px solid #e6e6e6;
     &::-webkit-scrollbar {
         background: white;
         width: 6px;
@@ -67,6 +66,7 @@ export const Button = styled.button`
     }
 `
 export const ButtonWrapper = styled.div`
+    margin-top : 40px;
     display: flex;
     width: 560px;
     justify-content : center;
@@ -77,6 +77,27 @@ export const DetailBtn = styled.button`
     height : 80px;
     font-size : 25px;
     font-weight : 700;
+    border: none;
+    color: #ffffff;
+    border-radius : 5px;
+    cursor: pointer;
+    ${({theme})=>{
+        switch(theme){
+            case 'modify' :
+                return css`
+                    background-color : #644AFF;
+                `
+            case 'cancel' : 
+                return css`
+                    background-color : #B00020;
+                `
+    }}}  
+    :hover{
+        box-shadow: 1px 1px 10px rgb(0, 0, 0, 0.5);
+    }
+    &:active {
+        box-shadow: inset 1px 1px 10px rgb(0, 0, 0, 0.5);
+    }
 `
 export const Block = styled.button`
     width: 5rem;
@@ -122,9 +143,10 @@ export const DropdownMenu = styled.div`
     flex-direction : column;
     justify-content:center;
     position: absolute;
+    z-index : 1000;
     align-items : center;
     border-radius: 2px;
-    height: 120px;
+    height: 90px;
     width : 118px;
     background: #8E8E8E;
 `
@@ -132,6 +154,7 @@ export const DropHeader = styled.div`
     height: 34px;
     width : 118px;
     border-radius: 2px;
+    z-index: 1;
     display: flex;
     justify-content : center;
     align-items : center;
@@ -157,10 +180,63 @@ export const ChatBtn = styled.div`
     height: 34px;
     width : 118px;
     display: flex;
+    position: relative;
     justify-content : center;
     align-items:center;
     cursor: pointer;
     background: #363636;
     color: #ffffff;
     border-radius: 2px;
+`
+
+export const Title =  styled.div`
+    font-weight : 700;
+    font-size : 32px;
+    color: #575757;
+`
+export const ReserveDesc = styled.div`
+    font-size : 24px;
+`
+
+export const PriceTitle = styled.div`
+    font-weight : 700;
+    color: #575757;
+    margin-Top : 7px;
+    font-size : 24px;
+`
+export const NotifiyIcon = styled.img`
+    width: 24px;
+    height: 24px;
+`
+
+export const DetailTitle = styled.div`
+    margin-top : 50px;
+    font-size : 32px;
+    margin-left : 4px;
+`
+
+export const UnderImage = styled.div`
+    display: flex;
+    justify-content : center;
+    align-items:center;
+    width: 578px;
+    height : 60px;
+    gap: 21px;
+`
+
+export const LocationButton = styled.div`
+    position: absolute;
+    height : 54px;
+    width : 225px;
+    border-radius : 10px;
+    border: 2px solid #644AFF;
+    color: #644AFF;
+    display: flex;
+    justify-content : center;
+    align-items : center;
+    background-color : #ffffff;
+    gap:4px;
+    left: 32%;
+    top: 48%;
+    cursor: pointer;
 `
