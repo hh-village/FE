@@ -9,8 +9,8 @@ import MyZzims from './MyZzims';
 function PagingTap({data, btnInfo, currentBtn, buttonClickHandler}) {
 
   return (
-    <Div width="100%" marginTop="3rem" fDirection="row" gap="3rem">
-        <Div width="100%" jc="space-around" borderBottom="1px solid #e6e6e6">
+    <Div width="100%" marginTop="3rem" gap="3rem">
+        <Div fDirection="row" width="100%" jc="space-around" borderBottom="1px solid #e6e6e6">
             {btnInfo.map((item) => 
                 <LPBtn
                 key={nanoid()}

@@ -21,14 +21,14 @@ function DealList({data}) {
   `
 
   return (
-    <>
+    <Div marginTop="1rem" fDirection="row" width="100%" gap="1rem">
       <span>실시간 체결내역</span>
       <Div width="45%" height="1.5rem" position="relative" overflow="hidden" border="1px solid black">
         <Slide etc={option}>
           {data?.dealList.map((item) => <Span key={nanoid()}>{item?.customerNickname}님이 {item?.ownerNickname}님의 물건을 대여하였습니다!</Span>)}
         </Slide>
       </Div>
-    </>
+    </Div>
   )
 }
 

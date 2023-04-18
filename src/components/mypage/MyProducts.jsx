@@ -15,7 +15,7 @@ function MyProducts({data}) {
         onClick={()=>{navi(`/detail/${item?.id}`)}}
       >
         <Img src={item?.image} alt="" />
-        <Div fDirection="row" jc="center" bgColor="#e6e6e6">
+        <Div jc="center" bgColor="#e6e6e6">
           <h3>{item?.title}</h3>
           <span>작성일 : {item?.createdAt}</span>
         </Div>

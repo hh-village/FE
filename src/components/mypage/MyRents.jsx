@@ -5,14 +5,14 @@ import { Div } from '../global/globalStyle'
 
 function MyRents({data}) {
   return (
-    <Div fDirection="row" gap="1rem" width="100%">
+    <Div gap="1rem" width="100%">
       {data?.myList.map((item) => 
       <CardDiv key={nanoid()}>
-        <Div bgColor="#e6e6e6" gap="1rem">
+        <Div fDirection="row" bgColor="#e6e6e6" gap="1rem">
           <Img src={item?.image} alt="" />
-          <Div fDirection="row" bgColor="#e6e6e6">
+          <Div bgColor="#e6e6e6" gap="1rem">
             <h3>{item?.title}</h3>
-            <Div bgColor="#e6e6e6" gap="3rem">
+            <Div bgColor="#e6e6e6" gap="1rem">
               <span>대여일 : {item?.startDate}</span>
               <span>반납일 : {item?.endDate}</span>
             </Div>
