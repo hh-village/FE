@@ -27,7 +27,7 @@ function Login() {
   return (
     <FlexDiv>
       <HeaderNav />
-      <MaxWidthDiv fDirection="row" jc="center" alignItem="center" height="100vh" gap="1rem">
+      <MaxWidthDiv jc="center" alignItem="center" height="100vh" gap="1rem">
         <div>
           <img src="" alt="mainLogo" />
         </div>

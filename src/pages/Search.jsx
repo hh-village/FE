@@ -2,17 +2,14 @@ import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { getCookie } from '../shared/Cookies'
-import { FlexDiv, MaxWidthDiv, GridDiv, Div } from '../components/global/globalStyle'
+import { FlexDiv, MaxWidthDiv } from '../components/global/globalStyle'
 import HeaderNav from '../components/global/HeaderNav'
 import SearchInput from '../components/global/SearchInput'
-import { nanoid } from 'nanoid'
 import { useNavigate } from 'react-router-dom'
-import styled from 'styled-components'
-import VerticalCard from '../components/global/VerticalCard'
+import SearchCards from '../components/search/SearchCards'
+
 
 function Search() {
-  const navi = useNavigate();
-  const [token, setToken] = useState("");
   const [searchData, setSearchData] = useState({
     productName: "",
     location: ""
@@ -27,20 +24,16 @@ function Search() {
     }
   })
 
-  console.log("sh", data);
+  console.log("sh", data)
 
   useEffect(()=>{
     refetch()
   },[searchData]);
 
-  useEffect(()=>{
-    setToken(getCookie("token"));
-  },[])
-
   return (
     <FlexDiv boxShadow="none">
       <HeaderNav />
-      <MaxWidthDiv fDirection="column">
+      <MaxWidthDiv>
         <SearchInput
           searchData={searchData}
           setSearchData={setSearchData}
@@ -49,7 +42,7 @@ function Search() {
         <div style={{marginTop:"3rem"}}>
           <h2>내 근처에서 대여할 물품을 찾아보세요!</h2>
         </div>
-        <VerticalCard data={data}/>
+        <SearchCards data={data}/>
       </MaxWidthDiv>
     </FlexDiv>
   )

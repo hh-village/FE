@@ -2,7 +2,7 @@
 import { nanoid } from 'nanoid'
 import React from 'react'
 import styled from 'styled-components'
-import { MaxWidthDiv, Div } from './globalStyle'
+import { Div } from './globalStyle'
 
 function SearchInput({ searchData, setSearchData, rem }) {
 
@@ -16,7 +16,7 @@ function SearchInput({ searchData, setSearchData, rem }) {
   }
 
   return (
-    <Div width="100%" boxShadow="none" padding={`${rem}rem 0rem 0rem 0rem`} gap="1rem">
+    <Div fDirection="row" width="100%" boxShadow="none" padding={`${rem}rem 0rem 0rem 0rem`} gap="1rem">
         <Select name="location" onChange={catchSearchDataHandler}>
           <option value="">지역을 선택하세요</option>
           {locationName.map((item) => 

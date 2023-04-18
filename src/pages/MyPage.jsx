@@ -48,8 +48,6 @@ function MyPage() {
     }
   })
 
-  console.log("my", data);
-
   const { mutate } = useMutation({
     mutationFn: async (payload) => {
       await axios.patch(`${process.env.REACT_APP_SERVER_URL}/users`, payload, {
@@ -84,12 +82,12 @@ function MyPage() {
   return (
     <FlexDiv boxShadow="none">
       <HeaderNav />
-      <MaxWidthDiv fDirection="row">
+      <MaxWidthDiv>
         <div style={{marginTop:"7rem"}}>
           <h2>마이페이지</h2>
         </div>
-        <Div marginTop="1rem" jc="space-between" alignItem="center" width="100%" bgColor="#e6e6e6">
-          <Div bgColor="none" alignItem="center" gap="1rem" padding="1rem">
+        <Div fDirection="row" marginTop="1rem" jc="space-between" alignItem="center" width="100%" bgColor="#e6e6e6">
+          <Div fDirection="row" bgColor="none" alignItem="center" gap="1rem" padding="1rem">
             <img src="/images/appLogo.png" alt="userProfileImg" style={{width:"200px", height: "200px"}}/>
             <Div gap="1rem" bgColor="#e6e6e6">
               <Div fDirection="row" bgColor="#e6e6e6" gap="1rem">
@@ -113,7 +111,7 @@ function MyPage() {
               </Div>
             </Div>
           </Div>
-          <Div bgColor="none" fDirection="row" gap="1rem" padding="1rem">
+          <Div bgColor="none" gap="1rem" padding="1rem">
             <Button onClick={()=>{navi("/regist")}}>대여물품 등록하기</Button>
             <Button onClick={()=>{
               onNavigateChat.mutate()

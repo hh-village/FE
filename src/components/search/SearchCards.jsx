@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { getCookie } from '../../shared/Cookies'
-import { Div, GridDiv } from './globalStyle'
+import { Div, GridDiv } from '../global/globalStyle'
 
-function VerticalCard({data}) {
+function SearchCards({data}) {
     const navi = useNavigate();
     const [token, setToken] = useState("");
 
@@ -14,10 +14,10 @@ function VerticalCard({data}) {
     },[])
 
     return (
-        <Div fDirection="row">
+        <Div>
             <span>새로 등록된 대여 물품을 확인해보세요!</span>
             <GridDiv width="100%" gridTC="repeat(4, 1fr)">
-                {data?.productList?.map((item) => 
+                {data?.map((item) => 
                     <Cards
                     key={nanoid()}
                     fDirection="row"
@@ -25,26 +25,26 @@ function VerticalCard({data}) {
                     height="100%"
                     onClick={()=>{navi(`/detail/${item?.id}`)}}
                     >
-                        <Div fDirection="row" width="100%" height="304px">
+                        <Div width="100%" height="304px">
                             {item?.hot
                             ? <Hot>인기대여</Hot>
                             : null
                             }
                             <CardImg src={item?.image} alt="" style={{width:"100%", height:"100%", objectFit: "contain"}}/>
                         </Div>
-                        <Div width="100%" fDirection="row">
-                            <Div width="100%" jc="space-between" margin="0.5rem 0 0 0">
-                            <span style={{marginTop:"auto", marginBottom:"auto", fontWeight:"700"}}>{item?.title}</span>
-                            {token == null||undefined
-                                ? null
-                                : <img 
-                                    src={item?.checkZzim ? "/images/fHeart.png" : "/images/eHeart.png"}
-                                    alt="zzimStatus"
-                                    style={{width:"28px", height: "28px"}}
-                                />
-                            }
+                        <Div width="100%">
+                            <Div fDirection="row" width="100%" jc="space-between" margin="0.5rem 0 0 0">
+                                <span style={{marginTop:"auto", marginBottom:"auto", fontWeight:"700"}}>{item?.title}</span>
+                                {token == null||undefined
+                                    ? null
+                                    : <img 
+                                        src={item?.checkZzim ? "/images/fHeart.png" : "/images/eHeart.png"}
+                                        alt="zzimStatus"
+                                        style={{width:"28px", height: "28px"}}
+                                    />
+                                }
                             </Div>
-                            <Div fDirection="row" margin="0 0 0.5rem 0">
+                            <Div margin="0 0 0.5rem 0">
                                 <span>위치 {item?.location}</span>
                                 <span>1일 기준 {item?.price}원</span>
                             </Div>
@@ -56,7 +56,7 @@ function VerticalCard({data}) {
     )
 }
 
-export default VerticalCard
+export default SearchCards;
 
 const Cards = styled.div`
   display: flex;
