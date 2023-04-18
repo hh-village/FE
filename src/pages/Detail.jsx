@@ -26,7 +26,7 @@ function Detail() {
     queryKey: ["GET_DETAIL"],
     queryFn: async () => {
       const token = getCookie("token");
-      const res = await axios.get(`http://3.37.127.30/products/${parseInt(id)}`,
+      const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/products/${parseInt(id)}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
