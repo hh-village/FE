@@ -12,13 +12,10 @@ function MyProducts({data}) {
       {data?.myList.map((item) => 
       <CardDiv
         key={nanoid()}
-        width="100%"
-        gap="1rem"
-        border="1px solid black"
         onClick={()=>{navi(`/detail/${item?.id}`)}}
       >
         <Img src={item?.image} alt="" />
-        <Div fDirection="row" jc="center" bgColor="#e6e6e6">
+        <Div jc="center" bgColor="#e6e6e6">
           <h3>{item?.title}</h3>
           <span>작성일 : {item?.createdAt}</span>
         </Div>
@@ -41,6 +38,7 @@ const CardDiv = styled.div`
   width: 100%;
   background-color: #e6e6e6;
   padding: 1rem;
+  /* border-bottom: 1px solid red; */
   box-sizing: border-box;
   &:hover {
     box-shadow: 1px 1px 5px rgb(0, 0, 0, 0.5);

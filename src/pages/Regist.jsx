@@ -55,10 +55,10 @@ function Regist() {
     <>
       <HeaderNav/>
       <MaxWidthDiv 
+      fDirection='row'
       padding = '6rem 0 0 0'
       >
-        <Div
-        fDirection = {'row'}>
+        <Div>
           <RegistTitle>대여물품 등록</RegistTitle>
           <TitleInput
             name='title'
@@ -68,9 +68,7 @@ function Regist() {
           />
           <ImageBlock/>
         </Div>
-        <Div
-          fDirection = {'row'}
-        >
+        <Div>
           <form onSubmit={onSubmitHandler}>
           <DescInput
             name='description'

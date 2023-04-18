@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import React from 'react'
 import { useState } from 'react'
@@ -14,14 +14,18 @@ function MyPage() {
   const navi = useNavigate();
   const token = getCookie("token");
 
-  // useEffect(()=>{
-  //   setMyId(getCookie("userID", {path: "/"}));
-  // },[]);
-
-  const [myId, setMyId] = useState("");
-  const [myNickname, setMyNickname] = useState("");
+  const [currentBtn, setCurrentBtn] = useState("products");
   const [changedNickname, setChangedNickname] = useState("");
   const [changeState, setChangeState] = useState(false);
+  const btnInfo = [
+    { name: "products", title: "내가 작성한 글" },
+    { name: "rents", title: "대여중인 항목"},
+    { name: "zzims", title: "찜한 상품"}
+  ]
+
+  const buttonClickHandler = (e) => {
+    setCurrentBtn(e.target.name);
+  }
 
   const changeNicknameHandler = () => {
     setChangeState(!changeState);
@@ -30,6 +34,19 @@ function MyPage() {
   const changeInputHandler = (e) => {
     setChangedNickname(e.target.value);
   }
+
+  const { data } = useQuery({
+    queryKey: [`${currentBtn}`],
+    queryFn: async () => {
+      const token = getCookie("token");
+      const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/users?key=${currentBtn}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        }
+      });
+      return res.data.data;
+    }
+  })
 
   const { mutate } = useMutation({
     mutationFn: async (payload) => {
@@ -44,7 +61,7 @@ function MyPage() {
       alert("닉네임 변경 완료!");
     },
     onError: () => {
-      alert("일시적 오류 입니다!");
+      alert("일시적 오류입니다");
     }
   });
 
@@ -65,41 +82,49 @@ function MyPage() {
   return (
     <FlexDiv boxShadow="none">
       <HeaderNav />
-      <MaxWidthDiv fDirection="row">
-        <div style={{paddingTop:"7rem"}}>
-          <h1>마이페이지</h1>
+      <MaxWidthDiv>
+        <div style={{marginTop:"7rem"}}>
+          <h2>마이페이지</h2>
         </div>
-        <Div marginTop="1rem" jc="space-between" alignItem="center" width="100%" bgColor="#e6e6e6">
-          <Div bgColor="none" alignItem="center" gap="1rem" padding="1rem">
-            <img src="" alt="userProfileImg" />
-            <div>
-              <Div bgColor="none" gap="0.5rem">
-                <img src="" alt="" />
-                {changeState
-                  ? <input type="text" placeholder={myNickname} onChange={changeInputHandler}/>
-                  : <span>{myNickname}</span>
-                }
-                {changeState
-                  ? 
-                    <>
-                      <button onClick={()=>{mutate({"nickname" : changedNickname})}}>수정완료</button>
-                      <button onClick={changeNicknameHandler}>취소</button>
-                    </>
-                  : <button onClick={changeNicknameHandler}>닉네임 변경</button>
-                }
+        <Div fDirection="row" marginTop="1rem" jc="space-between" alignItem="center" width="100%" bgColor="#e6e6e6">
+          <Div fDirection="row" bgColor="none" alignItem="center" gap="1rem" padding="1rem">
+            <img src="/images/appLogo.png" alt="userProfileImg" style={{width:"200px", height: "200px"}}/>
+            <Div gap="1rem" bgColor="#e6e6e6">
+              <Div fDirection="row" bgColor="#e6e6e6" gap="1rem">
+                <span>닉네임</span>
               </Div>
-              <span>{myId}</span>
-            </div>
+              <Div fDirection="row" bgColor="#e6e6e6" gap="1rem">
+                <Div bgColor="none" gap="0.5rem">
+                  {changeState
+                    ? <input type="text" placeholder={data?.nickname} onChange={changeInputHandler}/>
+                    : <span>{data?.nickname}</span>
+                  }
+                  {changeState
+                    ? 
+                      <>
+                        <button onClick={()=>{mutate({"nickname" : changedNickname})}}>수정완료</button>
+                        <button onClick={changeNicknameHandler}>취소</button>
+                      </>
+                    : <button onClick={changeNicknameHandler}>변경하기</button>
+                  }
+                </Div>
+              </Div>
+            </Div>
           </Div>
-          <Div bgColor="none" fDirection="row" gap="1rem" padding="1rem">
-            <Button onClick={()=>{navi("/Regist")}}>대여물품 등록하기</Button>
+          <Div bgColor="none" gap="1rem" padding="1rem">
+            <Button onClick={()=>{navi("/regist")}}>대여물품 등록하기</Button>
             <Button onClick={()=>{
               onNavigateChat.mutate()
             }}>빌리지 채팅 관리</Button>
             <Button>예약 승인 / 확인 / 취소</Button>
           </Div>
         </Div>
-        <PagingTap setMyNickname={setMyNickname}/>
+        <PagingTap
+          data={data}
+          btnInfo={btnInfo}
+          currentBtn={currentBtn}
+          buttonClickHandler={buttonClickHandler}
+          />
       </MaxWidthDiv>
     </FlexDiv>
   )

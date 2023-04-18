@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const FlexDiv = styled.div`
     display: flex;
-    flex-direction: ${({fDirection}) => fDirection ? 'column' : 'row'};
+    flex-direction: ${({fDirection}) => fDirection ? fDirection : 'column'};
     justify-content : ${({jc}) => jc ? jc : 'start'};
     align-items: ${({alignItem}) => alignItem ? alignItem : 'start'};
     width : ${({width})=>width ? width : '100%'};
@@ -23,7 +23,7 @@ export const GridDiv = styled.div`
     display: grid;
     grid-template-columns: ${({gridTC}) => gridTC};
     grid-gap: 1.5rem;
-    flex-direction: ${({fDirection}) => fDirection ? 'column' : 'row'};
+    flex-direction: ${({fDirection}) => fDirection ? fDirection : 'column'};
     justify-content : ${({jc}) => jc ? jc : 'start'};
     align-items: ${({alignItem}) => alignItem ? alignItem : 'start'};
     width : ${({width})=>width ? width : '100%'};
@@ -43,7 +43,7 @@ export const MaxWidthDiv = styled.div`
     width: 100%;
     height: ${({height})=>height};
     display: flex;
-    flex-direction: ${({fDirection}) => fDirection ? 'column' : 'row'};
+    flex-direction: ${({fDirection}) => fDirection ? fDirection : 'column'};
     justify-content: ${({jc}) => jc ? jc : 'start'};
     align-items: ${({alignItem}) => alignItem ? alignItem : 'start'};
     margin: ${({margin}) => margin ? margin: 0} auto;
@@ -53,7 +53,7 @@ export const MaxWidthDiv = styled.div`
 
 export const Div = styled.div`
     display: flex;
-    flex-direction: ${({fDirection}) => fDirection ? 'column' : 'row'};
+    flex-direction: ${({fDirection}) => fDirection ? fDirection : 'column'};
     justify-content: ${({jc}) => jc ? jc : 'start'};
     align-items: ${({alignItem}) => alignItem ? alignItem : 'start'};
     width: ${({width}) => width};
@@ -72,8 +72,4 @@ export const Div = styled.div`
     position: ${({position}) => position};
     overflow: ${({overflow}) => overflow};
     gap: ${({gap}) => gap ? gap : 0};
-`
-
-export const Span = styled.span`
-
 `

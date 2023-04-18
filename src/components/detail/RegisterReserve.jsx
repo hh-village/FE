@@ -18,6 +18,8 @@ const RegisterReserve = (props) => {
       }
     )
 
+    console.log(props);
+
     const onClickNavigate = (nickname) => {
       getRoom.mutate(nickname)
     }
@@ -29,8 +31,8 @@ const RegisterReserve = (props) => {
             return(
               <SelectOption>
                 {/* <ReserveSelect id = {item.id}/> */}
-               <img src={item.profile} style={{width:'75px', height:'75px', borderRadius:'40px', border : '1px solid gray', marginLeft:'20px'}}/>
-                <Div  fDirection="row" gap="0.5rem">
+               <img src={item.profile} alt="" style={{width:'75px', height:'75px', borderRadius:'40px', border : '1px solid gray', marginLeft:'20px'}}/>
+                <Div gap="0.5rem">
                   <span>{item.nickname}</span>
                   <span>예약일 : {item.startDate} ~ {item.endDate}</span>
                 </Div>

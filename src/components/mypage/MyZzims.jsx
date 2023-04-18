@@ -8,7 +8,7 @@ function MyZzims({data}) {
     const navi = useNavigate();
 
   return (
-    <Div fDirection="row" gap="1rem" width="100%">
+    <Div gap="1rem" width="100%">
       {data?.myList.map((item) => 
       <CardDiv
         key={nanoid()}
@@ -18,7 +18,7 @@ function MyZzims({data}) {
         onClick={()=>{navi(`/detail/${item?.id}`)}}
       >
         <Img src={item?.image} alt="" />
-        <Div fDirection="row" jc="center" bgColor="#e6e6e6">
+        <Div jc="center" bgColor="#e6e6e6" gap="1rem">
           <h3>{item?.productTitle}</h3>
           <span>작성일 : {item?.createdAt}</span>
         </Div>

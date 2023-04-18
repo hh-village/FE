@@ -1,47 +1,49 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { nanoid } from 'nanoid';
-import React from 'react'
+import React, { useState } from 'react'
 import styled, { keyframes } from 'styled-components';
 import { Div } from '../global/globalStyle';
 
-function DealList() {
+function DealList({data}) {
+  const [count, setCount] = useState(0);
 
-  const { data } = useQuery({
-    queryKey: ["GET_RESERVATIONS"],
-    queryFn: async () => {
-      const res = await axios.get("http://3.37.127.30/products/reservations")
-      return res.data.data;
+  setTimeout(()=>{
+    setCount(count+1);
+    if(count === (data?.dealList.length)-1){
+      setCount(0)
     }
-  })
+  }, 3000)
+
+  const option = `
+  transition: all 0.5s ease-in-out;
+  transform: translateY(-${(count)*1}rem);
+  `
 
   return (
-    <Div width="100%" height="1rem" position="relative" overflow="hidden">
-      <Slide>
-        {data?.map((item) => <span key={nanoid()}>{item.customerNickname}님이 {item.ownerNickname}님의 물건을 대여하였습니다!</span>)}
-      </Slide>
+    <Div marginTop="1rem" fDirection="row" width="100%" gap="1rem">
+      <span>실시간 체결내역</span>
+      <Div width="45%" height="1.5rem" position="relative" overflow="hidden" border="1px solid black">
+        <Slide etc={option}>
+          {data?.dealList.map((item) => <Span key={nanoid()}>{item?.customerNickname}님이 {item?.ownerNickname}님의 물건을 대여하였습니다!</Span>)}
+        </Slide>
+      </Div>
     </Div>
   )
 }
 
 export default DealList
 
-const marquee = keyframes`
-    0% {
-      -webkit-tarnsform: translate3d(1%, 0, 0);
-      transform: translate3d(1%, 0, 0);
-    }
-    100% {
-      -webkit-tarnsform: translate3d(-100%, 0, 0);
-      transform: translate3d(-100%, 0, 0);
-    }
-  `
-
 const Slide = styled.div`
   display: flex;
+  flex-direction: column;
+  height: 1.5rem;
   white-space: nowrap;
-  animation: ${marquee} 30s linear infinite;
   position: absolute;
-  overflow: hidden;
-  gap: 1rem;
+  ${({etc}) => etc};
+`
+
+const Span = styled.span`
+  margin-top: auto;
+  margin-bottom: auto;
 `
