@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import {  useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import SockJS from "sockjs-client";
-import { ChatBody, ChatInput, Chatting, MessageRoom, Room, TargetRoom } from "../components/chat/chatStyle";
+import { ChatBody, ChatInput, Chatting, MessageRoom, Room, RoomProfile, RoomTitle, TargetRoom } from "../components/chat/chatStyle";
 import { FlexDiv, MaxWidthDiv } from "../components/global/globalStyle";
 import HeaderNav from "../components/global/HeaderNav";
 import { __getChatList } from "../redux/modules/Chat";
@@ -42,7 +42,6 @@ const Chat = () => {
         if(response){
             stompClient.subscribe(`/sub/chat/room/${roomId}`,
             (message)=>{
-                console.log('--------------')
                 const payloadData = JSON.parse(message.body);
                 console.log(payloadData)
                 return setChatList(prev => [...prev,payloadData])
@@ -106,21 +105,29 @@ const Chat = () => {
             <HeaderNav/>
             <MaxWidthDiv>
                 <MessageRoom>
-                {roomList.map((item => {
-                    return (item.target 
-                    ? (
-                        <TargetRoom key={nanoid()}>
-                            {item.roomId}
-                        </TargetRoom>
-                    )
-                    : (
-                        <Room 
-                        key={nanoid()}
-                        onClick = {() => onClickOtherChats(item.roomId)}>
-                            {item.roomId}
-                        </Room>
-                    ))
-                }))}
+                    <RoomTitle> 전체대화 </RoomTitle>
+                    {roomList.map((item => {
+                        return (item.target 
+                        ? (
+                            <>
+                                <TargetRoom key={nanoid()}>
+                                    <RoomProfile src={item.profile}/>
+                                    {item.nickname}
+                                </TargetRoom>
+                            </>
+                            
+                        )
+                        : (
+                            <>
+                                <Room key={nanoid()}
+                                onClick = {() => onClickOtherChats(item.roomId)}>
+                                    <RoomProfile src={item.profile}/>
+                                    {item.nickname}
+                                </Room>
+                            </>
+                            
+                        ))
+                    }))}
                 </MessageRoom>
                 <ChatBody>
                     <Chatting>
