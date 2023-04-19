@@ -18,7 +18,7 @@ function SearchInput({ searchData, setSearchData, rem }) {
   return (
     <Div fDirection="row" width="100%" boxShadow="none" padding={`${rem}rem 0rem 0rem 0rem`} gap="1rem">
         <Select name="location" onChange={catchSearchDataHandler}>
-          <option value="">지역을 선택하세요</option>
+          <option value="">지역검색</option>
           {locationName.map((item) => 
             <option value={item} key={nanoid()}>{item}</option>
           )}
@@ -29,7 +29,7 @@ function SearchInput({ searchData, setSearchData, rem }) {
           value={searchData.productName}
           placeholder="찾으시는 상품을 검색해보세요!"
           onChange={catchSearchDataHandler}/>
-        <Button bgColor='#03DAC6'>찾아보기</Button>
+        <Button color='white' bgColor='#644AFF'>찾아보기</Button>
     </Div>
   )
 }
@@ -37,7 +37,7 @@ function SearchInput({ searchData, setSearchData, rem }) {
 export default SearchInput
 
 const Select = styled.select`
-  border: 1px solid #767676;
+  border: 1px solid #644AFF;
   border-radius: 5px;
   height: 2.5rem;
 `
@@ -65,7 +65,6 @@ const Button = styled.button`
     background-color: ${({bgColor}) => bgColor ? bgColor : 'white'};
     color: ${({color}) => color ? color : 'black'};
     border-radius: 5px;
-    font-weight: 700;
     width: 10rem;
     height: 2.5rem;
     cursor: pointer;

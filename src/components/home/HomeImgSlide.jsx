@@ -22,12 +22,12 @@ function HomeImgSlide() {
         flex-wrap: nowrap;
         transition: all 0.5s;
         flex: none;
-        transform: translateX(-${(count-1)*(false? 585: 600)}px);
+        transform: translateX(-${(count-1)*(false? 585: 1200)}px);
     `
 
     return (
         <Div bgColor="black" width="100%" marginTop="2rem">
-            <Div position="relative" margin="auto" width="600px" overflow="hidden">
+            <Div position="relative" margin="auto" width="1200px" height="500px" overflow="hidden">
                 <SlideBtn count={count} setFunc={setCount} total={test.length}/>
                 <Slide etc={styleOption}>
                     {test.map((imgs) => <Img src={imgs} alt={imgs} key={nanoid()}/>)}
@@ -45,5 +45,5 @@ const Slide = styled.div`
 
 const Img = styled.img`
   width: 100%;
-  object-fit: fill;
+  object-fit: contain;
 `

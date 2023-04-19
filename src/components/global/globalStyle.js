@@ -47,6 +47,7 @@ export const MaxWidthDiv = styled.div`
     justify-content: ${({jc}) => jc ? jc : 'start'};
     align-items: ${({alignItem}) => alignItem ? alignItem : 'start'};
     margin: ${({margin}) => margin ? margin: 0} auto;
+    margin-top: ${({marginTop}) => marginTop};
     padding : ${({padding}) => padding ? padding: 0};
     gap : ${({gap}) => gap ? gap : 0};
 `
