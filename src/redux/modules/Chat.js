@@ -25,7 +25,7 @@ export const __getChatList = createAsyncThunk(
 
 
 export const chatSlice = createSlice({
-    name: 'Post',
+    name: 'Chat',
     initialState,
     reducers:{},
     extraReducers:{

@@ -14,6 +14,24 @@ export const SelectWrapper = styled.div`
         border-radius: 10px;
     }
 `
+export const Popup = styled.div`
+    position: fixed;
+    transform: translate (-50%, -50%);
+    width : 100vw;
+    height : 100vh;
+    background-color : rgba(255,255,255,0.7);
+    left:0;
+    top : 0;
+    z-index : 2;
+    display: flex;
+    justify-content: center;
+    align-items : center;
+    font-size : 50px;
+    font-weight : 600;
+    color: rgb(0,0,0);
+    flex-direction : column;
+    gap : 40px;
+`
 export const SelectOption = styled.div`
     height: 137px;
     width: 100%;
@@ -210,7 +228,7 @@ export const NotifiyIcon = styled.img`
 `
 
 export const DetailTitle = styled.div`
-    margin-top : 50px;
+    margin-top : 90px;
     font-size : 32px;
     margin-left : 4px;
 `
@@ -237,6 +255,6 @@ export const LocationButton = styled.div`
     background-color : #ffffff;
     gap:4px;
     left: 32%;
-    top: 48%;
+    top: 35%;
     cursor: pointer;
 `

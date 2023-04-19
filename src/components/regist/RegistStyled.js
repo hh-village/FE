@@ -1,38 +1,42 @@
 import styled from "styled-components";
 
 export const RegistTitle = styled.span`
-    margin: 76px 0px 29px 50px;
+    margin: 76px 0px 29px 0;
     font-size: 32px;
 `
 export const TitleInput = styled.input`
-    width: 620px;
+    width: 578px;
     height: 55px;
-    margin: 0 0 27px 40px;
+    margin: 0 0 27px 0;
     text-indent: 22px;
     font-size: 20px;
     border-radius:5px;
     border: 1px solid #CFCFCF;
 `
 export const FirstPreview = styled.img`
-    margin: 0 0 16px 40px;
-    width:620px;
-    height: 397px;
+    position: relative;
+    margin: 0 0 10px 0;
+    width: 585px;
+    height: 499px; 
+    border: 2px dotted gray;
+    border-radius : 10px;
+    opacity : 0.5;
 `
 export const OtherPreview = styled.img`
-    height: 120px;
-    width: 138px;
-    border-radius: 0px;
+    border: 2px dotted gray;
+    border-radius : 10px;
+    height: 127px;
+    width: 127px;
 `
 export const PreviewContainer = styled.div`
     display: flex;
     gap: 22px;
-    margin-left: 40px;
 `
 export const DescInput = styled.textarea`
     height: 200px;
     width: 462px;
     font-size: 20px;
-    margin: 142px 0 10px 20px;
+    margin: 142px 0 10px 31px;
     padding: 20px;
     resize: none;
 `
@@ -62,7 +66,7 @@ export const Searchdiv = styled.div`
     justify-content: center;
     align-items: center;
     border-radius: 5px;
-    margin: 10px 0 10px 20px;
+    margin: 10px 0 10px 31px;
 `
 export const PriceInput = styled.input`
     width: 435px;
