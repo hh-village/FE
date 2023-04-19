@@ -32,7 +32,7 @@ function HeaderNav() {
   },[location])
 
   return (
-    <FlexDiv height="6rem" position="fixed" zIndex="2">
+    <FlexDiv height="6rem" position="fixed" zIndex="5">
       <MaxWidthDiv fDirection="row" height="100%" jc="space-between" alignItem="center">
           <Div fDirection="row" gap="2rem">
             <img src="/images/Village.png" alt="mainLogo" style={{width:"8rem"}} onClick={()=>{navi("/")}} />

@@ -8,10 +8,12 @@ import useInput from '../hooks/useInput'
 import { getCookie } from '../shared/Cookies'
 import { DescInput, PriceDiv, PriceInput, PriceSpan, RegistTitle, TitleInput } from '../components/regist/RegistStyled'
 import NaverMap from '../components/regist/Map'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { storeImage } from '../redux/modules/Post'
 
 function Regist() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { mutate } = useMutation({
     mutationKey:['mutate'],
@@ -31,6 +33,7 @@ function Regist() {
   })
 
   const { image, location } = useSelector(state => state.Post)
+  const [imageURL, setImageURL] = useState(image)
 
   const { values, onChange } = useInput({
     title: "",
@@ -50,6 +53,7 @@ function Regist() {
     })
   }
  
+  console.log(image)
 
   return (
     <>
@@ -66,8 +70,11 @@ function Regist() {
             value={values.title}
             onChange={onChange}
           />
-          <ImageBlock/>
+          <ImageBlock setImageURL = {setImageURL} imageURL = {imageURL}/>
         </Div>
+        <div
+        style={{height:'750px', marginTop:'140px', marginLeft : '31px',border:'0.5px solid #D7D7D7'}}
+        ></div>
         <Div>
           <form onSubmit={onSubmitHandler}>
           <DescInput
@@ -86,8 +93,13 @@ function Regist() {
                 onChange={onChange}
             />
           </PriceDiv>
-            <NaverMap/>
-            <button style={{marginTop:'10px'}}> 등록하기 </button>
+          <NaverMap/>
+          <button type='button'
+          onClick={()=>{
+            setImageURL([]);
+          }}
+          >사진 지우기</button>
+          <button style={{marginTop:'10px'}}> 등록하기 </button>
           </form>
         </Div>
       </MaxWidthDiv>

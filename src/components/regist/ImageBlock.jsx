@@ -1,21 +1,40 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FirstPreview, OtherPreview, PreviewContainer } from './RegistStyled';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { storeImage } from '../../redux/modules/Post';
+import { useNavigate } from 'react-router-dom';
+import { Popup } from '../detail/detailStyle';
 
+function ImageBlock({image, id}) {
+    const [imageURL, setImageURL] = useState([]);
 
-function ImageBlock() {
+    useEffect(()=>{
+        if(image){
+            setImageURL(image);
+        }
+       return () => {
+        setImageURL([]);
+       } 
+    },[id])
+
     const dispatch = useDispatch();
-    const [imageURL, setImageURL] = useState([])
-
+    // if(imageURL === undefined){
+    //     return(
+    //         <Popup>
+    //             <img src='/images/Village.png' style={{width:'300px'}}/>
+    //             Please enter your post again.
+    //         </Popup>
+    //     )
+    // }
     const onImageChangeHandler = async(event) => {
         event.preventDefault();
         const imageLists = event.target.files
-
+        console.log(imageLists)
         //이미지 미리보기
         const ImageURLLists = []
         for (let i = 0; i < imageLists.length; i++) {
             const currentImageUrl = URL.createObjectURL(imageLists[i]);
+            console.log(currentImageUrl)
             ImageURLLists.push(currentImageUrl)
         }
         setImageURL(ImageURLLists)
@@ -28,11 +47,16 @@ function ImageBlock() {
             console.log(value);
         }
         dispatch(storeImage(Object.values(imageLists)))
-        }
+    }
   return (
     <div>
         <label htmlFor='file'>
-            <FirstPreview src = {imageURL[0]} alt=""/>
+            <FirstPreview src = {imageURL[0]} alt="여기를 클릭해서 " />
+            <div style={{position:'absolute',top :'48%', left : '25%', fontSize:'30px', display:'flex', flexDirection:'column', alignItems:'center'}}>
+                <span>'여기'를 클릭해서</span>
+                <span>물품 이미지를 첨부해주세요</span>
+
+            </div>
         </label>
         <PreviewContainer>
             <OtherPreview src = {imageURL[1]} alt=""/>

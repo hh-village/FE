@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import axios from 'axios'
 import { nanoid } from 'nanoid'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import SlideBtn from '../components/detail/SlideBtn'
@@ -11,15 +11,19 @@ import { getCookie } from '../shared/Cookies'
 import ConsumerRegister from '../components/detail/ConsumerRegister'
 import RegisterReserve from '../components/detail/RegisterReserve'
 import { ButtonWrapper, DetailBtn, DetailTitle, LocationButton, NotifiyIcon, PriceTitle, ReserveDesc, Title, UnderImage } from '../components/detail/detailStyle'
+import { useDispatch } from 'react-redux'
+import { DescInput } from '../components/regist/RegistStyled'
+import ImageBlock from '../components/regist/ImageBlock'
 
 function Detail() {
   const { id } = useParams();
   const [count, setCount] = useState(1);
   const [zzim, setZzim] = useState();
+  const dispatch = useDispatch();
   const token = getCookie("token");
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-
+  
   const { data , isLoading, refetch} = useQuery({
     queryKey: ["GET_DETAIL"],
     queryFn: async () => {
@@ -62,18 +66,16 @@ function Detail() {
       navigate('/search')
     }
   })
-
-  const onClickMap = () => {
-    alert('해당 기능은 준비 중입니다')
-  }
-
-
+  
   if(isLoading){
     return(
       <div>
         안녕하세요!
       </div>
     )
+  }
+  const onClickMap = () => {
+    alert('해당 기능은 준비 중입니다')
   }
 
   const styleOption = `
@@ -93,14 +95,18 @@ function Detail() {
         <Div fDirection="row" padding="5rem 0 2rem 0" jc="space-between" width="100%" height="100%" gap="3rem">
             <Div width="100%" gap="1rem">
               <DetailTitle>제품 상세보기</DetailTitle>
+              {data.checkOwner ? (
+                <ImageBlock image = {data.imageList} id = {data.id}/>
+              ) : (
               <Div position="relative" width="578px" height="508px" overflow = 'hidden' style={{marginTop:'15px'}}>
                 <SlideBtn count={count} setFunc={setCount} total={data?.imageList.length}/>
                 <Slide etc={styleOption}>
                   {data?.imageList.map((imgs) => <Img src={imgs} alt={imgs} key={nanoid()}/>)}
                 </Slide>
-              </Div>
+              </Div>)}
               <Div>
-                <div>
+                {data.checkOwner || (
+                  <div>
                   <UnderImage>
                     <div style={{display:'flex', alignItems:'center' ,gap:'4px'}}>
                       <NotifiyIcon src='/images/check.png'/>
@@ -121,25 +127,24 @@ function Detail() {
                     <NotifiyIcon src='/images/map.png'/>
                     <span>{data?.location}</span>
                   </div>
-                  <div style={{position:"relative"}}>
-                    <img style = {{width :'578px', height :'116px' ,marginTop:'60px'}} src='/images/Rectangle 215.png' alt=''/>
-                    <LocationButton onClick={onClickMap}>
-                      <NotifiyIcon src='/images/location 1.png'/>
-                      내 근처에서 지도 찾기
-                    </LocationButton>
-                  </div>
-                  
                 </div>
-                
+                )}
+                <div style={{position:"relative"}}>
+                  <img style = {{width :'578px', height :'116px' ,marginTop:'45px'}} src='/images/Rectangle 215.png' alt=''/>
+                  <LocationButton onClick={onClickMap}>
+                    <NotifiyIcon src='/images/location 1.png'/>
+                    내 근처에서 지도 찾기
+                  </LocationButton>
+                </div>
               </Div>
             </Div>
             <div
-            style={{height:'790px', marginTop:'100px' ,border:'0.5px solid #D7D7D7'}}
+            style={{height:'770px', marginTop:'150px' ,border:'0.5px solid #D7D7D7'}}
             ></div>
             {/* 여기부터 오른쪽 */}
             <Div width="100%">
               <Div width="100%">
-                <Div fDirection="row" width="560px" alignItem="center" jc="space-between" style={{marginTop : '100px'}}>
+                <Div fDirection="row" width="560px" alignItem="center" jc="space-between" style={{marginTop : '130px'}}>
                   <Title>{data?.title}</Title>
                   <ZzimDiv onClick={()=>{mutate("")}}>
                     {!zzim
@@ -151,9 +156,20 @@ function Detail() {
                 </Div>
                 <PriceTitle> {data?.price}원 <span style ={{fontSize:'13px'}}>/ 1일 기준</span></PriceTitle>
               </Div>
-              <DescriptionDiv>
-                <span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Error quaerat sed laudantium ipsa suscipit sunt placeat, rem facilis alias ullam nobis doloribus sequi earum consequatur. Harum voluptate neque facilis eos? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quisquam voluptates numquam ipsa voluptas assumenda nam, quo distinctio dignissimos! Harum, quaerat. Fuga dolorem perferendis delectus sunt deleniti labore quibusdam, necessitatibus facere. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus, voluptatum architecto consectetur laudantium blanditiis harum maiores inventore dicta illum autem earum at deserunt atque quod enim pariatur tempora recusandae. Doloribus. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Atque quaerat odio temporibus totam libero non itaque et, accusamus asperiores culpa aliquid vel tempora enim mollitia fugiat in aut dolor dolore. Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi rerum tempore delectus, unde nesciunt asperiores, dolore et quibusdam blanditiis aliquam aspernatur temporibus sapiente illum quam consequuntur ea omnis nulla laudantium.</span>
-              </DescriptionDiv>
+              {data?.checkOwner ? (
+                <textarea style={{border:'1px dotted red'}}
+                placeholder={data.description}/>
+              ):(
+                <DescriptionDiv >
+                  {data.description}
+                </DescriptionDiv>
+              )}
+              {data?.checkOwner
+               && (<ButtonWrapper>
+                    <DetailBtn theme = {'modify'} onClick={()=>{}}>수정하기</DetailBtn>
+                    <DetailBtn theme = {'cancel'} onClick={()=>{DeletePost.mutate(id)}}>삭제하기</DetailBtn>
+                  </ButtonWrapper>)
+              }
               <Div fDirection="row" width="100%" gap="1rem" alignItem="center" style={{marginTop:'35px'}}>
                 <ReserveDesc>예약현황</ReserveDesc>
                 <span style={{display:'flex', alignItems:'center', gap:'5px'}}>
@@ -164,12 +180,6 @@ function Detail() {
               {data?.checkOwner
               ? <RegisterReserve reservationList = {data?.reservationList} id = {data?.id}/>
               :  <ConsumerRegister reservationList = {data?.reservationList} id = {data?.id}/>
-              }
-              {data?.checkOwner
-               && (<ButtonWrapper>
-                    <DetailBtn theme = {'modify'} onClick={()=>{}}>수정하기</DetailBtn>
-                    <DetailBtn theme = {'cancel'} onClick={()=>{DeletePost.mutate(id)}}>삭제하기</DetailBtn>
-                  </ButtonWrapper>)
               }
             </Div>
         </Div>

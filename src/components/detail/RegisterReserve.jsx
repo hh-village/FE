@@ -36,8 +36,8 @@ const RegisterReserve = (props) => {
                   <span>{item.nickname}</span>
                   <span>예약일 : {item.startDate} ~ {item.endDate}</span>
                 </Div>
-                <div style={{display:'flex', flexDirection:'column', gap :'12px'}}>
-                  <DropDown status = {item.status}/>
+                <div style={{display:'flex', flexDirection:'column', gap :'12px', marginRight : '12px'}}>
+                  <DropDown status = {item.status} id = {item.id}/>
                   <div>
                     <ChatBtn onClick={()=>onClickNavigate(item.nickname)}>채팅하기</ChatBtn>
                   </div>

@@ -1,10 +1,11 @@
 import { nanoid } from "@reduxjs/toolkit";
 import { Stomp } from "@stomp/stompjs";
-import { useEffect, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { useEffect, useRef, useState } from "react";
 import {  useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import SockJS from "sockjs-client";
-import { ChatBody, ChatInput, Chatting, MessageRoom, Room, RoomProfile, RoomTitle, TargetRoom } from "../components/chat/chatStyle";
+import { ChatBody, ChatInput, Chatting, ChatWholeBody, MessageRoom, MychatBubble, NickName, OtherchatBubble, Room, RoomProfile, RoomTitle, TargetRoom } from "../components/chat/chatStyle";
 import { FlexDiv, MaxWidthDiv } from "../components/global/globalStyle";
 import HeaderNav from "../components/global/HeaderNav";
 import { __getChatList } from "../redux/modules/Chat";
@@ -13,6 +14,8 @@ import { getCookie } from "../shared/Cookies";
 var stompClient = null;
 
 const Chat = () => {
+    const scrollRef = useRef();
+    const myNick = getCookie('nickname')
     const dispatch = useDispatch();
     const {id} = useParams();
     const [roomId, setRoomId] = useState(id);
@@ -28,12 +31,12 @@ const Chat = () => {
         const sockJS = new SockJS(`${process.env.REACT_APP_SERVER_URL}/ws`);
         stompClient = Stomp.over(function() {
             return sockJS;
-          });
+            });
         stompClient.connect({}, afterConnected,
             (err) => {
                 alert(err)
             })
-    }
+        }
 
     const afterConnected = async() => {
         const response =  await dispatch(__getChatList(roomId)).unwrap();
@@ -71,7 +74,7 @@ const Chat = () => {
             `/pub/chat/message`,
             {},
             JSON.stringify(userData)
-        )     
+        )
         setUserData((prev)=>(prev = {
             sender : '',
             roomId : '',
@@ -88,22 +91,18 @@ const Chat = () => {
         })
     }
 
-    const scrollToBottom = () => {
-		window.scrollTo(0, document.body.scrollHeight);
-	};
-
     useEffect(()=>{
         registUsers();
     },[roomId])
 
     useEffect(()=>{
-        scrollToBottom()
+        scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     },[chatList])
 
     return (
         <FlexDiv>
             <HeaderNav/>
-            <MaxWidthDiv>
+            <MaxWidthDiv fDirection ='row' jc = 'space-between'>
                 <MessageRoom>
                     <RoomTitle> 전체대화 </RoomTitle>
                     {roomList.map((item => {
@@ -112,7 +111,7 @@ const Chat = () => {
                             <>
                                 <TargetRoom key={nanoid()}>
                                     <RoomProfile src={item.profile}/>
-                                    {item.nickname}
+                                    <NickName>{item.nickname}</NickName>
                                 </TargetRoom>
                             </>
                             
@@ -122,31 +121,40 @@ const Chat = () => {
                                 <Room key={nanoid()}
                                 onClick = {() => onClickOtherChats(item.roomId)}>
                                     <RoomProfile src={item.profile}/>
-                                    {item.nickname}
+                                    <NickName>{item.nickname}</NickName>
                                 </Room>
                             </>
                             
                         ))
                     }))}
                 </MessageRoom>
-                <ChatBody>
-                    <Chatting>
-                        {chatList?.map((item)=>{
-                            return (
-                                <div key={nanoid()}>
-                                    {item.content}
-                                </div>
-                            )
-                        })}
-                    </Chatting>
+                <ChatWholeBody>
+                    <ChatBody ref = {scrollRef}>
+                            {chatList?.map((item)=>{
+                                return (
+                                    (myNick === item.sender ? (
+                                        (
+                                            <MychatBubble>{item.content}</MychatBubble>
+                                            
+                                        )
+                                    ) : (
+                                        <div key={nanoid()}
+                                        style={{display:"flex", justifyContent:'flex-end'}}>
+                                            <OtherchatBubble>{item.content}</OtherchatBubble>
+                                        </div>
+                                    )
+                                    )
+                                )     
+                            })}
+                    </ChatBody>
                     <form onSubmit={onSubmitHandler}>
                         <ChatInput 
+                        placeholder="메세지를 입력하세요"
                         onChange={chattingOnchange}
                         value = {userData.content}/>
                     </form>
-                </ChatBody>
+                </ChatWholeBody>
             </MaxWidthDiv>
-            
         </FlexDiv>
     )
 } 

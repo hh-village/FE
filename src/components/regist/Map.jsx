@@ -53,7 +53,7 @@ function Map() {
   
   return (
     <div>
-      <MapDiv style={{ width: '505px',height: '238px', marginLeft:'20px'}}>
+      <MapDiv style={{ width: '505px',height: '238px', marginLeft:'31px'}}>
         <NaverMap
           defaultCenter={new navermaps.LatLng(37.5816, 126.88839)}
           defaultZoom={15}
