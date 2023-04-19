@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 function LoginBtn() {
   return (
-    <Button bgColor='#03DAC6'>로그인</Button>
+    <Button color="white" bgColor='#644AFF'>로그인</Button>
   )
 }
 
@@ -13,6 +13,7 @@ const Button = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
+    color: ${({color}) => color ? color : 'black'};
     background-color: ${({bgColor}) => bgColor ? bgColor : 'white'};
     border: none;
     border-radius: 5px;

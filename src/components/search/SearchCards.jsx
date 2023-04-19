@@ -14,8 +14,8 @@ function SearchCards({data}) {
     },[])
 
     return (
-        <Div>
-            <span>새로 등록된 대여 물품을 확인해보세요!</span>
+        <Div marginTop="4rem">
+            <h2>내 근처에서 대여할 물품을 찾아보세요!</h2>
             <GridDiv width="100%" gridTC="repeat(4, 1fr)">
                 {data?.map((item) => 
                     <Cards

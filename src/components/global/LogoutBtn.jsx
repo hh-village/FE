@@ -14,7 +14,7 @@ function LogoutBtn() {
     window.location.reload();
   }
   return (
-    <Button bgColor='#03DAC6' onClick={kakaoLogout}>로그아웃</Button>
+    <Button color='white' bgColor='#644AFF' onClick={kakaoLogout}>로그아웃</Button>
   )
 }
 
@@ -24,6 +24,7 @@ const Button = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
+    color: ${({color}) => color ? color : 'black'};
     background-color: ${({bgColor}) => bgColor ? bgColor : 'white'};
     border: none;
     border-radius: 5px;

@@ -39,9 +39,6 @@ function Search() {
           setSearchData={setSearchData}
           rem={8}
         />
-        <div style={{marginTop:"3rem"}}>
-          <h2>내 근처에서 대여할 물품을 찾아보세요!</h2>
-        </div>
         <SearchCards data={data}/>
       </MaxWidthDiv>
     </FlexDiv>
