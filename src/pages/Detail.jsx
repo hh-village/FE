@@ -75,8 +75,6 @@ function Detail() {
       </div>
     )
   }
- 
-  console.log('rs', data.reservationList);
 
   const styleOption = `
     display: flex;

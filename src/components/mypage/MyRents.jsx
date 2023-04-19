@@ -26,7 +26,7 @@ function MyRents({data}) {
             case "accepted" :
               return <StatusDiv bgColor="purple">대여중</StatusDiv>
             case "returned" :
-              return <StatusDiv>반납완료</StatusDiv>
+              return <StatusDiv color='#767676'>반납완료</StatusDiv>
             case "rejected" :
               return <StatusDiv>승인거절</StatusDiv>
             default: 

@@ -9,6 +9,7 @@ import VerticalCard from '../components/home/VerticalCard'
 import HorizonCard from '../components/home/HorizonCard'
 import HomeImgSlide from '../components/home/HomeImgSlide'
 import EventBanner from '../components/home/EventBanner'
+import Footer from '../components/global/Footer'
 
 function Home() {
   
@@ -44,12 +45,12 @@ function Home() {
           />
 
           {/* components/home */}
-          <DealList data={data}/>
+          {/* <DealList data={data}/> */}
         </Div>
-
+      </MaxWidthDiv>
         {/* components/home */}
         <HomeImgSlide />
-
+      <MaxWidthDiv>
         {/* components/home */}
         <VerticalCard data={data}/>
 
@@ -59,6 +60,7 @@ function Home() {
         {/* components/home */}
         <HorizonCard data={data}/>
       </MaxWidthDiv>
+      <Footer />
     </FlexDiv>
   )
 }

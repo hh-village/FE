@@ -2,7 +2,6 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import React from 'react'
 import { useState } from 'react'
-import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { FlexDiv, MaxWidthDiv, Div } from '../components/global/globalStyle'
@@ -88,13 +87,12 @@ function MyPage() {
         </div>
         <Div fDirection="row" marginTop="1rem" jc="space-between" alignItem="center" width="100%" bgColor="#e6e6e6">
           <Div fDirection="row" bgColor="none" alignItem="center" gap="1rem" padding="1rem">
-            <img src="/images/appLogo.png" alt="userProfileImg" style={{width:"200px", height: "200px"}}/>
-            <Div gap="1rem" bgColor="#e6e6e6">
-              <Div fDirection="row" bgColor="#e6e6e6" gap="1rem">
+            <img src={data?.profile} alt="userProfileImg" style={{width:"200px", height: "200px"}}/>
+            <Div fDirection="row" gap="1rem" bgColor="#e6e6e6">
+              <Div bgColor="#e6e6e6" gap="1rem">
                 <span>닉네임</span>
               </Div>
               <Div fDirection="row" bgColor="#e6e6e6" gap="1rem">
-                <Div bgColor="none" gap="0.5rem">
                   {changeState
                     ? <input type="text" placeholder={data?.nickname} onChange={changeInputHandler}/>
                     : <span>{data?.nickname}</span>
@@ -107,7 +105,6 @@ function MyPage() {
                       </>
                     : <button onClick={changeNicknameHandler}>변경하기</button>
                   }
-                </Div>
               </Div>
             </Div>
           </Div>
