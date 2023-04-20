@@ -6,11 +6,11 @@ import { Div, MaxWidthDiv } from '../components/global/globalStyle'
 import HeaderNav from '../components/global/HeaderNav'
 import useInput from '../hooks/useInput'
 import { getCookie } from '../shared/Cookies'
-import { DescInput, PriceDiv, PriceInput, PriceSpan, RegistTitle, TitleInput } from '../components/regist/RegistStyled'
+import { DescInput, PriceDiv, PriceInput, PriceSpan, RegistBtn, RegistTitle, TitleInput } from '../components/regist/RegistStyled'
 import NaverMap from '../components/regist/Map'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { storeImage } from '../redux/modules/Post'
+import Footer from '../components/global/Footer'
 
 function Regist() {
   const dispatch = useDispatch();
@@ -52,8 +52,6 @@ function Regist() {
       location:location
     })
   }
- 
-  console.log(image)
 
   return (
     <>
@@ -66,9 +64,10 @@ function Regist() {
           <RegistTitle>대여물품 등록</RegistTitle>
           <TitleInput
             name='title'
-            placeholder='제목 : 카메라 대여하고 싶으신 분 찾아요!'
+            placeholder='제목 : 상품명이 드러나도록 제목을 적어주세요!'
             value={values.title}
             onChange={onChange}
+            maxLength={20}
           />
           <ImageBlock setImageURL = {setImageURL} imageURL = {imageURL}/>
         </Div>
@@ -77,32 +76,29 @@ function Regist() {
         ></div>
         <Div>
           <form onSubmit={onSubmitHandler}>
+            <PriceDiv>
+              <PriceSpan>가격</PriceSpan>
+              <PriceInput
+                  type={'number'}
+                  name='price'
+                  placeholder='가격을 책정해주세요'
+                  value={values.price}
+                  onChange={onChange}
+              />
+            </PriceDiv>
           <DescInput
             name='description'
-            placeholder='상세설명 :기종, 물품, 구매일자, 물품컨디션'
+            placeholder='해당 물품의 기종, 상태, 구매일자 등 상세하게 적어주세요!'
             value={values.description}
             onChange={onChange}
           />
-          <PriceDiv>
-            <PriceSpan>가격</PriceSpan>
-            <PriceInput
-                type={'number'}
-                name='price'
-                placeholder='가격을 책정해주세요'
-                value={values.price}
-                onChange={onChange}
-            />
-          </PriceDiv>
+          
           <NaverMap/>
-          <button type='button'
-          onClick={()=>{
-            setImageURL([]);
-          }}
-          >사진 지우기</button>
-          <button style={{marginTop:'10px'}}> 등록하기 </button>
+          <RegistBtn> 등록하기 </RegistBtn>
           </form>
         </Div>
       </MaxWidthDiv>
+      <Footer rem={6}/>
     </>
   )
 }

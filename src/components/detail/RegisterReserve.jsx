@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Div } from "../global/globalStyle";
 import DropDown from "./DropDown";
 import { ChatBtn, SelectOption, SelectWrapper } from "./detailStyle"
+import { nanoid } from "@reduxjs/toolkit";
 
 const RegisterReserve = (props) => {
     const navigate = useNavigate();
@@ -18,8 +19,6 @@ const RegisterReserve = (props) => {
       }
     )
 
-    console.log(props);
-
     const onClickNavigate = (nickname) => {
       getRoom.mutate(nickname)
     }
@@ -29,8 +28,8 @@ const RegisterReserve = (props) => {
           <SelectWrapper>
           {props.reservationList.map((item)=>{
             return(
-              <SelectOption>
-                {/* <ReserveSelect id = {item.id}/> */}
+              <SelectOption 
+              key={nanoid()}>
                <img src={item.profile} alt="" style={{width:'75px', height:'75px', borderRadius:'40px', border : '1px solid gray', marginLeft:'20px'}}/>
                 <Div gap="0.5rem">
                   <span>{item.nickname}</span>

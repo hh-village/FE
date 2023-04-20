@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import axios from 'axios'
 import { nanoid } from 'nanoid'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import SlideBtn from '../components/detail/SlideBtn'
@@ -10,10 +10,11 @@ import HeaderNav from '../components/global/HeaderNav'
 import { getCookie } from '../shared/Cookies'
 import ConsumerRegister from '../components/detail/ConsumerRegister'
 import RegisterReserve from '../components/detail/RegisterReserve'
-import { ButtonWrapper, DetailBtn, DetailTitle, LocationButton, NotifiyIcon, PriceTitle, ReserveDesc, Title, UnderImage } from '../components/detail/detailStyle'
-import { useDispatch } from 'react-redux'
-import { DescInput } from '../components/regist/RegistStyled'
+import { ButtonWrapper, DetailBtn, DetailTitle, LocationButton, NotifiyIcon, PriceTitle, Registertext, ReserveDesc, Title, UnderImage } from '../components/detail/detailStyle'
+import { useDispatch, useSelector } from 'react-redux'
 import ImageBlock from '../components/regist/ImageBlock'
+import useInput from '../hooks/useInput'
+import Footer from '../components/global/Footer'
 
 function Detail() {
   const { id } = useParams();
@@ -23,11 +24,17 @@ function Detail() {
   const token = getCookie("token");
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const {image} = useSelector(state => state.Post)
+  const {values,onChange} = useInput({
+    description : '',
+    image : [],
+  });
+
+  
   
   const { data , isLoading, refetch} = useQuery({
     queryKey: ["GET_DETAIL"],
     queryFn: async () => {
-      const token = getCookie("token");
       const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/products/${parseInt(id)}`,
       {
         headers: {
@@ -39,6 +46,9 @@ function Detail() {
     }
   })
 
+  if(!token){
+      navigate('/login')
+    }
   const { mutate } = useMutation({
     mutationFn: async (payload) => {
       return await axios.post(`${process.env.REACT_APP_SERVER_URL}/products/${id}/zzim`, payload, {
@@ -62,8 +72,27 @@ function Detail() {
         }
       })
     },
-    onSuccess : () => {
+    onSuccess : (response) => {
+      window.alert(response.data.message)
       navigate('/search')
+    }
+  })
+
+  const UpdatePost = useMutation({
+    mutationKey : ['UpdatePost'],
+    mutationFn : async(payload) => {
+      return await axios.patch(`${process.env.REACT_APP_SERVER_URL}/products/${data.id}`,payload,{
+        headers : {
+          Authorization : `Bearer ${token}`,
+          "Content-Type": "multipart/form-data"
+        }
+      })
+    },
+    onSuccess:(response)=>{
+      window.alert(response.data.message)
+    },
+    onError : (error)=> {
+      alert('수정내역을 모두 작성해주세요.')
     }
   })
   
@@ -94,8 +123,14 @@ function Detail() {
       <MaxWidthDiv>
         <Div fDirection="row" padding="5rem 0 2rem 0" jc="space-between" width="100%" height="100%" gap="3rem">
             <Div width="100%" gap="1rem">
-              <DetailTitle>제품 상세보기</DetailTitle>
-              {data.checkOwner ? (
+              {data?.checkOwner
+              ? (
+                <DetailTitle> 내 물품 예약관리 / 내 글 수정</DetailTitle>
+              ) : (
+                <DetailTitle>제품 상세보기</DetailTitle>
+                )}
+              
+              {data?.checkOwner ? (
                 <ImageBlock image = {data.imageList} id = {data.id}/>
               ) : (
               <Div position="relative" width="578px" height="508px" overflow = 'hidden' style={{marginTop:'15px'}}>
@@ -105,14 +140,13 @@ function Detail() {
                 </Slide>
               </Div>)}
               <Div>
-                {data.checkOwner || (
+                {data?.checkOwner || (
                   <div>
                   <UnderImage>
                     <div style={{display:'flex', alignItems:'center' ,gap:'4px'}}>
                       <NotifiyIcon src='/images/check.png'/>
                       <span>대여완료 {data?.reservationList.filter((item)=> item.status === 'returned').length}명 </span>
                     </div>
-                      
                     <div style={{display:'flex', alignItems:'center' ,gap:'4px'}}>
                       <NotifiyIcon src='/images/favorite 1.png'/>
                       관심 {data?.zzimCount}명
@@ -130,7 +164,7 @@ function Detail() {
                 </div>
                 )}
                 <div style={{position:"relative"}}>
-                  <img style = {{width :'578px', height :'116px' ,marginTop:'45px'}} src='/images/Rectangle 215.png' alt=''/>
+                  <img style = {{width :'590px', height :'116px' ,marginTop:'25px'}} src='/images/Rectangle 215.png' alt=''/>
                   <LocationButton onClick={onClickMap}>
                     <NotifiyIcon src='/images/location 1.png'/>
                     내 근처에서 지도 찾기
@@ -139,7 +173,7 @@ function Detail() {
               </Div>
             </Div>
             <div
-            style={{height:'770px', marginTop:'150px' ,border:'0.5px solid #D7D7D7'}}
+            style={{height:'800px', marginTop:'140px' ,border:'0.5px solid #D7D7D7'}}
             ></div>
             {/* 여기부터 오른쪽 */}
             <Div width="100%">
@@ -157,16 +191,28 @@ function Detail() {
                 <PriceTitle> {data?.price}원 <span style ={{fontSize:'13px'}}>/ 1일 기준</span></PriceTitle>
               </Div>
               {data?.checkOwner ? (
-                <textarea style={{border:'1px dotted red'}}
-                placeholder={data.description}/>
+                <Registertext
+                  name='description'
+                  onChange={onChange}
+                  placeholder={data?.description}
+                  defaultValue={values.description}
+                  >
+                </Registertext>
               ):(
                 <DescriptionDiv >
-                  {data.description}
+                  {data?.description}
                 </DescriptionDiv>
               )}
               {data?.checkOwner
                && (<ButtonWrapper>
-                    <DetailBtn theme = {'modify'} onClick={()=>{}}>수정하기</DetailBtn>
+                    <DetailBtn theme = {'modify'} onClick={()=>{ UpdatePost.mutate({
+                      description : values.description,
+                      images : image,
+                      location : data?.location,
+                      title:  data?.title,
+                      price : data?.price
+
+                    })}}>수정하기</DetailBtn>
                     <DetailBtn theme = {'cancel'} onClick={()=>{DeletePost.mutate(id)}}>삭제하기</DetailBtn>
                   </ButtonWrapper>)
               }
@@ -179,11 +225,12 @@ function Detail() {
               </Div>
               {data?.checkOwner
               ? <RegisterReserve reservationList = {data?.reservationList} id = {data?.id}/>
-              :  <ConsumerRegister reservationList = {data?.reservationList} id = {data?.id}/>
+              : <ConsumerRegister reservationList = {data?.reservationList} id = {data?.id}/>
               }
             </Div>
         </Div>
       </MaxWidthDiv>
+      <Footer rem={6}/>
     </FlexDiv>
   )
 }
@@ -214,7 +261,6 @@ const DescriptionDiv = styled.div`
   width: 530px;
   height : 196px;
   overflow : auto;
-  color : #E1E1E1;
   border : 1px solid #E1E1E1;
   border-radius : 10px;
   padding : 16px;
