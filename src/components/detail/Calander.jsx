@@ -44,11 +44,14 @@ function Calander({ChatwithOwner,reservePost, id}){
             
             <Button 
             bgColor = 'gray'
-            onClick={()=>ChatwithOwner.mutate(nickname)}>
+            onClick={()=>ChatwithOwner.mutate(nickname)}
+            style={{width:"6rem", height:"3rem"}}
+            >
                 채팅하기
             </Button>
             <Button 
             bgColor = 'gray'
+            style={{width:"6rem", height:"3rem"}}
             onClick={()=>reservePost.mutate({
                 startDate : sDate,
                 endDate : eDate

@@ -61,13 +61,13 @@ const ConsumerRegister = (props) => {
         }
     })
     return (
-        <div>
+        <Div width="100%" gap="2rem">
             <SelectWrapper>
                 {props.reservationList?.map((item)=>{
                     return(
                     <SelectOption>
                         <StatusBlock status = {item.status}/>
-                        <Div fDirection="row" gap="0.5rem">
+                        <Div gap="0.5rem">
                             <span>예약자 : {item.nickname}</span>
                             <span>예약일 : {item.startDate} ~ {item.endDate}</span>
                         </Div>
@@ -81,7 +81,7 @@ const ConsumerRegister = (props) => {
                 })}
             </SelectWrapper>
             <Calander ChatwithOwner = {ChatwithOwner} reservePost = {reservePost}/>
-    </div>            
+        </Div>            
     )
 }
 

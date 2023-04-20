@@ -121,75 +121,84 @@ function Detail() {
     <FlexDiv boxShadow="none">
       <HeaderNav />
       <MaxWidthDiv>
-        <Div fDirection="row" padding="5rem 0 2rem 0" jc="space-between" width="100%" height="100%" gap="3rem">
-            <Div width="100%" gap="1rem">
-              {data?.checkOwner
-              ? (
-                <DetailTitle> 내 물품 예약관리 / 내 글 수정</DetailTitle>
-              ) : (
-                <DetailTitle>제품 상세보기</DetailTitle>
-                )}
-              
-              {data?.checkOwner ? (
-                <ImageBlock image = {data.imageList} id = {data.id}/>
-              ) : (
-              <Div position="relative" width="578px" height="508px" overflow = 'hidden' style={{marginTop:'15px'}}>
+        <Div marginTop="10rem">
+          {data?.checkOwner
+            ? (
+              <DetailTitle>내 물품 예약관리 / 내 글 수정</DetailTitle>
+            ) : (
+              <DetailTitle>제품 상세보기</DetailTitle>
+          )}
+        </Div>
+        <Div width="100%" marginTop="2rem" fDirection="row" jc="space-between" gap="2rem">
+          {/* 왼쪽 div 영역*/}
+          <Div width="100%">
+            <Div width="100%">
+            {data?.checkOwner
+            ? <ImageBlock image={data.imageList} id={data.id}/>
+            : <Div position="relative" width="567px" height="508px" overflow = 'hidden' style={{marginTop:'15px'}}>
                 <SlideBtn count={count} setFunc={setCount} total={data?.imageList.length}/>
                 <Slide etc={styleOption}>
                   {data?.imageList.map((imgs) => <Img src={imgs} alt={imgs} key={nanoid()}/>)}
                 </Slide>
-              </Div>)}
-              <Div>
-                {data?.checkOwner || (
-                  <div>
-                  <UnderImage>
-                    <div style={{display:'flex', alignItems:'center' ,gap:'4px'}}>
-                      <NotifiyIcon src='/images/check.png'/>
-                      <span>대여완료 {data?.reservationList.filter((item)=> item.status === 'returned').length}명 </span>
-                    </div>
-                    <div style={{display:'flex', alignItems:'center' ,gap:'4px'}}>
-                      <NotifiyIcon src='/images/favorite 1.png'/>
-                      관심 {data?.zzimCount}명
-                    </div>
-                      
-                    <div style={{display:'flex', alignItems:'center' ,gap:'4px'}}>
-                      <NotifiyIcon src='/images/eye 1.png'/>
-                      조회 0회
-                    </div>
-                  </UnderImage>
-                  <div style={{display:'flex', justifyContent:'center' ,alignItems:'center',gap:'4px'}}>
-                    <NotifiyIcon src='/images/map.png'/>
-                    <span>{data?.location}</span>
-                  </div>
-                </div>
-                )}
-                <div style={{position:"relative"}}>
-                  <img style = {{width :'590px', height :'116px' ,marginTop:'25px'}} src='/images/Rectangle 215.png' alt=''/>
-                  <LocationButton onClick={onClickMap}>
-                    <NotifiyIcon src='/images/location 1.png'/>
-                    내 근처에서 지도 찾기
-                  </LocationButton>
-                </div>
               </Div>
+            }
             </Div>
-            <div
-            style={{height:'800px', marginTop:'140px' ,border:'0.5px solid #D7D7D7'}}
-            ></div>
-            {/* 여기부터 오른쪽 */}
+            <Div>
+            {data?.checkOwner || (
+              <div>
+                <UnderImage>
+                  <div style={{display:'flex', alignItems:'center',gap:'4px'}}>
+                    <NotifiyIcon src='/images/check.png'/>
+                    <span>대여완료 {data?.reservationList.filter((item)=> item.status === 'returned').length}명 </span>
+                  </div>
+                  <div style={{display:'flex', alignItems:'center', gap:'4px'}}>
+                    <NotifiyIcon src='/images/favorite 1.png'/>
+                    관심 {data?.zzimCount}명
+                  </div>
+                    
+                  <div style={{display:'flex', alignItems:'center', gap:'4px'}}>
+                    <NotifiyIcon src='/images/eye 1.png'/>
+                    조회 0회
+                  </div>
+                </UnderImage>
+                <div style={{display:'flex', justifyContent:'center', alignItems:'center', gap:'4px'}}>
+                  <NotifiyIcon src='/images/map.png'/>
+                  <span>{data?.location}</span>
+                </div>
+              </div>
+            )}
+            </Div>
+            <Div width="100%" marginTop="2rem" style={{position:"relative"}}>
+              <img style = {{width :'567px', height :'105px'}} src='/images/mapBG.png' alt=''/>
+              <LocationButton onClick={onClickMap}>
+                <NotifiyIcon src='/images/location 1.png'/>
+                내 근처에서 지도 찾기
+              </LocationButton>
+            </Div>
+          </Div>
+
+          {/* 가운데 구분선 */}
+          {data?.checkOwner
+          ? <div style={{height:'755px', border:'0.5px solid #D7D7D7'}}></div>
+          : <div style={{height:'740px', border:'0.5px solid #D7D7D7'}}></div>
+          }
+
+          {/* 오른쪽 div 영역 */}
+          <Div width="100%" gap="2rem" style={{boxSizing:"border-box"}}>
             <Div width="100%">
-              <Div width="100%">
-                <Div fDirection="row" width="560px" alignItem="center" jc="space-between" style={{marginTop : '130px'}}>
-                  <Title>{data?.title}</Title>
-                  <ZzimDiv onClick={()=>{mutate("")}}>
-                    {!zzim
-                    ? <img src="/images/eHeart.png" alt="" style={{width:"28px", height:"28px"}}/>
-                    : <img src="/images/fHeart.png" alt="" style={{width:"28px", height:"28px"}}/>
-                    }
-                    <span style={{color:'#644AFF'}}>{data?.zzimCount}</span>
-                  </ZzimDiv>
-                </Div>
-                <PriceTitle> {data?.price}원 <span style ={{fontSize:'13px'}}>/ 1일 기준</span></PriceTitle>
+              <Div fDirection="row" width="100%" alignItem="center" jc="space-between">
+                <Title>{data?.title}</Title>
+                <ZzimDiv onClick={()=>{mutate("")}}>
+                  {!zzim
+                  ? <img src="/images/eHeart.png" alt="" style={{width:"28px", height:"28px"}}/>
+                  : <img src="/images/fHeart.png" alt="" style={{width:"28px", height:"28px"}}/>
+                  }
+                  <span style={{color:'#644AFF'}}>{data?.zzimCount}</span>
+                </ZzimDiv>
               </Div>
+              <PriceTitle> {data?.price}원 <span style ={{fontSize:'13px'}}>/ 1일 기준</span></PriceTitle>
+            </Div>
+            <Div width="100%">
               {data?.checkOwner ? (
                 <Registertext
                   name='description'
@@ -199,12 +208,14 @@ function Detail() {
                   >
                 </Registertext>
               ):(
-                <DescriptionDiv >
+                <DescriptionDiv>
                   {data?.description}
                 </DescriptionDiv>
               )}
+            </Div>
+            <Div width="100%" gap="1rem">
               {data?.checkOwner
-               && (<ButtonWrapper>
+                && (<ButtonWrapper>
                     <DetailBtn theme = {'modify'} onClick={()=>{ UpdatePost.mutate({
                       description : values.description,
                       images : image,
@@ -216,18 +227,21 @@ function Detail() {
                     <DetailBtn theme = {'cancel'} onClick={()=>{DeletePost.mutate(id)}}>삭제하기</DetailBtn>
                   </ButtonWrapper>)
               }
-              <Div fDirection="row" width="100%" gap="1rem" alignItem="center" style={{marginTop:'35px'}}>
+              <Div marginTop="2rem" fDirection="row" width="100%" gap="1rem" alignItem="center">
                 <ReserveDesc>예약현황</ReserveDesc>
                 <span style={{display:'flex', alignItems:'center', gap:'5px'}}>
                   <NotifiyIcon src='/images/notification.png'/>
                   예약대기 {data?.reservationList.filter((item)=> item.status == 'waiting').length}명
                 </span>
               </Div>
+              <Div width="100%">
               {data?.checkOwner
               ? <RegisterReserve reservationList = {data?.reservationList} id = {data?.id}/>
               : <ConsumerRegister reservationList = {data?.reservationList} id = {data?.id}/>
               }
+              </Div>
             </Div>
+          </Div>
         </Div>
       </MaxWidthDiv>
       <Footer rem={6}/>
@@ -247,8 +261,6 @@ const ZzimDiv = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  gap: 0.11px;
-  margin-top : 15px;
 `
 
 const Img = styled.img`
@@ -257,12 +269,12 @@ const Img = styled.img`
 `
 
 const DescriptionDiv = styled.div`
-  margin-Top : 27px;
-  width: 530px;
+  width: 567px;
   height : 196px;
   overflow : auto;
   border : 1px solid #E1E1E1;
   border-radius : 10px;
+  box-sizing: border-box;
   padding : 16px;
   &::-webkit-scrollbar{
     display: none;

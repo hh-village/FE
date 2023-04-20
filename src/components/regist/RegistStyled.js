@@ -15,30 +15,35 @@ export const TitleInput = styled.input`
 `
 export const FirstPreview = styled.div`
     position: relative;
-    margin: 0 0 10px 0;
-    width: 585px;
-    height: 499px; 
-    border: 2px dotted gray;
+    width: 567px;
+    height: 500px; 
+    border: 1px dotted gray;
     border-radius : 10px;
     background: #C4C4C4;
+    overflow: hidden;
 `
 export const OtherPreview = styled.img`
-    border: 2px dotted gray;
+    border: 1px dotted gray;
     border-radius : 10px;
-    height: 127px;
-    width: 127px;
+    height: 100px;
+    width: 100%;
+    overflow: hidden;
     ${({theme})=>{
         switch(theme){
             case 'primary':
                 return css`
                     background: #C4C4C4;
                 `
+            default : 
+                return
         }
     }}
 `
 export const PreviewContainer = styled.div`
+    width: 100%;
     display: flex;
-    gap: 22px;
+    justify-content: space-between;
+    gap: 1rem;
 `
 export const DescInput = styled.textarea`
     height: 200px;
