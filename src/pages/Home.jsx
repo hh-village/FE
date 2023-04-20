@@ -60,6 +60,8 @@ function Home() {
         {/* components/home */}
         <HorizonCard data={data}/>
       </MaxWidthDiv>
+
+      {/* components/global */}
       <Footer rem={6}/>
     </FlexDiv>
   )

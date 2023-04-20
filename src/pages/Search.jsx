@@ -12,6 +12,9 @@ function Search() {
     productName: "",
     location: ""
   });
+
+  console.log(searchData);
+
   const { data, refetch } = useQuery({
     queryKey: ["GET_PRODUCTS"],
     queryFn: async () => {
@@ -26,15 +29,23 @@ function Search() {
 
   return (
     <FlexDiv boxShadow="none">
+
+      {/* components/global */}
       <HeaderNav />
       <MaxWidthDiv>
+        
+        {/* components/global */}
         <SearchInput
           searchData={searchData}
           setSearchData={setSearchData}
           rem={8}
         />
+
+        {/* components/search */}
         <SearchCards data={data}/>
       </MaxWidthDiv>
+
+      {/* components/global */}
       <Footer rem={6}/>
     </FlexDiv>
   )

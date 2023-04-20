@@ -9,8 +9,8 @@ import { setCookie } from '../shared/Cookies'
 
 function Login() {
   const REST_API_KEY = 'e5604a9bedc4cead4432fb92d94cd0bb';
-  const REDIRECT_URI = 'http://localhost:3000/oauth/social/callback';
-  // const REDIRECT_URI = 'http://team3-village.s3-website.ap-northeast-2.amazonaws.com/oauth/social/callback';
+  // const REDIRECT_URI = 'http://localhost:3000/oauth/social/callback';
+  const REDIRECT_URI = 'http://team3-village.s3-website.ap-northeast-2.amazonaws.com/oauth/social/callback';
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   const navi = useNavigate();
 
@@ -37,10 +37,10 @@ function Login() {
         <LikeBtnDiv bgColor="#FEE500" color='black' onClick={kakaoLogin}>
           <span>카카오 로그인</span>
         </LikeBtnDiv>
-        <LikeBtnDiv bgColor="#03C75A">
+        {/* <LikeBtnDiv bgColor="#03C75A">
           <NaverBtn />
-        </LikeBtnDiv>
-        <LikeBtnDiv color='black' onClick={()=>{navi("/intro")}}>
+        </LikeBtnDiv> */}
+        <LikeBtnDiv color='black' bgColor="#e6e6e6" onClick={()=>{navi("/")}}>
           <span>이전으로</span>
         </LikeBtnDiv>
       </MaxWidthDiv>

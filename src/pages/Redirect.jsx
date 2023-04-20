@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { setCookie } from '../shared/Cookies';
 import jwtDecode from 'jwt-decode'

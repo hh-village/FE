@@ -38,7 +38,7 @@ function HeaderNav() {
           <Div fDirection="row" gap="2rem">
             <img src="/images/Village.png" alt="mainLogo" style={{width:"8rem", cursor:'pointer'}} onClick={()=>{navi("/")}} />
             <Span style={{marginTop: "auto", marginBottom: "auto"}} onClick={()=>{navi("/search")}}>전체상품조회</Span>
-            <Span style={{marginTop: "auto", marginBottom: "auto"}} onClick={()=>{navi("/regist")}}>물품등록-누른 후 새로고침 필요</Span>
+            <Span style={{marginTop: "auto", marginBottom: "auto"}} onClick={()=>{navi("/regist")}}>물품등록(수정중)</Span>
           </Div>
           <Div fDirection="row">
             {location.pathname === "/login"
@@ -48,7 +48,7 @@ function HeaderNav() {
                 ? <Div jc="center" alignItem="center" gap="1rem">
                     <LogoutBtn />
                   </Div>
-                : <Div fDirection="row" jc="center" alignItem="center" gap="40px">
+                : <Div fDirection="row" jc="center" alignItem="center" gap="2rem">
                     <ChatBtn onClick={()=>{onNavigateChat.mutate()}}> 
                       <NotifiyIcon src='/images/chat 1.png'/>
                       빌리지 채팅 
