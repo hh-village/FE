@@ -30,7 +30,7 @@ function SearchCards({data}) {
                             ? <Hot>인기대여</Hot>
                             : null
                             }
-                            <CardImg src={item?.image} alt="" style={{width:"100%", height:"100%", objectFit: "contain"}}/>
+                            <CardImg src={item?.image} alt="" style={{width:"100%", height:"100%", objectFit: "cover"}}/>
                         </Div>
                         <Div width="100%">
                             <Div fDirection="row" width="100%" jc="space-between" margin="0.5rem 0 0 0">
@@ -66,7 +66,6 @@ const Cards = styled.div`
   border-radius: 5px;
   overflow: hidden;
   gap: 10px;
-  border: 1px solid black;
   &:hover {
     cursor: pointer;
     box-shadow: 1px 1px 5px rgb(0, 0, 0, 0.5);
