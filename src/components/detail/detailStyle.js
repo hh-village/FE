@@ -1,18 +1,21 @@
 import styled, { css } from "styled-components";
 
 export const SelectWrapper = styled.div`
-    margin-top:12px;
-    width: 570px;
+    width: 567px;
     height: 15rem;
     overflow: auto;
+    border: 1px solid #e6e6e6;
+    box-sizing: border-box;
+    border-radius: 10px;
     &::-webkit-scrollbar {
-        background: white;
-        width: 6px;
+        display: none;
+        /* background: white;
+        width: 6px; */
     }
-    &::-webkit-scrollbar-thumb {
+    /* &::-webkit-scrollbar-thumb {
         background: #dbdbdb;
         border-radius: 10px;
-    }
+    } */
 `
 export const Popup = styled.div`
     position: fixed;
@@ -33,13 +36,14 @@ export const Popup = styled.div`
     gap : 40px;
 `
 export const SelectOption = styled.div`
-    height: 137px;
+    height: 100px;
     width: 100%;
     display: flex;
+    padding: 0 1rem 0 1rem;
+    box-sizing: border-box;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #DBDBDB;
-    gap: 1rem;
 `
 export const ReservationDateClick = styled.div`
     width: 20rem;
@@ -55,11 +59,10 @@ export const ReservationDateClick = styled.div`
     }
 `
 export const Selections = styled.div`
-    margin-top:50px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items : center;
-    gap : 50px;
 `
 
 export const Button = styled.button`
@@ -84,14 +87,13 @@ export const Button = styled.button`
     }
 `
 export const ButtonWrapper = styled.div`
-    margin-top : 40px;
     display: flex;
-    width: 560px;
+    width: 567px;
     justify-content : center;
-    gap: 30px;
+    gap: 2rem;
 `
 export const DetailBtn = styled.button`
-    width : 326px;
+    width : 100%;
     height : 80px;
     font-size : 25px;
     font-weight : 700;
@@ -109,6 +111,8 @@ export const DetailBtn = styled.button`
                 return css`
                     background-color : #B00020;
                 `
+            default :
+                return
     }}}  
     :hover{
         box-shadow: 1px 1px 10px rgb(0, 0, 0, 0.5);
@@ -129,7 +133,6 @@ export const Status = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 10px;
     border: none;
     border-radius : 5px;
     font-size : 20px;
@@ -153,6 +156,8 @@ export const Status = styled.div`
                 return css`
                     background: #3700B3;
                 ` 
+            default : 
+                return
         }
     }}
 ` 
@@ -213,7 +218,7 @@ export const Title =  styled.div`
     color: #575757;
 `
 export const ReserveDesc = styled.div`
-    font-size : 24px;
+    font-size : 1.5rem;
 `
 
 export const PriceTitle = styled.div`
@@ -228,16 +233,15 @@ export const NotifiyIcon = styled.img`
 `
 
 export const DetailTitle = styled.div`
-    margin-top : 90px;
-    font-size : 32px;
-    margin-left : 4px;
+    font-size : 1.5rem;
+    font-weight: 700;
 `
 
 export const UnderImage = styled.div`
     display: flex;
     justify-content : center;
     align-items:center;
-    width: 578px;
+    width: 567px;
     height : 60px;
     gap: 21px;
 `
@@ -253,17 +257,17 @@ export const LocationButton = styled.div`
     justify-content : center;
     align-items : center;
     background-color : #ffffff;
-    gap:4px;
-    left: 32%;
-    top: 35%;
+    gap: 5px;
+    left: 30%;
+    top: 22%;
     cursor: pointer;
 `
 export const Registertext = styled.textarea`
+    padding: 1rem;
     height: 200px;
-    width: 520px;
-    font-size: 20px;
+    width: 567px;
+    font-size: 1rem;
     resize: none;
-    margin : 25px 0 0 0;
-    padding: 20px;
     border-radius : 10px;
+    box-sizing: border-box;
 `

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { storeImage } from '../../redux/modules/Post';
 import { useNavigate } from 'react-router-dom';
 import { Popup } from '../detail/detailStyle';
+import { Div } from '../global/globalStyle';
 
 function ImageBlock({image, id}) {
     const [imageURL, setImageURL] = useState([]);
@@ -49,10 +50,10 @@ function ImageBlock({image, id}) {
         dispatch(storeImage(Object.values(imageLists)))
     }
   return (
-    <div>
+    <Div width="100%" gap="1rem">
         <label htmlFor='file'>
             <FirstPreview>
-                <img src = {imageURL[0]} style={{width:'100%',height:'100%'}}/>
+                <img src = {imageURL[0]} style={{width:'100%', height:'100%'}}/>
                 <div style={{position:'absolute',top :'45%', left : '24%', color:'white',fontSize:'30px', display:'flex', flexDirection:'column', alignItems:'center'}}>
                     <span>'여기'를 클릭해서</span>
                     <span>물품 이미지를 첨부해주세요</span>
@@ -67,7 +68,7 @@ function ImageBlock({image, id}) {
         </PreviewContainer>
         
         <input type={'file'} id='file' multiple style={{display:'none'}} onChange={onImageChangeHandler}/>
-    </div>
+    </Div>
     
 )
 }

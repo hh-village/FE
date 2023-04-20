@@ -14,7 +14,7 @@ function SearchCards({data}) {
     },[])
 
     return (
-        <Div marginTop="4rem">
+        <Div marginTop="4rem" gap="2rem">
             <h2>내 근처에서 대여할 물품을 찾아보세요!</h2>
             <GridDiv width="100%" gridTC="repeat(4, 1fr)">
                 {data?.map((item) => 

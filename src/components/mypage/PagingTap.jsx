@@ -24,10 +24,13 @@ function PagingTap({data, btnInfo, currentBtn, buttonClickHandler}) {
         {(()=>{
             switch(currentBtn) {
                 case "products":
+                    // components/mypage
                     return <MyProducts data={data}/>
                 case "rents":
+                    // components/mypage
                     return <MyRents data={data}/>
                 case "zzims":
+                    // components/mypage
                     return <MyZzims data={data}/>
                 default:
                     return null

@@ -116,6 +116,8 @@ function MyPage() {
             <Button>예약 승인 / 확인 / 취소</Button>
           </Div>
         </Div>
+
+        {/* components/mypage */}
         <PagingTap
           data={data}
           btnInfo={btnInfo}
