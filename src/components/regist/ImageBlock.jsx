@@ -18,14 +18,7 @@ function ImageBlock({image, id}) {
     },[id])
 
     const dispatch = useDispatch();
-    // if(imageURL === undefined){
-    //     return(
-    //         <Popup>
-    //             <img src='/images/Village.png' style={{width:'300px'}}/>
-    //             Please enter your post again.
-    //         </Popup>
-    //     )
-    // }
+    
     const onImageChangeHandler = async(event) => {
         event.preventDefault();
         const imageLists = event.target.files
