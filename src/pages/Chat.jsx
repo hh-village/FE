@@ -6,6 +6,7 @@ import {  useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import SockJS from "sockjs-client";
 import { ChatBody, ChatInput, Chatting, ChatWholeBody, MessageRoom, MychatBubble, NickName, OtherchatBubble, Room, RoomProfile, RoomTitle, TargetRoom } from "../components/chat/chatStyle";
+import Footer from "../components/global/Footer";
 import { FlexDiv, MaxWidthDiv } from "../components/global/globalStyle";
 import HeaderNav from "../components/global/HeaderNav";
 import { __getChatList } from "../redux/modules/Chat";
@@ -100,9 +101,9 @@ const Chat = () => {
     },[chatList])
 
     return (
-        <FlexDiv>
+        <FlexDiv bgColor = '#ededed'>
             <HeaderNav/>
-            <MaxWidthDiv fDirection ='row' jc = 'space-between'>
+            <MaxWidthDiv fDirection ='row' jc = 'space-between' bgColor = 'white'>
                 <MessageRoom>
                     <RoomTitle> 전체대화 </RoomTitle>
                     {roomList.map((item => {
@@ -155,6 +156,7 @@ const Chat = () => {
                     </form>
                 </ChatWholeBody>
             </MaxWidthDiv>
+            <Footer rem = {0}/>
         </FlexDiv>
     )
 } 

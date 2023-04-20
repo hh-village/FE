@@ -258,3 +258,12 @@ export const LocationButton = styled.div`
     top: 35%;
     cursor: pointer;
 `
+export const Registertext = styled.textarea`
+    height: 200px;
+    width: 520px;
+    font-size: 20px;
+    resize: none;
+    margin : 25px 0 0 0;
+    padding: 20px;
+    border-radius : 10px;
+`

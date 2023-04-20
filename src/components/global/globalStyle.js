@@ -43,6 +43,7 @@ export const MaxWidthDiv = styled.div`
     width: 100%;
     height: ${({height})=>height};
     display: flex;
+    background-color: ${({bgColor}) => bgColor ? bgColor : 'white'};
     flex-direction: ${({fDirection}) => fDirection ? fDirection : 'column'};
     justify-content: ${({jc}) => jc ? jc : 'start'};
     align-items: ${({alignItem}) => alignItem ? alignItem : 'start'};
@@ -74,3 +75,15 @@ export const Div = styled.div`
     overflow: ${({overflow}) => overflow};
     gap: ${({gap}) => gap ? gap : 0};
 `
+
+export const ChatBtn = styled.div`
+    border: 1px solid #ededed;
+    border-radius : 10px;
+    width : 132px;
+    height: 32px;;
+    display: flex;
+    justify-content : center;
+    align-items : center;
+    cursor: pointer;
+    gap: 5px;
+` 

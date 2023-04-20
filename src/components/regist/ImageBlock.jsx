@@ -51,15 +51,16 @@ function ImageBlock({image, id}) {
   return (
     <div>
         <label htmlFor='file'>
-            <FirstPreview src = {imageURL[0]} alt="여기를 클릭해서 " />
-            <div style={{position:'absolute',top :'48%', left : '25%', fontSize:'30px', display:'flex', flexDirection:'column', alignItems:'center'}}>
-                <span>'여기'를 클릭해서</span>
-                <span>물품 이미지를 첨부해주세요</span>
-
-            </div>
+            <FirstPreview>
+                <img src = {imageURL[0]} style={{width:'100%',height:'100%'}}/>
+                <div style={{position:'absolute',top :'45%', left : '24%', color:'white',fontSize:'30px', display:'flex', flexDirection:'column', alignItems:'center'}}>
+                    <span>'여기'를 클릭해서</span>
+                    <span>물품 이미지를 첨부해주세요</span>
+                </div>
+            </FirstPreview>
         </label>
         <PreviewContainer>
-            <OtherPreview src = {imageURL[1]} alt=""/>
+            <OtherPreview  theme ={'primary'} src = {imageURL[1]} alt=""/>
             <OtherPreview src = {imageURL[2]} alt=""/>
             <OtherPreview src = {imageURL[3]} alt=""/>
             <OtherPreview src = {imageURL[4]} alt=""/>

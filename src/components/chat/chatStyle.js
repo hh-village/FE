@@ -4,19 +4,18 @@ export const MessageRoom = styled.div`
     display : flex;
     margin-top : 6em;
     flex-direction : column;
-    border : 2px solid gray;
     width:100vmax;
-    height: calc(100vh - 20em);
+    height: calc(100vh - 23em);
+    border-right : 1px solid #ededed;
 `
 export const ChatWholeBody = styled.div`
     margin-top : 6em;
     width:100vmax;
-    height: calc(100vh - 20em);
-    border : 2px solid gray;
+    height: calc(100vh - 23em);
 `
 export const ChatBody = styled.div`
     width:100%;
-    height: calc(100vh - 26em);
+    height: calc(100vh - 29.5em);
     display : flex;
     gap : 10px;
     padding-top : 20px;

@@ -77,7 +77,7 @@ function Map() {
                 위치
               </SearchButton>
             </Searchdiv>
-            <span style={{marginLeft:'20px'}}>거래 위치: {location}</span>
+            <span style={{marginLeft:'31px'}}>거래 위치: {location}</span>
           </>
       }
     </div>
