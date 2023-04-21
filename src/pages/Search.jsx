@@ -6,14 +6,16 @@ import HeaderNav from '../components/global/HeaderNav'
 import SearchInput from '../components/global/SearchInput'
 import SearchCards from '../components/search/SearchCards'
 import Footer from '../components/global/Footer'
+import { useSelector } from 'react-redux'
 
 function Search() {
+  const getStoreData = useSelector((state) => state.Search)
   const [searchData, setSearchData] = useState({
     productName: "",
     location: ""
   });
 
-  console.log(searchData);
+  console.log("스토어에서 가져온거", searchData);
 
   const { data, refetch } = useQuery({
     queryKey: ["GET_PRODUCTS"],
@@ -22,6 +24,9 @@ function Search() {
       return res.data.data;
     }
   })
+  useEffect(()=>{
+    setSearchData(getStoreData);
+  },[])
 
   useEffect(()=>{
     refetch()
@@ -36,17 +41,16 @@ function Search() {
         
         {/* components/global */}
         <SearchInput
-          searchData={searchData}
-          setSearchData={setSearchData}
-          rem={8}
-        />
+        searchData={searchData}
+        setSearchData={setSearchData}
+        rem={8} />
 
         {/* components/search */}
         <SearchCards data={data}/>
       </MaxWidthDiv>
 
       {/* components/global */}
-      <Footer rem={6}/>
+      <Footer topRem={6} botRem={2}/>
     </FlexDiv>
   )
 }

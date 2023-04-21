@@ -110,7 +110,7 @@ const Chat = () => {
     },[chatList])
 
     return (
-        <FlexDiv bgColor = '#ededed'>
+        <FlexDiv bgColor='#ededed' boxShadow="none">
             <HeaderNav/>
             <MaxWidthDiv fDirection ='row' jc = 'space-between' bgColor = 'white'>
                 <MessageRoom>
@@ -173,7 +173,7 @@ const Chat = () => {
                     </form>
                 </ChatWholeBody>
             </MaxWidthDiv>
-            <Footer rem = {0}/>
+            <Footer topRem={0} botRem={0}/>
         </FlexDiv>
     )
 } 

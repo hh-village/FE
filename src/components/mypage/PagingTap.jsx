@@ -47,7 +47,7 @@ const LPBtn = styled.button`
     border: none;
     font-size: 1rem;
     padding-bottom: 8px;
-    border-bottom: ${({ focused, name }) => focused === name ? `2px solid black` : `white`};
+    border-bottom: ${({ focused, name }) => focused === name ? `2px solid #644AFF` : `white`};
     background-color: white;
     color: ${({ focused, name }) => focused === name ? `black` : `#616161`};
     font-weight: ${({ focused, name }) => focused === name ? 800 : 400};

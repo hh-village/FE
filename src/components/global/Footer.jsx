@@ -1,9 +1,9 @@
 import React from 'react'
 import { Div, MaxWidthDiv } from './globalStyle'
 
-function Footer({rem}) {
+function Footer({topRem, botRem}) {
   return (
-    <Div width="100%" margin={`${rem}rem 0 2rem 0`} style={{borderTop:"1px solid #e6e6e6"}}>
+    <Div width="100%" margin={`${topRem}rem 0 ${botRem}rem 0`} style={{borderTop:"1px solid #e6e6e6"}}>
         <MaxWidthDiv marginTop="2rem" gap="2rem">
           <Div fDirection="row" gap="2rem">
             <div style={{paddingRight:"2rem", borderRight:"1px solid #767676", fontWeight:"700"}}>서비스소개</div>

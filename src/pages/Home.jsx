@@ -10,25 +10,32 @@ import HorizonCard from '../components/home/HorizonCard'
 import HomeImgSlide from '../components/home/HomeImgSlide'
 import EventBanner from '../components/home/EventBanner'
 import Footer from '../components/global/Footer'
+import { getCookie } from '../shared/Cookies'
 
 function Home() {
-  
   const [searchData, setSearchData] = useState({
     productName: "",
     location: ""
   });
-
-  const { data, refetch } = useQuery({
+  
+  const { data } = useQuery({
     queryKey: ["GET_MAINPAGE"],
     queryFn: async () => {
-      const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/main`)
-      return res.data.data;
+      const token = getCookie("token");
+      if(!token){
+        const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/main`)
+        return res.data.data;
+      } else {
+        const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/main`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        });
+        return res.data.data;
+      }
+      
     }
   })
-
-  useEffect(()=>{
-    refetch()
-  },[searchData]);
 
   return (
     <FlexDiv boxShadow="none">
@@ -62,7 +69,7 @@ function Home() {
       </MaxWidthDiv>
 
       {/* components/global */}
-      <Footer rem={6}/>
+      <Footer topRem={6} botRem={2}/>
     </FlexDiv>
   )
 }

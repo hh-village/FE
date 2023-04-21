@@ -101,7 +101,7 @@ function Regist() {
       </MaxWidthDiv>
 
       {/* components/global */}
-      <Footer rem={6}/>
+      <Footer topRem={6} botRem={2}/>
     </FlexDiv>
   )
 }

@@ -36,6 +36,16 @@ function HeaderNav() {
     }
   })
 
+  const registBtnHandler = () => {
+    const token = getCookie("token");
+    if(token === undefined){
+      alert("로그인이 필요한 기능입니다");
+      navi("/login");
+    } else {
+      navi("/regist");
+    }
+  }
+
   useEffect(()=>{
     setToken(accessToken);
   },[location])
@@ -46,7 +56,7 @@ function HeaderNav() {
           <Div fDirection="row" gap="2rem">
             <img src="/images/Village.png" alt="mainLogo" style={{width:"8rem", cursor:'pointer'}} onClick={()=>{navi("/")}} />
             <Span style={{marginTop: "auto", marginBottom: "auto"}} onClick={()=>{navi("/search")}}>전체상품조회</Span>
-            <Span style={{marginTop: "auto", marginBottom: "auto"}} onClick={()=>{navi("/regist")}}>물품등록(수정중)</Span>
+            <Span style={{marginTop: "auto", marginBottom: "auto"}} onClick={registBtnHandler}>물품등록</Span>
           </Div>
           <Div fDirection="row">
             {location.pathname === "/login"

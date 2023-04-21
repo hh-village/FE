@@ -82,7 +82,7 @@ function Detail() {
             )}
             </Div>
             <Div width="100%" marginTop="2rem" style={{position:"relative"}}>
-              <img style = {{width :'567px', height :'105px'}} src='/images/mapBG.png' alt=''/>
+              <img style = {{width :'567px', height :'115px'}} src='/images/mapBG.png' alt=''/>
               <LocationButton onClick={onClickMap}>
                 <NotifiyIcon src='/images/location 1.png'/>
                 내 근처에서 지도 찾기
@@ -151,7 +151,7 @@ function Detail() {
           </Div>
         </Div>
       </MaxWidthDiv>
-      <Footer rem={6}/>
+      <Footer topRem={6} botRem={2}/>
     </FlexDiv>
   )
 }
