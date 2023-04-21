@@ -124,7 +124,10 @@ const Chat = () => {
                                         <RoomProfile src={item.profile}/>
                                         <div style={{display:"flex", flexDirection : 'column', gap:'0.5rem'}}>
                                             <NickName>{item.nickname}</NickName>
-                                            {last ? (last) : (item.lastMessage)}
+                                        <div
+                                            style={{width:'450px', overflow:"hidden", wordBreak: 'keep-all'}}
+                                            >{last ? (last) : (item.lastMessage)}
+                                        </div>
                                         </div>
                                     </TargetRoom>
                                 </>
