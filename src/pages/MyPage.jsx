@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
 import axios from 'axios'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
@@ -79,6 +79,12 @@ function MyPage() {
       navi(`/chat/${response.data.data.roomList.filter(item => item.target === true)[0].roomId}`)
     }
   })
+
+  useEffect(()=>{
+    if(!token){
+      navi('/login')
+    }
+  },[token])
 
   return (
     <FlexDiv boxShadow="none">

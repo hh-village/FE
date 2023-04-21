@@ -26,7 +26,13 @@ const ConsumerRegister = (props) => {
             queryClient.invalidateQueries(['GET_DETAIL'])
         },
         onError : (error) => {
-            alert(error.response.data.message)
+            if(error.response.data.message === 'Token Error'){
+                window.alert('로그인이 필요한 서비스입니다.')
+                navigate('/login')
+            }else{
+                window.alert(error.response.data.message)
+            }
+            
         }
     })
 
@@ -58,6 +64,10 @@ const ConsumerRegister = (props) => {
         },
         onSuccess : (response)=>{
             navigate(`/chat/${response.data.data}`)
+        },
+        onError : () => {
+            window.alert('로그인이 필요한 서비스입니다.')
+            navigate('/login')
         }
     })
     return (
