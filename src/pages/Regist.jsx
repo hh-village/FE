@@ -1,19 +1,18 @@
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useState, lazy, Suspense} from 'react'
 import ImageBlock from '../components/regist/ImageBlock'
 import { Div, MaxWidthDiv } from '../components/global/globalStyle'
 import HeaderNav from '../components/global/HeaderNav'
 import useInput from '../hooks/useInput'
 import { getCookie } from '../shared/Cookies'
 import { DescInput, PriceDiv, PriceInput, PriceSpan, RegistBtn, RegistTitle, TitleInput } from '../components/regist/RegistStyled'
-import NaverMap from '../components/regist/Map'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Footer from '../components/global/Footer'
+const MapComp = lazy(()=> import('../components/regist/Map'))
 
 function Regist() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { mutate } = useMutation({
     mutationKey:['mutate'],
@@ -92,8 +91,11 @@ function Regist() {
             value={values.description}
             onChange={onChange}
           />
+
+          <Suspense>
+            <MapComp/>
+          </Suspense>
           
-          <NaverMap/>
           <RegistBtn> 등록하기 </RegistBtn>
           </form>
         </Div>

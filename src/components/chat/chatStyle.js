@@ -7,6 +7,7 @@ export const MessageRoom = styled.div`
     width:100vmax;
     height: calc(100vh - 23em);
     border-right : 1px solid #ededed;
+    overflow: auto;
 `
 export const ChatWholeBody = styled.div`
     margin-top : 6em;
