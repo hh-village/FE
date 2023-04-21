@@ -10,10 +10,9 @@ import { getCookie, setCookie } from '../shared/Cookies'
 
 function Login() {
   const token = getCookie('token')
-  const REST_API_KEY = 'e5604a9bedc4cead4432fb92d94cd0bb';
-  const REDIRECT_URI = 'http://localhost:3000/oauth/social/callback';
-  // const REDIRECT_URI = 'http://team3-village.s3-website.ap-northeast-2.amazonaws.com/oauth/social/callback';
-  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+  // const REDIRECT_URI = 'http://localhost:3000/oauth/social/callback';
+  const REDIRECT_URI = 'http://team3-village.s3-website.ap-northeast-2.amazonaws.com/oauth/social/callback';
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   const navi = useNavigate();
 
   const kakaoLogin = () => {
