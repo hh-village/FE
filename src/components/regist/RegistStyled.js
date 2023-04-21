@@ -1,16 +1,14 @@
 import styled, { css } from "styled-components";
 
 export const RegistTitle = styled.span`
-    margin: 76px 0px 29px 0;
-    font-size: 32px;
+    font-size: 1.5rem;
 `
 export const TitleInput = styled.input`
-    width: 590px;
-    height: 55px;
-    margin: 0 0 27px 0;
-    text-indent: 22px;
-    font-size: 20px;
-    border-radius:5px;
+    width: 567px;
+    height: 3rem;
+    text-indent: 1rem;
+    font-size: 1rem;
+    border-radius: 10px;
     border: 1px solid #CFCFCF;
 `
 export const FirstPreview = styled.div`
@@ -46,12 +44,19 @@ export const PreviewContainer = styled.div`
     gap: 1rem;
 `
 export const DescInput = styled.textarea`
-    height: 200px;
-    width: 462px;
-    font-size: 20px;
-    margin: 15px 0 10px 31px;
-    padding: 20px;
+    height: 190px;
+    width: 567px;
+    font-size: 1rem;
+    padding: 1.5rem;
+    border: 1px solid #D7D7D7;
+    border-radius: 10px;
+    box-sizing: border-box;
     resize: none;
+    margin-top: 1rem;
+    overflow: auto;
+    &::-webkit-scrollbar{
+        display: none;
+    }
 `
 export const MapSearch = styled.input`
     width: 100%;
@@ -73,43 +78,42 @@ export const SearchButton = styled.button`
     }
 `
 export const Searchdiv = styled.div`
-    width: 502px;
+    margin-top: 1rem;
+    width: 567px;
     border: 2px solid gray;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 5px;
-    margin: 10px 0 10px 31px;
+    box-sizing: border-box;
 `
 export const PriceDiv = styled.div`
-    width: 502px;
-    height: 55px;
-    border: 1px solid gray;
+    width: 567px;
+    height: 3rem;
+    border: 1px solid #D7D7D7;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 142px 0 10px 31px;
-    border-radius: 5px;
+    border-radius: 10px;
 `
 export const PriceInput = styled.input`
-    font-size : 20px;
+    font-size : 1rem;
     width: 100%;
     height: 100%;
     border: none;
     text-indent : 1em;
 `
 export const PriceSpan = styled.span`
-    font-size : 20px;
-    width: 100px;
-    height: 50px;
+    font-size : 1rem;
+    width: 70px;
     display: flex;
     justify-content: center;
     align-items: center;
 `
 
 export const RegistBtn = styled.button`
-    margin: 10px 0 0 31px;
-    width : 505px;
+    margin-top: 1rem;
+    width : 567px;
     height : 50px;
     border: none;
     background : #644AFF;

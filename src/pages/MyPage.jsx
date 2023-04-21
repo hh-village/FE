@@ -4,6 +4,7 @@ import React from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
+import Footer from '../components/global/Footer'
 import { FlexDiv, MaxWidthDiv, Div } from '../components/global/globalStyle'
 import HeaderNav from '../components/global/HeaderNav'
 import PagingTap from '../components/mypage/PagingTap'
@@ -82,10 +83,10 @@ function MyPage() {
     <FlexDiv boxShadow="none">
       <HeaderNav />
       <MaxWidthDiv>
-        <div style={{marginTop:"7rem"}}>
+        <div style={{marginTop:"10rem"}}>
           <h2>마이페이지</h2>
         </div>
-        <Div fDirection="row" marginTop="1rem" jc="space-between" alignItem="center" width="100%" bgColor="#e6e6e6">
+        <Div fDirection="row" marginTop="2rem" jc="space-between" alignItem="center" width="100%" bgColor="#e6e6e6">
           <Div fDirection="row" bgColor="none" alignItem="center" gap="1rem" padding="1rem">
             <img src={data?.profile} alt="userProfileImg" style={{width:"200px", height: "200px"}}/>
             <Div fDirection="row" gap="1rem" bgColor="#e6e6e6">

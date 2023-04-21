@@ -7,6 +7,7 @@ import { storeLocation } from '../../redux/modules/Post';
 import { getCookie } from '../../shared/Cookies';
 import { MapSearch, SearchButton, Searchdiv } from './RegistStyled';
 import { useLocation } from 'react-router-dom';
+import { Div } from '../global/globalStyle';
 
 
 function Map() {
@@ -52,8 +53,8 @@ function Map() {
 
   
   return (
-    <div>
-      <MapDiv style={{ width: '505px',height: '238px', marginLeft:'31px'}}>
+    <div style={{ marginTop:"1rem" }}>
+      <MapDiv style={{ width: '567px', height: '238px' }}>
         <NaverMap
           defaultCenter={new navermaps.LatLng(37.5816, 126.88839)}
           defaultZoom={15}
@@ -77,7 +78,9 @@ function Map() {
                 위치
               </SearchButton>
             </Searchdiv>
-            <span style={{marginLeft:'31px'}}>거래 위치: {location}</span>
+            <Div>
+              <span style={{marginTop:"1rem"}}>거래 위치: {location}</span>
+            </Div>
           </>
       }
     </div>
