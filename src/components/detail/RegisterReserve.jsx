@@ -30,10 +30,10 @@ const RegisterReserve = (props) => {
             return(
               <SelectOption 
               key={nanoid()}>
-                <img src={item.profile} alt="" style={{width:'75px', height:'75px', borderRadius:'40px', border : '1px solid gray'}}/>
+                <img src={item.profile} alt="" style={{width:'75px', height:'75px', borderRadius:'40px'}}/>
                 <Div gap="0.5rem">
                   <span>{item.nickname}</span>
-                  <span>예약일 : {item.startDate} ~ {item.endDate}</span>
+                  <span style={{color:'#313131'}}>예약일 : {item.startDate} ~ {item.endDate}</span>
                 </Div>
                 <div style={{display:'flex', flexDirection:'column', gap :'12px'}}>
                   <DropDown status = {item.status} id = {item.id}/>

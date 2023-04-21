@@ -1,24 +1,24 @@
 import { nanoid } from "@reduxjs/toolkit";
 import { Stomp } from "@stomp/stompjs";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import {  useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import SockJS from "sockjs-client";
-import { ChatBody, ChatInput, Chatting, ChatWholeBody, MessageRoom, MychatBubble, NickName, OtherchatBubble, Room, RoomProfile, RoomTitle, TargetRoom } from "../components/chat/chatStyle";
+import { ChatBody, ChatInput, ChatWholeBody, MessageRoom, MychatBubble, NickName, OtherchatBubble, Room, RoomProfile, RoomTitle, TargetRoom } from "../components/chat/chatStyle";
 import Footer from "../components/global/Footer";
 import { Div, FlexDiv, MaxWidthDiv } from "../components/global/globalStyle";
 import HeaderNav from "../components/global/HeaderNav";
-import { __getChatList } from "../redux/modules/Chat";
 import { getCookie } from "../shared/Cookies";
 
 var stompClient = null;
 
 const Chat = () => {
     const scrollRef = useRef();
+    const accessToken = getCookie('token')
     const myNick = getCookie('nickname')
-    const dispatch = useDispatch();
     const {id} = useParams();
+    const [last, setLast] = useState('');
     const [roomId, setRoomId] = useState(id);
     const [chatList, setChatList] = useState([])
     const [roomList, setRoomList] = useState([])
@@ -27,34 +27,40 @@ const Chat = () => {
         sender: '',
         content: '',
     });
-
+    
+    const GetChats = useQuery({
+        queryKey:['GetChats'],
+        queryFn : async() => {
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/chat/room?roomId=${roomId}`,{
+                headers:{
+                    Authorization : `Bearer ${accessToken}`
+                }
+            })
+            return response.data.data
+        },
+        onSuccess : (response) =>{
+            setRoomList([...response.roomList])
+            if(response){
+                stompClient.subscribe(`/sub/chat/room/${roomId}`,
+                (message)=>{
+                    const payloadData = JSON.parse(message.body);
+                    setLast(payloadData.content)
+                    return setChatList(prev => [...prev,payloadData])
+                });
+            }
+            setChatList([...response.messageList])
+        }
+    })
     const registUsers = () => {
         const sockJS = new SockJS(`${process.env.REACT_APP_SERVER_URL}/ws`);
         stompClient = Stomp.over(function() {
             return sockJS;
             });
-        stompClient.connect({}, afterConnected,
-            (err) => {
-                alert(err)
-            })
+        stompClient.connect({}, () => GetChats.refetch())
         }
-
-    const afterConnected = async() => {
-        const response =  await dispatch(__getChatList(roomId)).unwrap();
-        setRoomList([...response.roomList])
-        // setChatList(prev => [...prev])
-        if(response){
-            stompClient.subscribe(`/sub/chat/room/${roomId}`,
-            (message)=>{
-                const payloadData = JSON.parse(message.body);
-                console.log(payloadData)
-                return setChatList(prev => [...prev,payloadData])
-            });
-        }
-        setChatList([...response.messageList])
-    }
 
     const onClickOtherChats = (id) => {
+        setLast();
         stompClient.disconnect();
         setUserData((prev)=>(prev = {
             sender : '',
@@ -63,6 +69,7 @@ const Chat = () => {
         }))
         setRoomId(prev => prev = id)
         setChatList(prev => prev = [])
+
     }
 
     const onSubmitHandler = (event) => {
@@ -74,8 +81,10 @@ const Chat = () => {
         stompClient.send(
             `/pub/chat/message`,
             {},
-            JSON.stringify(userData)
+            JSON.stringify(userData),
+            setLast(userData.content)
         )
+        
         setUserData((prev)=>(prev = {
             sender : '',
             roomId : '',
@@ -113,7 +122,10 @@ const Chat = () => {
                                 <>
                                     <TargetRoom key={nanoid()}>
                                         <RoomProfile src={item.profile}/>
-                                        <NickName>{item.nickname}</NickName>
+                                        <div style={{display:"flex", flexDirection : 'column', gap:'0.5rem'}}>
+                                            <NickName>{item.nickname}</NickName>
+                                            {last ? (last) : (item.lastMessage)}
+                                        </div>
                                     </TargetRoom>
                                 </>
                                 
@@ -121,9 +133,12 @@ const Chat = () => {
                             : (
                                 <>
                                     <Room key={nanoid()}
-                                    onClick = {() => onClickOtherChats(item.roomId)}>
+                                        onClick = {() => onClickOtherChats(item.roomId)}>
                                         <RoomProfile src={item.profile}/>
-                                        <NickName>{item.nickname}</NickName>
+                                        <div style={{display:"flex", flexDirection : 'column', gap:'0.5rem'}}>
+                                            <NickName>{item.nickname}</NickName>
+                                            {item.lastMessage}
+                                        </div>
                                     </Room>
                                 </>
                                 
@@ -137,20 +152,20 @@ const Chat = () => {
                                 return (
                                     (myNick === item.sender ? (
                                         (
-                                            <MychatBubble>{item.content}</MychatBubble>
-                                            
-                                        )
-                                    ) : (
                                         <div key={nanoid()}
                                         style={{display:"flex", justifyContent:'flex-end'}}>
-                                            <OtherchatBubble>{item.content}</OtherchatBubble>
+                                            <MychatBubble>{item.content}</MychatBubble>
                                         </div>
+                                        )
+                                    ) : (
+                                        <OtherchatBubble>{item.content}</OtherchatBubble>
                                     )
                                     )
                                 )     
                             })}
                     </ChatBody>
-                    <form onSubmit={onSubmitHandler}>
+                    <form onSubmit={onSubmitHandler}
+                    style={{display:"flex", justifyContent:'center'}}>
                         <ChatInput 
                         placeholder="메세지를 입력하세요"
                         onChange={chattingOnchange}

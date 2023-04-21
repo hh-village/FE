@@ -27,7 +27,7 @@ export const ChatBody = styled.div`
     }
 `
 export const ChatInput = styled.input`
-    width:494px;
+    width:570px;
     height: 45px;
     border-radius:20px;
     border:none;
