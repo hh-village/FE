@@ -8,7 +8,7 @@ function MyProducts({data}) {
   const navi = useNavigate();
 
   return (
-    <Div fDirection="row" gap="1rem" width="100%">
+    <Div gap="1rem" width="100%">
       {data?.myList.map((item) => 
       <CardDiv
         key={nanoid()}
