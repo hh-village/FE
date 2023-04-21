@@ -17,14 +17,22 @@ function HeaderNav() {
   const onNavigateChat = useMutation({
     mutationKey:['onNavigateChat'],
     mutationFn: async()=>{
-      return await axios.get(`${process.env.REACT_APP_SERVER_URL}/chat/room?`,{
+      const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/chat/room?`,{
         headers : {
           Authorization: `Bearer ${accessToken}`
         }
       })
+      return response
     },
     onSuccess : (response) => {
-      navi(`/chat/${response.data.data.roomList.filter(item => item.target === true)[0].roomId}`)
+      if(response.data.data == null){
+        window.alert('대화 중인 채팅방이 없습니다.')
+      }else{
+        navi(`/chat/${response.data.data.roomList.filter(item => item.target === true)[0].roomId}`)
+      }
+    },
+    onError : (error) => {
+      console.log('잘못된 접근입니다.')
     }
   })
 

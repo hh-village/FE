@@ -1,13 +1,14 @@
 import axios from 'axios'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { FlexDiv, MaxWidthDiv } from '../components/global/globalStyle'
 import HeaderNav from '../components/global/HeaderNav'
 import NaverBtn from '../components/login/NaverBtn'
-import { setCookie } from '../shared/Cookies'
+import { getCookie, setCookie } from '../shared/Cookies'
 
 function Login() {
+  const token = getCookie('token')
   const REST_API_KEY = 'e5604a9bedc4cead4432fb92d94cd0bb';
   const REDIRECT_URI = 'http://localhost:3000/oauth/social/callback';
   // const REDIRECT_URI = 'http://team3-village.s3-website.ap-northeast-2.amazonaws.com/oauth/social/callback';
@@ -23,6 +24,12 @@ function Login() {
     setCookie('nickname', response.data.data)
     navi('/')
   }
+
+  useEffect(()=>{
+    if(token){
+      navi('/')
+    }
+  })
 
   return (
     <FlexDiv>
