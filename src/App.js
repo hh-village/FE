@@ -17,7 +17,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <NavermapsProvider
-          ncpClientId="l4pkkagxjm"
+          ncpClientId={process.env.REACT_APP_NCP_ID}
         >
         {/* <ReactQueryDevtools initialIsOpen={false} /> */}
         <Router/>
