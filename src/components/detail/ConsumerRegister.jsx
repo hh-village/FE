@@ -61,7 +61,7 @@ const ConsumerRegister = (props) => {
         }
     })
     return (
-        <Div width="100%" gap="2rem">
+        <Div width="100%" gap="1.5rem">
             <SelectWrapper>
                 {props.reservationList?.map((item)=>{
                     return(

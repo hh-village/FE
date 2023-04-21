@@ -2,12 +2,18 @@ import React from 'react'
 import { nanoid } from 'nanoid'
 import styled from 'styled-components'
 import { Div } from '../global/globalStyle'
+import { useNavigate } from 'react-router-dom'
 
 function MyRents({data}) {
+  const navi = useNavigate();
+  
   return (
     <Div gap="1rem" width="100%">
       {data?.myList.map((item) => 
-      <CardDiv key={nanoid()}>
+      <CardDiv
+        key={nanoid()}
+        onClick={()=>{navi(`/detail/${item?.productId}`)}}
+      >
         <Div fDirection="row" bgColor="#e6e6e6" gap="1rem">
           <Img src={item?.image} alt="" />
           <Div bgColor="#e6e6e6" gap="1rem">

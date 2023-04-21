@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 export const SelectWrapper = styled.div`
     width: 567px;
-    height: 15rem;
+    height: 15.5rem;
     overflow: auto;
     border: 1px solid #e6e6e6;
     box-sizing: border-box;
