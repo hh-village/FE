@@ -37,7 +37,7 @@ function Login() {
       <MaxWidthDiv jc="center" alignItem="center" height="100vh" gap="1rem">
           <img src="/images/appLogo.png" alt="mainLogo" style={{width:"150px"}}/>
         <LikeBtnDiv color='#000000' onClick={onClickAdmin}>
-          <span>관리자 로그인</span>
+          <span>테스트계정 로그인</span>
         </LikeBtnDiv>
         <LikeBtnDiv bgColor="#FEE500" color='black' onClick={kakaoLogin}>
           <span>카카오 로그인</span>
@@ -46,7 +46,7 @@ function Login() {
           <NaverBtn />
         </LikeBtnDiv> */}
         <LikeBtnDiv color='black' bgColor="#e6e6e6" onClick={()=>{navi("/")}}>
-          <span>이전으로</span>
+          <span>홈으로</span>
         </LikeBtnDiv>
       </MaxWidthDiv>
     </FlexDiv>

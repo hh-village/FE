@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
-import React, { useState, lazy, Suspense} from 'react'
+import React, { useState, lazy, Suspense, useEffect} from 'react'
 import ImageBlock from '../components/regist/ImageBlock'
 import { Div, FlexDiv, MaxWidthDiv } from '../components/global/globalStyle'
 import HeaderNav from '../components/global/HeaderNav'
@@ -16,6 +16,7 @@ function Regist() {
   const navigate = useNavigate();  
   const { image, location } = useSelector(state => state.Post)
   const [imageURL, setImageURL] = useState(image)
+  const accessToken = getCookie('token')
   const { values, onChange } = useInput({
     title: "",
     description: "",
@@ -26,7 +27,6 @@ function Regist() {
   const { mutate } = useMutation({
     mutationKey:['mutate'],
     mutationFn: async(values)=>{
-      const accessToken = getCookie('token')
       return await axios.post(`${process.env.REACT_APP_SERVER_URL}/products`,values,{
         headers:{
           Authorization: `Bearer ${accessToken}`,
@@ -51,6 +51,13 @@ function Regist() {
       location:location
     })
   }
+
+  useEffect(()=>{
+    if(!accessToken){
+      navigate('/login')
+    }
+  },[accessToken])
+  
 
   return (
     <FlexDiv boxShadow="none">
