@@ -13,7 +13,16 @@ import Footer from '../components/global/Footer'
 const MapComp = lazy(()=> import('../components/regist/Map'))
 
 function Regist() {
-  const navigate = useNavigate();
+  const navigate = useNavigate();  
+  const { image, location } = useSelector(state => state.Post)
+  const [imageURL, setImageURL] = useState(image)
+  const { values, onChange } = useInput({
+    title: "",
+    description: "",
+    price: '',
+    location:'',
+    images : '',
+  })
   const { mutate } = useMutation({
     mutationKey:['mutate'],
     mutationFn: async(values)=>{
@@ -28,20 +37,11 @@ function Regist() {
     onSuccess : (response) => {
       window.alert(response.data.message);
       navigate('/search')
+    },
+    onError : () => {
+      window.alert('게시글에 필요한 내용들을 모두 입력해주세요.')
     }
   })
-
-  const { image, location } = useSelector(state => state.Post)
-  const [imageURL, setImageURL] = useState(image)
-
-  const { values, onChange } = useInput({
-    title: "",
-    description: "",
-    price: '',
-    location:'',
-    images : '',
-  })
-
 
   const onSubmitHandler = (event) => {
     event.preventDefault();

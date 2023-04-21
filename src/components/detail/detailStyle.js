@@ -4,39 +4,14 @@ export const SelectWrapper = styled.div`
     width: 567px;
     height: 15.5rem;
     overflow: auto;
-    border: 1px solid #e6e6e6;
+    border-top: 1px solid #e6e6e6;
     box-sizing: border-box;
-    border-radius: 10px;
     &::-webkit-scrollbar {
         display: none;
-        /* background: white;
-        width: 6px; */
     }
-    /* &::-webkit-scrollbar-thumb {
-        background: #dbdbdb;
-        border-radius: 10px;
-    } */
-`
-export const Popup = styled.div`
-    position: fixed;
-    transform: translate (-50%, -50%);
-    width : 100vw;
-    height : 100vh;
-    background-color : rgba(255,255,255,0.7);
-    left:0;
-    top : 0;
-    z-index : 2;
-    display: flex;
-    justify-content: center;
-    align-items : center;
-    font-size : 50px;
-    font-weight : 600;
-    color: rgb(0,0,0);
-    flex-direction : column;
-    gap : 40px;
 `
 export const SelectOption = styled.div`
-    height: 100px;
+    height: 137px;
     width: 100%;
     display: flex;
     padding: 0 1rem 0 1rem;
@@ -89,13 +64,14 @@ export const Button = styled.button`
 export const ButtonWrapper = styled.div`
     display: flex;
     width: 567px;
-    justify-content : center;
-    gap: 2rem;
+    justify-content : flex-end;
+    gap: 1rem;
+    margin-bottom : 36px;
 `
 export const DetailBtn = styled.button`
-    width : 100%;
-    height : 80px;
-    font-size : 25px;
+    width : 126px;
+    height : 54px;
+    font-size : 20px;
     font-weight : 700;
     border: none;
     color: #ffffff;
@@ -109,7 +85,7 @@ export const DetailBtn = styled.button`
                 `
             case 'cancel' : 
                 return css`
-                    background-color : #B00020;
+                    background-color : #313131;
                 `
             default :
                 return
@@ -270,4 +246,18 @@ export const Registertext = styled.textarea`
     resize: none;
     border-radius : 10px;
     box-sizing: border-box;
+`
+
+export const DescriptionDiv = styled.div`
+  width: 567px;
+  height : 196px;
+  margin-bottom : 26px;
+  overflow : auto;
+  border : 1px solid #E1E1E1;
+  border-radius : 10px;
+  box-sizing: border-box;
+  padding : 16px;
+  &::-webkit-scrollbar{
+    display: none;
+  }
 `

@@ -43,7 +43,7 @@ function Calander({ChatwithOwner,reservePost, id}){
             </div>
             
             <Button 
-            bgColor = 'gray'
+            bgColor = '#644AFF'
             onClick={()=>ChatwithOwner.mutate(nickname)}
             style={{width:"6rem", height:"3rem"}}
             >
