@@ -35,9 +35,7 @@ function Login() {
     <FlexDiv>
       <HeaderNav />
       <MaxWidthDiv jc="center" alignItem="center" height="100vh" gap="1rem">
-        <div>
-          <img src="" alt="mainLogo" />
-        </div>
+          <img src="/images/appLogo.png" alt="mainLogo" style={{width:"150px"}}/>
         <LikeBtnDiv color='#000000' onClick={onClickAdmin}>
           <span>관리자 로그인</span>
         </LikeBtnDiv>

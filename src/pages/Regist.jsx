@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import React, { useState, lazy, Suspense} from 'react'
 import ImageBlock from '../components/regist/ImageBlock'
-import { Div, MaxWidthDiv } from '../components/global/globalStyle'
+import { Div, FlexDiv, MaxWidthDiv } from '../components/global/globalStyle'
 import HeaderNav from '../components/global/HeaderNav'
 import useInput from '../hooks/useInput'
 import { getCookie } from '../shared/Cookies'
@@ -53,55 +53,56 @@ function Regist() {
   }
 
   return (
-    <>
-      <HeaderNav/>
-      <MaxWidthDiv 
-      fDirection='row'
-      padding = '6rem 0 0 0'
-      >
-        <Div>
-          <RegistTitle>대여물품 등록</RegistTitle>
-          <TitleInput
-            name='title'
-            placeholder='제목 : 상품명이 드러나도록 제목을 적어주세요!'
-            value={values.title}
-            onChange={onChange}
-            maxLength={20}
-          />
-          <ImageBlock setImageURL = {setImageURL} imageURL = {imageURL}/>
-        </Div>
-        <div
-        style={{height:'750px', marginTop:'140px', marginLeft : '31px',border:'0.5px solid #D7D7D7'}}
-        ></div>
-        <Div>
-          <form onSubmit={onSubmitHandler}>
-            <PriceDiv>
-              <PriceSpan>가격</PriceSpan>
-              <PriceInput
-                  type={'number'}
-                  name='price'
-                  placeholder='가격을 책정해주세요'
-                  value={values.price}
-                  onChange={onChange}
-              />
-            </PriceDiv>
-          <DescInput
-            name='description'
-            placeholder='해당 물품의 기종, 상태, 구매일자 등 상세하게 적어주세요!'
-            value={values.description}
-            onChange={onChange}
-          />
+    <FlexDiv boxShadow="none">
 
-          <Suspense>
-            <MapComp/>
-          </Suspense>
-          
-          <RegistBtn> 등록하기 </RegistBtn>
-          </form>
+      {/* components/global */}
+      <HeaderNav />
+      <MaxWidthDiv>
+        <Div marginTop="10rem">
+          <RegistTitle>대여물품 등록</RegistTitle>
+        </Div>
+        <Div width="100%" marginTop="2rem" fDirection="row" jc="space-between" gap="2rem">
+          <Div gap="1rem">
+            <TitleInput
+              name='title'
+              placeholder='제목 : 상품명이 드러나도록 제목을 적어주세요!'
+              value={values.title}
+              onChange={onChange}
+              maxLength={20}
+            />
+            <ImageBlock setImageURL = {setImageURL} imageURL = {imageURL}/>
+          </Div>
+          <div style={{height:'685px', border:'1px solid #D7D7D7'}}></div>
+          <Div width="100%">
+            <form onSubmit={onSubmitHandler}>
+              <PriceDiv>
+                <PriceSpan>가격</PriceSpan>
+                <PriceInput
+                    type={'number'}
+                    name='price'
+                    placeholder='가격을 책정해주세요'
+                    value={values.price}
+                    onChange={onChange}
+                />
+              </PriceDiv>
+            <DescInput
+              name='description'
+              placeholder='해당 물품의 기종, 상태, 구매일자 등 상세하게 적어주세요!'
+              value={values.description}
+              onChange={onChange}
+            />
+            <Suspense>
+              <MapComp/>
+            </Suspense>
+            <RegistBtn> 등록하기 </RegistBtn>
+            </form>
+          </Div>
         </Div>
       </MaxWidthDiv>
+
+      {/* components/global */}
       <Footer rem={6}/>
-    </>
+    </FlexDiv>
   )
 }
 
