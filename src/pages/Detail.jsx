@@ -30,8 +30,6 @@ function Detail() {
     image : [],
   });
 
-  
-  
   const { data , isLoading, refetch} = useQuery({
     queryKey: ["GET_DETAIL"],
     queryFn: async () => {
@@ -135,7 +133,7 @@ function Detail() {
             <Div width="100%">
             {data?.checkOwner
             ? <ImageBlock image={data.imageList} id={data.id}/>
-            : <Div position="relative" width="567px" height="508px" overflow = 'hidden' style={{marginTop:'15px'}}>
+            : <Div position="relative" width="567px" height="508px" overflow = 'hidden'>
                 <SlideBtn count={count} setFunc={setCount} total={data?.imageList.length}/>
                 <Slide etc={styleOption}>
                   {data?.imageList.map((imgs) => <Img src={imgs} alt={imgs} key={nanoid()}/>)}
@@ -169,7 +167,7 @@ function Detail() {
             )}
             </Div>
             <Div width="100%" marginTop="2rem" style={{position:"relative"}}>
-              <img style = {{width :'567px', height :'105px'}} src='/images/mapBG.png' alt=''/>
+              <img style = {{width :'567px', height :'115px'}} src='/images/mapBG.png' alt=''/>
               <LocationButton onClick={onClickMap}>
                 <NotifiyIcon src='/images/location 1.png'/>
                 내 근처에서 지도 찾기
@@ -179,7 +177,7 @@ function Detail() {
 
           {/* 가운데 구분선 */}
           {data?.checkOwner
-          ? <div style={{height:'755px', border:'0.5px solid #D7D7D7'}}></div>
+          ? <div style={{height:'765px', border:'0.5px solid #D7D7D7'}}></div>
           : <div style={{height:'740px', border:'0.5px solid #D7D7D7'}}></div>
           }
 
@@ -244,7 +242,7 @@ function Detail() {
           </Div>
         </Div>
       </MaxWidthDiv>
-      <Footer rem={6}/>
+      <Footer topRem={6} botRem={2}/>
     </FlexDiv>
   )
 }

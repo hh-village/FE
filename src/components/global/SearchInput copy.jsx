@@ -1,22 +1,17 @@
 
-import React from 'react'
-import { useDispatch } from 'react-redux'
-import { sendSearchData } from '../../redux/modules/Search'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { nanoid } from 'nanoid'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Div } from './globalStyle'
 
-function SearchInput({ searchData, setSearchData, rem }) {
-  const dispatch = useDispatch();
-  const location = useLocation();
-  const navi = useNavigate();
+function SearchInput({ rem }) {
 
-  const clickSearchHandler = () => {
-    if(location.pathname === "/"){
-      navi("/search");
-      dispatch(sendSearchData(searchData));
-    }
-  }
+  const [searchData, setSearchData] = useState({
+    productName: "",
+    location: ""
+  });
+
+  console.log(searchData);
 
   const locationName = [
     "서울", "부산", "대구", "인천", "광주", "대전", "울산", "세종", "경기", "강원", "충청북도", "충청남도", "전라북도", "전라남도", "경상북도", "경상남도", "제주"
@@ -29,19 +24,19 @@ function SearchInput({ searchData, setSearchData, rem }) {
 
   return (
     <Div fDirection="row" width="100%" boxShadow="none" padding={`${rem}rem 0rem 0rem 0rem`} gap="1rem">
-      <Select name="location" onChange={catchSearchDataHandler}>
-        <option value="">지역검색</option>
-        {locationName?.map((item) => 
-          <option value={item}>{item}</option>
-        )}
-      </Select>
-      <Input
-        type="text"
-        name="productName"
-        value={searchData?.productName}
-        placeholder="찾으시는 상품을 검색해보세요!"
-        onChange={catchSearchDataHandler}/>
-      <Button color='white' bgColor='#644AFF' onClick={clickSearchHandler}>찾아보기</Button>
+        <Select name="location" onChange={catchSearchDataHandler}>
+          <option value="">지역검색</option>
+          {locationName.map((item) => 
+            <option value={item} key={nanoid()}>{item}</option>
+          )}
+        </Select>
+        <Input
+          type="text"
+          name="productName"
+          value={searchData.productName}
+          placeholder="찾으시는 상품을 검색해보세요!"
+          onChange={catchSearchDataHandler}/>
+        <Button color='white' bgColor='#644AFF'>찾아보기</Button>
     </Div>
   )
 }

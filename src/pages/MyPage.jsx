@@ -35,17 +35,17 @@ function MyPage() {
     setChangedNickname(e.target.value);
   }
 
-  const { data } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: [`${currentBtn}`],
     queryFn: async () => {
       const token = getCookie("token");
       const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/users?key=${currentBtn}`, {
         headers: {
-            Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         }
       });
       return res.data.data;
-    }
+    } 
   })
 
   const { mutate } = useMutation({
@@ -59,6 +59,7 @@ function MyPage() {
     onSuccess: () => {
       setChangeState(!changeState);
       alert("닉네임 변경 완료!");
+      refetch();
     },
     onError: () => {
       alert("일시적 오류입니다");
@@ -86,35 +87,37 @@ function MyPage() {
         <div style={{marginTop:"10rem"}}>
           <h2>마이페이지</h2>
         </div>
-        <Div fDirection="row" marginTop="2rem" jc="space-between" alignItem="center" width="100%" bgColor="#e6e6e6">
-          <Div fDirection="row" bgColor="none" alignItem="center" gap="1rem" padding="1rem">
-            <img src={data?.profile} alt="userProfileImg" style={{width:"200px", height: "200px"}}/>
-            <Div fDirection="row" gap="1rem" bgColor="#e6e6e6">
-              <Div bgColor="#e6e6e6" gap="1rem">
-                <span>닉네임</span>
+        <Div marginTop="2rem" width="100%" height="300px" fDirection="row">
+          <Div>
+            <img src="/images/demoProfile.png" alt="userProfileImg" style={{width:"300px", height: "300px"}}/>
+          </Div>
+          <Div width="100%" height="100%" jc="space-between" bgColor="#e6e6e6" padding="1rem" style={{boxSizing:"border-box"}}>
+            <Div width="100%" height="100%" fDirection="row" bgColor="#e6e6e6" padding="0 0 1rem 0" style={{boxSizing:"border-box", borderBottom:"1px solid #767676"}}>
+              <Div margin="auto 0 auto 0" width="100%" fDirection="row" gap="1rem" bgColor="#e6e6e6">
+                <img src={data?.profile} alt="rankingIcon" style={{width:"3rem", height: "3rem"}}/>
+                {changeState
+                  ? <Input type="text" placeholder={data?.nickname} onChange={changeInputHandler}/>
+                  : <Span>{data?.nickname}</Span>
+                }
               </Div>
-              <Div fDirection="row" bgColor="#e6e6e6" gap="1rem">
-                  {changeState
-                    ? <input type="text" placeholder={data?.nickname} onChange={changeInputHandler}/>
-                    : <span>{data?.nickname}</span>
-                  }
+              <Div width="50%" height="100%" gap="0.5rem" bgColor="#e6e6e6">
+                <Button onClick={()=>{navi("/regist")}}>대여물품 등록하기</Button>
+                <Button onClick={()=>{
+                  onNavigateChat.mutate()
+                }}>빌리지 채팅 관리</Button>
                   {changeState
                     ? 
-                      <>
-                        <button onClick={()=>{mutate({"nickname" : changedNickname})}}>수정완료</button>
-                        <button onClick={changeNicknameHandler}>취소</button>
-                      </>
-                    : <button onClick={changeNicknameHandler}>변경하기</button>
+                      <Div width="100%" height="100%" fDirection="row" jc="space-between" gap="1rem" bgColor="#e6e6e6">
+                        <Button bgColor="#767676" color="white" onClick={changeNicknameHandler}>취소</Button>
+                        <Button bgColor="#644AFF" color="white" onClick={()=>{mutate({"nickname" : changedNickname})}}>수정완료</Button>
+                      </Div>
+                    : <Button onClick={changeNicknameHandler}>닉네임 변경</Button>
                   }
               </Div>
             </Div>
-          </Div>
-          <Div bgColor="none" gap="1rem" padding="1rem">
-            <Button onClick={()=>{navi("/regist")}}>대여물품 등록하기</Button>
-            <Button onClick={()=>{
-              onNavigateChat.mutate()
-            }}>빌리지 채팅 관리</Button>
-            <Button>예약 승인 / 확인 / 취소</Button>
+            <Div width="100%" height="100%" bgColor="#e6e6e6" padding="1rem 0 0 0" style={{boxSizing:"border-box"}}>
+
+            </Div>
           </Div>
         </Div>
 
@@ -136,11 +139,12 @@ const Button = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
+    color: ${({color}) => color ? color : 'black'};
     background-color: ${({bgColor}) => bgColor ? bgColor : 'white'};
     border: none;
     border-radius: 5px;
-    width: 20rem;
-    height: 2.5rem;
+    width: 100%;
+    height: 100%;
     cursor: pointer;
     box-shadow: 1px 1px 5px rgb(0, 0, 0, 0.2);
     &:hover {
@@ -149,4 +153,19 @@ const Button = styled.button`
     &:active {
         box-shadow: inset 1px 1px 5px rgb(0, 0, 0, 0.5);
     }
+`
+
+const Span = styled.span`
+  margin: auto 0 auto 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+`
+
+const Input = styled.input`
+  margin: auto 0 auto 0;
+  width: 50%;
+  height: 2.5rem;
+  border: 1px solid #e6e6e6;
+  padding-left: 10px;
+  font-size: 1.5rem;
 `
