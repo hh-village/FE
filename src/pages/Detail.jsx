@@ -13,6 +13,7 @@ import ImageSlider from '../components/detail/ImageSlider'
 import useGetDetail from '../hooks/useGetDetail'
 import useUpdateDetail from '../hooks/useUpdateDetail'
 import useDeleteDetail from '../hooks/useDeleteDetail'
+import { useEffect } from 'react'
 
 function Detail() {
   const { id } = useParams();
@@ -24,6 +25,10 @@ function Detail() {
     description : '',
     image : [],
   });
+
+  useEffect(()=>{
+    window.scrollTo(0, 0); 
+  },[data.zzimCount])
 
   if(isLoading || UpdatePost.isLoading || DeletePost.isLoading){
     return(
