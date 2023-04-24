@@ -62,7 +62,7 @@ function MyPage() {
       refetch();
     },
     onError: () => {
-      alert("일시적 오류입니다");
+      alert("같은 닉네임이 존재합니다");
     }
   });
 
