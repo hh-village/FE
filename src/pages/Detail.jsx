@@ -14,6 +14,7 @@ import useGetDetail from '../hooks/useGetDetail'
 import useUpdateDetail from '../hooks/useUpdateDetail'
 import useDeleteDetail from '../hooks/useDeleteDetail'
 import { useEffect } from 'react'
+import Loading from '../components/global/Loading'
 
 function Detail() {
   const { id } = useParams();
@@ -28,13 +29,11 @@ function Detail() {
 
   useEffect(()=>{
     window.scrollTo(0, 0); 
-  },[data.zzimCount])
+  },[])
 
   if(isLoading || UpdatePost.isLoading || DeletePost.isLoading){
     return(
-      <div>
-        로딩중입니다.
-      </div>
+      <Loading/>
     )
   }
   const onClickMap = () => {
@@ -70,7 +69,7 @@ function Detail() {
                     <span>대여완료 {data?.reservationList.filter((item)=> item.status === 'returned').length}명 </span>
                   </div>
                   <div style={{display:'flex', alignItems:'center', gap:'4px'}}>
-                    <NotifiyIcon src='/images/favorite 1.png'/>
+                    <NotifiyIcon src='/images/fHeart.png'/>
                     관심 {data?.zzimCount}명
                   </div>
                     

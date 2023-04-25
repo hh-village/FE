@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const MessageRoom = styled.div`
     display : flex;
@@ -27,12 +27,12 @@ export const ChatBody = styled.div`
     }
 `
 export const ChatInput = styled.input`
-    width:570px;
+    width:510px;
     height: 45px;
     border-radius:20px;
     border:none;
     border : 1px solid gray;
-    text-indent : 1em;
+    padding :0 1em 0 1em;
     font-size : 15px;
     margin: 20px 16px 20px 16px;
 `
@@ -78,7 +78,7 @@ export const MychatBubble = styled.span`
     background-color : #EEEBFF;
     padding: 15px;
     word-break: break-all;
-    margin: 0 20px 0 20px;
+    margin: 0 16px 0 10px;
 `
 export const OtherchatBubble = styled.span`
     min-width: min-content;
@@ -87,5 +87,26 @@ export const OtherchatBubble = styled.span`
     word-break: break-all;
     background-color : #D9D9D9;
     padding: 15px;
-    margin: 0 16px 0 16px;
+    margin: 0 10px 0 16px;
+`
+export const ChatTime = styled.div`
+    color: #676767;
+    font-size : 12px;
+    padding-bottom : 3px;;
+    display:flex;
+    align-items:end;
+    ${({theme})=>{
+        switch(theme){
+            case 'mychat' :
+                return css`
+                    justify-content : flex-end;
+                    padding-left : 150px;
+                `
+            case 'otherchat':
+                return css`
+                    justify-content : flex;
+                    padding-right : 150px;
+                `
+        }
+    }}
 `
