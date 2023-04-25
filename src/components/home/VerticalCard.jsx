@@ -44,23 +44,23 @@ function VerticalCard({data}) {
                     onClick={()=>{navi(`/detail/${item?.id}`)}}
                     >
                         <Div width="100%" height="304px">
-                            {item?.hot
-                            ? <Hot>인기대여</Hot>
-                            : null
-                            }
-                            <CardImg src={item?.image} alt="" style={{width:"100%", height:"100%", objectFit: "cover"}}/>
+                          {item?.hot
+                          ? <Hot>인기대여</Hot>
+                          : null
+                          }
+                          <CardImg src={item?.image} alt="" style={{width:"100%", height:"100%", objectFit: "cover"}}/>
                         </Div>
-                        <Div width="100%">
-                            <Div fDirection="row" width="100%" jc="space-between">
-                                <span style={{marginTop:"auto", marginBottom:"auto", fontWeight:"700"}}>{item?.title}</span>
+                        <Div width="100%" padding="0.5rem" style={{boxSizing: "border-box"}} gap="0.5rem">
+                            <Div fDirection="row" width="100%" jc="space-between" style={{textOverflow:"ellipsis"}}>
+                                <span style={{marginTop:"auto", marginBottom:"auto", fontSize:"18px", fontWeight:"700"}}>{item?.title}</span>
                                 <img
                                     src={item?.checkZzim ? "/images/fHeart.png" : "/images/eHeart.png"}
                                     alt="zzimStatus"
-                                    style={{width:"28px", height: "28px"}}
+                                    style={{width:"1.5rem", height: "1.5rem"}}
                                     onClick={()=>{mutate("")}}
                                 />
                             </Div>
-                            <Div marginBottom="0.5rem" gap="0.5rem">
+                            <Div marginBottom="0.5rem" gap="0.5rem" style={{color:"#191919"}}>
                                 <span>{item?.location}</span>
                                 <span>가격 {item?.price}원</span>
                             </Div>
@@ -85,9 +85,8 @@ const Cards = styled.div`
   flex-direction: column;
   width: 100%;
   height: ${({height}) => height};
-  border-radius: 5px;
+  border: 1px solid #e6e6e6;
   overflow: hidden;
-  gap: 10px;
   &:hover {
     cursor: pointer;
     box-shadow: 1px 1px 5px rgb(0, 0, 0, 0.5);
