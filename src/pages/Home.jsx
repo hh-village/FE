@@ -50,14 +50,14 @@ function Home() {
             searchData={searchData}
             setSearchData={setSearchData}
           />
-
-          {/* components/home */}
-          {/* <DealList data={data}/> */}
         </Div>
       </MaxWidthDiv>
         {/* components/home */}
         <HomeImgSlide />
       <MaxWidthDiv>
+        {/* components/home */}
+        <DealList data={data}/>
+        
         {/* components/home */}
         <VerticalCard data={data}/>
 

@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { FlexDiv, MaxWidthDiv } from '../components/global/globalStyle'
@@ -15,15 +15,33 @@ function Search() {
     location: ""
   });
 
-  console.log("스토어에서 가져온거", searchData);
+  const getSearchData = async(lastPostId, size) => {
+    console.log(lastPostId);
+    const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/products?name=${searchData.productName}&location=${searchData.location}&lastId=${lastPostId}&size=${size}`)
+    const productList = res?.data.data.productList
+    const nextLastPostId = productList[productList.length - 1]?.id
+    const isLast = productList.length < size
+    return {productList, nextLastPostId, isLast}
+  }
 
-  const { data, refetch } = useQuery({
-    queryKey: ["GET_PRODUCTS"],
-    queryFn: async () => {
-      const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/products?name=${searchData.productName}&location=${searchData.location}`)
-      return res.data.data;
+
+  const {data, fetchNextPage, isFetchingNextPage, refetch} = useInfiniteQuery(
+    ['searchData'],
+    ({pageParam = 999999}) => getSearchData(pageParam, 8),
+    {
+      getNextPageParam: (lastPage) => 
+        !lastPage.isLast ? lastPage.nextLastPostId : undefined
     }
-  })
+  )
+
+  // const { data, refetch } = useQuery({
+  //   queryKey: ["GET_PRODUCTS"],
+  //   queryFn: async () => {
+  //     const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/products?name=${searchData.productName}&location=${searchData.location}`)
+  //     return res.data.data;
+  //   }
+  // })
+
   useEffect(()=>{
     setSearchData(getStoreData);
   },[])
@@ -41,12 +59,17 @@ function Search() {
         
         {/* components/global */}
         <SearchInput
-        searchData={searchData}
-        setSearchData={setSearchData}
-        rem={8} />
+          searchData={searchData}
+          setSearchData={setSearchData}
+          rem={8}
+        />
 
         {/* components/search */}
-        <SearchCards data={data}/>
+        <SearchCards
+          data={data?.pages}
+          isFetchingNextPage={isFetchingNextPage}
+          fetchNextPage={fetchNextPage}
+        />
       </MaxWidthDiv>
 
       {/* components/global */}

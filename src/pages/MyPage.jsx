@@ -50,19 +50,20 @@ function MyPage() {
 
   const { mutate } = useMutation({
     mutationFn: async (payload) => {
-      await axios.patch(`${process.env.REACT_APP_SERVER_URL}/users`, payload, {
+      return await axios.patch(`${process.env.REACT_APP_SERVER_URL}/users`, payload, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
     },
-    onSuccess: () => {
+    onSuccess: ({data}) => {
       setChangeState(!changeState);
-      alert("닉네임 변경 완료!");
+      alert(data.message);
       refetch();
     },
-    onError: () => {
-      alert("같은 닉네임이 존재합니다");
+    onError: ({response}) => {
+      setChangeState(!changeState);
+      alert(response.data.message);
     }
   });
 
