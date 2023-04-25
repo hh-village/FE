@@ -10,8 +10,8 @@ import { getCookie, setCookie } from '../shared/Cookies'
 
 function Login() {
   const token = getCookie('token')
-  // const REDIRECT_URI = 'http://localhost:3000/oauth/social/callback';
-  const REDIRECT_URI = 'http://team3-village.s3-website.ap-northeast-2.amazonaws.com/oauth/social/callback';
+  const REDIRECT_URI = 'http://localhost:3000/oauth/social/callback';
+  // const REDIRECT_URI = 'http://team3-village.s3-website.ap-northeast-2.amazonaws.com/oauth/social/callback';
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   const navi = useNavigate();
 
@@ -19,7 +19,7 @@ function Login() {
     window.location.href = KAKAO_AUTH_URL
   }
   const onClickAdmin = async() => {
-    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/test/login/test`)
+    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/test/login/test123`)
     setCookie('token',response.headers.authorization.substring(7))
     setCookie('nickname', response.data.data)
     navi('/')

@@ -10,12 +10,12 @@ import { DescInput, PriceDiv, PriceInput, PriceSpan, RegistBtn, RegistTitle, Tit
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Footer from '../components/global/Footer'
+import Loading from '../components/global/Loading'
 const MapComp = lazy(()=> import('../components/regist/Map'))
 
 function Regist() {
   const navigate = useNavigate();  
   const { image, location } = useSelector(state => state.Post)
-  const [imageURL, setImageURL] = useState(image)
   const accessToken = getCookie('token')
   const { values, onChange } = useInput({
     title: "",
@@ -24,7 +24,7 @@ function Regist() {
     location:'',
     images : '',
   })
-  const { mutate } = useMutation({
+  const { mutate, isLoading } = useMutation({
     mutationKey:['mutate'],
     mutationFn: async(values)=>{
       return await axios.post(`${process.env.REACT_APP_SERVER_URL}/products`,values,{
@@ -57,6 +57,10 @@ function Regist() {
       navigate('/login')
     }
   },[accessToken])
+
+  if(isLoading){
+    return <Loading/>
+  }
   
 
   return (
@@ -77,7 +81,7 @@ function Regist() {
               onChange={onChange}
               maxLength={20}
             />
-            <ImageBlock setImageURL = {setImageURL} imageURL = {imageURL}/>
+            <ImageBlock/>
           </Div>
           <div style={{height:'685px', border:'1px solid #D7D7D7'}}></div>
           <Div width="100%">
