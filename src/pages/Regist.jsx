@@ -53,6 +53,10 @@ function Regist() {
   }
 
   useEffect(()=>{
+    window.scrollTo(0, 0); 
+  },[])
+
+  useEffect(()=>{
     if(!accessToken){
       navigate('/login')
     }
@@ -103,7 +107,7 @@ function Regist() {
               onChange={onChange}
             />
             <Suspense>
-              <MapComp/>
+              <MapComp theme = {'regist'}/>
             </Suspense>
             <RegistBtn> 등록하기 </RegistBtn>
             </form>

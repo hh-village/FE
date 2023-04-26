@@ -21,7 +21,12 @@ function Login() {
     const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/test/login/test123`)
     setCookie('token',response.headers.authorization.substring(7))
     setCookie('nickname', response.data.data)
-    navi('/')
+    if(localStorage.getItem("alwaysOpen")){
+      navi('/')
+    }else{
+      localStorage.setItem("alwaysOpen", true);
+      navi('/')
+    }
   }
 
   useEffect(()=>{

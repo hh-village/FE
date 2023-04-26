@@ -15,8 +15,6 @@ function SearchCards({data, isFetchingNextPage, fetchNextPage}) {
         setToken(getCookie("token"));
     },[])
 
-    console.log("data", data);
-
     useEffect(()=>{
         if(inView) fetchNextPage()
     }, [inView])

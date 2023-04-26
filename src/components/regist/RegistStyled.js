@@ -60,27 +60,49 @@ export const DescInput = styled.textarea`
 `
 export const MapSearch = styled.input`
     width: 100%;
-    height: 50px;
-    font-size:25px;
+    height: 45px;
+    font-size:15px;
     text-indent:0.5em;
+    background: #ffffff;
     border: none;
 `
+
+export const MapBox = styled.div`
+    width: 610px;
+    height: 509px;
+    margin-top:13px;
+    ${({theme})=>{
+        switch(theme){
+            case 'regist':
+                return css`
+                    width: 567px;
+                    height: 238px;
+                    margin-top:13px;
+                `
+        }
+    }}
+    
+`
+
 export const SearchButton = styled.button`
     width: 60px;
-    height: 50px;
+    height: 45px;
     border: none;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #ededed;
+    background-color: #644AFF;
     :hover{
-        background-color: #e8e8e8;
+        box-shadow: 1px 1px 5px rgb(0, 0, 0, 0.5);
+    }
+    &:active {
+        box-shadow: inset 1px 1px 5px rgb(0, 0, 0, 0.5);
     }
 `
 export const Searchdiv = styled.div`
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     width: 567px;
-    border: 2px solid gray;
+    border: 3px solid #644AFF;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -112,7 +134,7 @@ export const PriceSpan = styled.span`
 `
 
 export const RegistBtn = styled.button`
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     width : 567px;
     height : 50px;
     border: none;

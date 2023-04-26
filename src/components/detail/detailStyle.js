@@ -237,6 +237,9 @@ export const LocationButton = styled.div`
     left: 30%;
     top: 22%;
     cursor: pointer;
+    :active{
+        transition: all 2s;
+    } 
 `
 export const Registertext = styled.textarea`
     padding: 1rem;
@@ -260,4 +263,83 @@ export const DescriptionDiv = styled.div`
   &::-webkit-scrollbar{
     display: none;
   }
+`
+
+export const SellerInfo = styled.div`
+    position: relative;
+    width:85px;
+    height: 28px;
+    border: 1px solid #DADADA;
+    color: #575757;
+    display: flex;
+    justify-content : center;
+    align-items: center;
+    font-size : 16px;
+    font-weight: 400;
+    cursor: pointer;
+`
+
+export const SellorInfoBox = styled.div`
+    position: absolute;
+    width: 428px;
+    height: 100px;
+    border: 1px solid #DADADA;
+    border-radius : 10px;
+    transform: translate(39%, 69%);
+    background: #ffffff;
+    display: flex;
+    justify-content :center;
+    flex-direction : column;
+    gap:15px;
+`
+export const ModalBackground = styled.div`
+    position: fixed;
+    background: rgba(0,0,0,0.3);
+    z-index: 4;
+    width:100vw;
+    height: 100vh;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+`;
+
+export const ModalText = styled.div`
+    position: absolute;
+    top: 40%;
+    font: 'Pretendard';
+    display: flex;
+    justify-content : center;
+    align-items:center;
+    height: 213px;
+    width: 403px;
+    border-radius : 10px;
+    background: #ffffff;
+    text-align: bottom;
+    flex-direction : column;
+    gap: 20px;
+`;
+
+export const Span = styled.div`
+    font-size : 16px;
+`
+export const Cancel = styled.div`
+    position: absolute;
+    top: 5%;
+    left: 94%;
+    color: #979797;
+    cursor: pointer;
+`
+export const LocationBox = styled.div`
+    position:absolute;
+    top : -560%;
+    right: -3%;
+    background:white;
+    border-radius : 10px;
+    box-shadow: 1px 1px 10px rgb(0, 0, 0, 0.5);
+    overflow: hidden;
 `
