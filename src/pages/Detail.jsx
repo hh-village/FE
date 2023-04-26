@@ -3,7 +3,7 @@ import { FlexDiv, MaxWidthDiv, Div } from '../components/global/globalStyle'
 import HeaderNav from '../components/global/HeaderNav'
 import ConsumerRegister from '../components/detail/ConsumerRegister'
 import RegisterReserve from '../components/detail/RegisterReserve'
-import { ButtonWrapper, DescriptionDiv, DetailBtn, DetailTitle, LocationButton, NotifiyIcon, PriceTitle, Registertext, ReserveDesc, Title, UnderImage } from '../components/detail/detailStyle'
+import { ButtonWrapper, Cancel, DescriptionDiv, DetailBtn, DetailTitle, LocationBox, LocationButton, ModalBackground, ModalText, NotifiyIcon, PriceTitle, Registertext, ReserveDesc, SellerInfo, SellorInfoBox, Span, Title, UnderImage } from '../components/detail/detailStyle'
 import { useSelector } from 'react-redux'
 import ImageBlock from '../components/regist/ImageBlock'
 import useInput from '../hooks/useInput'
@@ -13,16 +13,27 @@ import ImageSlider from '../components/detail/ImageSlider'
 import useGetDetail from '../hooks/useGetDetail'
 import useUpdateDetail from '../hooks/useUpdateDetail'
 import useDeleteDetail from '../hooks/useDeleteDetail'
-import { useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import Loading from '../components/global/Loading'
+import { useState } from 'react'
+import useDropdown from '../hooks/useDropdown'
+import ModalSeller from '../components/detail/ModalSeller'
+import { TitleInput } from '../components/regist/RegistStyled'
+const MapComp = lazy(()=> import('../components/regist/Map'))
 
 function Detail() {
+  const alwaysOpen = JSON.parse(localStorage.getItem('alwaysOpen'))
+  const { handleClose, isOpen } = useDropdown(true);
+  const { handleToggle:modalControl, isOpen:modalOpen } = useDropdown();
+  const [hide, setHide] = useState();
   const { id } = useParams();
   const {image} = useSelector(state => state.Post);
   const { data, isLoading } = useGetDetail(id);
   const { UpdatePost } = useUpdateDetail(id);
   const { DeletePost } = useDeleteDetail(id);
   const {values,onChange} = useInput({
+    title : '',
+    price : '',
     description : '',
     image : [],
   });
@@ -36,9 +47,11 @@ function Detail() {
       <Loading/>
     )
   }
+
   const onClickMap = () => {
-    alert('해당 기능은 준비 중입니다')
+    modalControl();
   }
+  
   return (
     <FlexDiv boxShadow="none">
       <HeaderNav />
@@ -52,7 +65,7 @@ function Detail() {
           )}
         </Div>
         <Div width="100%" marginTop="2rem" fDirection="row" jc="space-between" gap="2rem">
-          {/* 왼쪽 div 영역*/}
+          {/* 왼쪽 div 영역 */}
           <Div width="100%">
             <Div width="100%">
             {data?.checkOwner
@@ -72,7 +85,6 @@ function Detail() {
                     <NotifiyIcon src='/images/fHeart.png'/>
                     관심 {data?.zzimCount}명
                   </div>
-                    
                   <div style={{display:'flex', alignItems:'center', gap:'4px'}}>
                     <NotifiyIcon src='/images/eye 1.png'/>
                     조회 xx회
@@ -89,8 +101,15 @@ function Detail() {
               <img style = {{width :'567px', height :'115px'}} src='/images/mapBG.png' alt=''/>
               <LocationButton onClick={onClickMap}>
                 <NotifiyIcon src='/images/location 1.png'/>
-                내 근처에서 지도 찾기
+                거래위치 지도에서 보기
               </LocationButton>
+              {modalOpen && (
+                <LocationBox>
+                  <Suspense>
+                    <MapComp baseloc = {data.location}/>
+                  </Suspense>
+                </LocationBox>
+              )}
             </Div>
           </Div>
           {/* 가운데 구분선 */}
@@ -102,13 +121,51 @@ function Detail() {
           <Div width="100%" gap="2rem" style={{boxSizing:"border-box"}}>
             <Div width="100%">
               <Div fDirection="row" width="100%" jc="space-between">
-                <Title>{data?.title}</Title>
-                <Zzim 
-                  zzim={data?.zzimStatus} 
-                  zzimCount = {data?.zzimCount} 
-                  id = {data?.id}/>
+                {data.checkOwner ? (
+                  <TitleInput
+                  name='title'
+                  onChange={onChange}
+                  placeholder = {data.title}
+                  />
+                ) : (
+                  <>
+                    <Title>{data?.title}</Title>
+                    <Zzim 
+                      zzim={data?.zzimStatus} 
+                      zzimCount = {data?.zzimCount} 
+                      id = {data?.id}/>
+                  </>
+                )}
               </Div>
-              <PriceTitle> {data?.price}원 <span style ={{fontSize:'13px'}}>/ 1일 기준</span></PriceTitle>
+              <Div width = '100%'fDirection = 'row' alignItem = 'center' gap ='10px'>
+                <PriceTitle> {data?.price}원 <span style ={{fontSize:'13px'}}>/ 1일 기준</span></PriceTitle>
+                <SellerInfo
+                onMouseOver={()=>setHide(true)}
+                onMouseLeave={()=>setHide(false)}
+                >판매자 정보</SellerInfo>
+                {hide && (
+                  <SellorInfoBox>
+                    <div style={{width : '100%', paddingLeft :'17px', fontSize : '20px'}}>
+                     {data.ownerNickname}
+                    </div>
+                    <Div fDirection = 'row' jc = 'center' gap = '13px' >
+                      <Div alignItem = 'center' fDirection = 'row' gap='7px'>
+                        <NotifiyIcon src='/images/check.png'/>
+                        <Span>대여완료 {data.ownerReturned}명</Span>
+                      </Div>
+                      <Div alignItem = 'center' fDirection = 'row' gap='7px'>
+                        <NotifiyIcon src='/images/profile1.png'/>
+                        <Span>대여진행중 {data.ownerAccepted}명</Span>
+                      </Div>
+                      <Div alignItem = 'center' fDirection = 'row' gap='7px'>
+                        <NotifiyIcon src='/images/profile.png'/>
+                        <Span>대기중 {data.ownerWaiting}명</Span>
+                      </Div>
+                    </Div>
+                  </SellorInfoBox>
+                )}
+              </Div>
+              
             </Div>
             <Div width="100%">
               {data?.checkOwner ? (
@@ -131,7 +188,7 @@ function Detail() {
                       description : values.description,
                       images : image,
                       location : data?.location,
-                      title:  data?.title,
+                      title:  values.title,
                       price : data?.price
 
                     })}}>수정하기</DetailBtn>
@@ -154,6 +211,9 @@ function Detail() {
             </Div>
           </Div>
         </Div>
+        {data.checkOwner && isOpen && alwaysOpen &&(
+          <ModalSeller handleClose = {handleClose}/>
+        )}
       </MaxWidthDiv>
       <Footer topRem={6} botRem={2}/>
     </FlexDiv>

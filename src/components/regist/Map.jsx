@@ -5,33 +5,42 @@ import useInput from '../../hooks/useInput'
 import { useDispatch } from 'react-redux'
 import { storeLocation } from '../../redux/modules/Post';
 import { getCookie } from '../../shared/Cookies';
-import { MapSearch, SearchButton, Searchdiv } from './RegistStyled';
+import { MapBox, MapSearch, SearchButton, Searchdiv } from './RegistStyled';
 import { useLocation } from 'react-router-dom';
 import { Div } from '../global/globalStyle';
 import { useQuery } from '@tanstack/react-query';
+import { NotifiyIcon } from '../detail/detailStyle';
 
 
-function Map() {
+function Map({theme, baseloc = '서울특별시 강남구 테헤란로44길 8'}) {
   const accessToken = getCookie('token')
   const navermaps = useNavermaps();
   const [map, setMap] = useState(null);
-  const [center, setCenter] = useState('')
+  const [center, setCenter] = useState({locX : 127.04433818317304, locY : 37.50236471726318})
   const dispatch = useDispatch();
-  const pageLocation = useLocation();
-  const [location, setLocation] = useState('')
+  const [location, setLocation] = useState(baseloc)
   const {values, onChange} = useInput({
-    address : ''
+    address : baseloc
   })
 
   const Geocode = useQuery({
     queryKey:['GET_GEOCODE'],
     queryFn: async()=>{
-      return await axios.get(`${process.env.REACT_APP_SERVER_URL}/maps/geocode?address=${values.address}`,
-      {
-        headers:{
-            Authorization: `Bearer ${accessToken}`
-          }
-      })
+      if(values.address){
+        return await axios.get(`${process.env.REACT_APP_SERVER_URL}/maps/geocode?address=${values.address}`,
+        {
+          headers:{
+              Authorization: `Bearer ${accessToken}`
+            }
+        })
+      }else{
+        return await axios.get(`${process.env.REACT_APP_SERVER_URL}/maps/geocode?address=서울특별시 강남구 테헤란로44길 8`,
+        {
+          headers:{
+              Authorization: `Bearer ${accessToken}`
+            }
+        })
+      }
     },
     onSuccess : (response) => {
       try{
@@ -44,13 +53,16 @@ function Map() {
           const place = new navermaps.LatLng(yLoc, xLoc)
           if(map) {
             map.panTo(place)
+            setCenter({
+              locX : xLoc,
+              locY : yLoc
+            })
           }
         }
       }catch{
         window.alert('다시 입력해주세요.')
       }
-    },
-    enabled:false
+    }
   })
 
   
@@ -77,40 +89,41 @@ function Map() {
 
   
   return (
-    <div style={{ marginTop:"1rem" }}>
-      <MapDiv style={{ width: '567px', height: '238px' }}>
-        <NaverMap
-          defaultCenter={new navermaps.LatLng(37.5816, 126.88839)}
-          defaultZoom={15}
-          ref={setMap}
-          onClick={onClickMarker}
-        >
-        <Marker position={new navermaps.LatLng(center.locY, center.locX)}/>
-        </NaverMap>
-      </MapDiv>
-      {
-        pageLocation.pathname === "/detail/*"
-        ? null
-        : <>
-            <Searchdiv>
-              <MapSearch 
-                name='address'
-                value={values.address}
-                onChange={onChange}
-                />
-              <SearchButton onClick={(event)=>{
-                event.preventDefault();
-                Geocode.refetch();
-              }}>
-                위치
-              </SearchButton>
-            </Searchdiv>
-            <Div>
-              <span style={{marginTop:"1rem"}}>거래 위치: {location}</span>
-            </Div>
-          </>
-      }
-    </div>
+    <Div alignItem = 'center' style={{ marginTop:"0.5rem"}}>
+      <Searchdiv>
+          <MapSearch 
+            name='address'
+            value={values.address}
+            onChange={onChange}
+            placeholder = '시/구/동/읍/면" 과 같은 주소로 검색해주세요.'
+            />
+          <SearchButton onClick={(event)=>{
+            event.preventDefault();
+            if(!values.address){
+              window.alert('다시 입력해주세요')
+            }else{
+              Geocode.refetch();
+            }
+          }}>
+            <NotifiyIcon src='/images/location 2.png'/>
+          </SearchButton>
+        </Searchdiv>
+      <MapBox theme={theme}>
+        <MapDiv style={{ width: '100%', height: '100%',zIndex:999 }}>
+          <NaverMap
+            defaultCenter={new navermaps.LatLng(center.locY, center.locX)}
+            defaultZoom={15}
+            ref={setMap}
+            onClick={onClickMarker}
+          >
+          <Marker position={new navermaps.LatLng(center.locY, center.locX)}/>
+          </NaverMap>
+        </MapDiv>
+      </MapBox>
+      <Div width = '100%' alignItem = 'start'>
+        <span style={{margin:"0.8rem 0.5rem 0.8rem 0.5rem"}}>위치: {location}</span>
+      </Div>
+    </Div>
   )
 }
 
