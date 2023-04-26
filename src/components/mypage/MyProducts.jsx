@@ -8,20 +8,22 @@ function MyProducts({data}) {
   const navi = useNavigate();
 
   return (
-    <Div gap="1rem" width="100%">
-      {data?.myList.map((item) => 
-      <CardDiv
-        key={nanoid()}
-        onClick={()=>{navi(`/detail/${item?.id}`)}}
-      >
-        <Img src={item?.image} alt="" />
-        <Div jc="center" bgColor="#e6e6e6" gap="1rem">
-          <h3>{item?.title}</h3>
-          <span>작성일 : {item?.createdAt}</span>
-        </Div>
-      </CardDiv>
-      )}
-    </Div>
+    data?.myList.length === 0
+    ? <Div width="100%" jc="center" alignItem="center">작성한 글이 없습니다</Div>
+    : <Div gap="1rem" width="100%">
+        {data?.myList.map((item) => 
+        <CardDiv
+          key={nanoid()}
+          onClick={()=>{navi(`/detail/${item?.id}`)}}
+        >
+          <Img src={item?.image} alt="" />
+          <Div jc="center" bgColor="#e6e6e6" gap="1rem">
+            <h3>{item?.title}</h3>
+            <span>작성일 : {item?.createdAt}</span>
+          </Div>
+        </CardDiv>
+        )}
+      </Div>
   )
 }
 

@@ -39,8 +39,8 @@ function SearchCards({data, isFetchingNextPage, fetchNextPage}) {
                                 }
                                 <CardImg src={item?.image} alt="" style={{width:"100%", height:"100%", objectFit: "cover"}}/>
                             </Div>
-                            <Div width="100%">
-                                <Div fDirection="row" width="100%" jc="space-between" margin="0.5rem 0 0 0">
+                            <Div width="100%" padding="0.5rem" style={{boxSizing: "border-box"}} gap="0.5rem">
+                                <Div fDirection="row" width="100%" jc="space-between" style={{textOverflow:"ellipsis"}}>
                                     <span style={{marginTop:"auto", marginBottom:"auto", fontWeight:"700"}}>{item?.title}</span>
                                     {token == null||undefined
                                         ? null
@@ -51,7 +51,7 @@ function SearchCards({data, isFetchingNextPage, fetchNextPage}) {
                                         />
                                     }
                                 </Div>
-                                <Div margin="0 0 0.5rem 0">
+                                <Div margin="0 0 0.5rem 0" gap="0.5rem" style={{color:"#191919"}}>
                                     <span>위치 {item?.location}</span>
                                     <span>1일 기준 {item?.price}원</span>
                                 </Div>
@@ -74,7 +74,6 @@ const Cards = styled.div`
   height: ${({height}) => height};
   border-radius: 5px;
   overflow: hidden;
-  gap: 10px;
   &:hover {
     cursor: pointer;
     box-shadow: 1px 1px 5px rgb(0, 0, 0, 0.5);

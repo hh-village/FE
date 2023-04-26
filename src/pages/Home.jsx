@@ -1,6 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { FlexDiv, MaxWidthDiv, Div } from '../components/global/globalStyle'
 import HeaderNav from '../components/global/HeaderNav'
 import SearchInput from '../components/global/SearchInput'
@@ -10,32 +8,14 @@ import HorizonCard from '../components/home/HorizonCard'
 import HomeImgSlide from '../components/home/HomeImgSlide'
 import EventBanner from '../components/home/EventBanner'
 import Footer from '../components/global/Footer'
-import { getCookie } from '../shared/Cookies'
+import useGetMainPageData from '../hooks/useGetMainPageData'
 
 function Home() {
+  const { data } = useGetMainPageData();
   const [searchData, setSearchData] = useState({
     productName: "",
     location: ""
   });
-  
-  const { data } = useQuery({
-    queryKey: ["GET_MAINPAGE"],
-    queryFn: async () => {
-      const token = getCookie("token");
-      if(!token){
-        const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/main`)
-        return res.data.data;
-      } else {
-        const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/main`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          }
-        });
-        return res.data.data;
-      }
-      
-    }
-  })
 
   return (
     <FlexDiv boxShadow="none">
@@ -52,9 +32,11 @@ function Home() {
           />
         </Div>
       </MaxWidthDiv>
+
         {/* components/home */}
         <HomeImgSlide />
       <MaxWidthDiv>
+        
         {/* components/home */}
         <DealList data={data}/>
         

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Div } from '../global/globalStyle'
-import SlideBtn from '../detail/SlideBtn'
+import HomeSlideBtn from '../home/HomeSlideBtn'
 import styled from 'styled-components';
 import { nanoid } from 'nanoid';
 
@@ -8,11 +8,9 @@ function HomeImgSlide() {
     const [count, setCount] = useState(1);
 
     const test = [
-        "/images/DSC02693.jpg",
-        "/images/DSC01665.jpg",
-        "/images/DSC01302.jpg",
-        "/images/DSC02517.jpg",
-        "/images/DSC01716.jpg"
+        "/images/main1.png",
+        "/images/main2.jpg",
+        "/images/main3.jpg",
     ]
 
     const styleOption = `
@@ -28,7 +26,7 @@ function HomeImgSlide() {
     return (
         <Div bgColor="black" width="100%" marginTop="2rem">
             <Div position="relative" margin="auto" width="1200px" height="500px" overflow="hidden">
-                <SlideBtn count={count} setFunc={setCount} total={test.length}/>
+                <HomeSlideBtn count={count} setFunc={setCount} total={test.length}/>
                 <Slide etc={styleOption}>
                     {test.map((imgs) => <Img src={imgs} alt={imgs} key={nanoid()}/>)}
                 </Slide>

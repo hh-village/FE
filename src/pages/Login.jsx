@@ -2,10 +2,8 @@ import axios from 'axios'
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import Footer from '../components/global/Footer'
 import { FlexDiv, MaxWidthDiv } from '../components/global/globalStyle'
 import HeaderNav from '../components/global/HeaderNav'
-import NaverBtn from '../components/login/NaverBtn'
 import { getCookie, setCookie } from '../shared/Cookies'
 
 function Login() {
@@ -18,6 +16,7 @@ function Login() {
   const kakaoLogin = () => {
     window.location.href = KAKAO_AUTH_URL
   }
+  
   const onClickAdmin = async() => {
     const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/test/login/test123`)
     setCookie('token',response.headers.authorization.substring(7))
