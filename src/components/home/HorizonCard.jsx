@@ -15,7 +15,7 @@ function HorizonCard({data}) {
                     key={nanoid()}
                     onClick={()=>{navi(`/detail/${item?.id}`)}}
                 >
-                    <Div width="210px" height="210px">
+                    <Div height="100%">
                         <CardImg src={item?.image} alt="" />
                     </Div>
                     <Div jc="space-between" width="100%" height="100%" padding="1rem 1rem 1rem 0" style={{boxSizing: "border-box"}}>
@@ -49,7 +49,7 @@ const Cards = styled.div`
     display: flex;
     flex-direction: row;
     border: 1px solid #e6e6e6;
-    height: 100%;
+    height: 210px;
     gap: 1rem;
     &:hover {
         cursor: pointer;
@@ -59,5 +59,5 @@ const Cards = styled.div`
 
 const CardImg = styled.img`
   width: 210px;
-  height: 210px;
+  height: 100%;
 `
