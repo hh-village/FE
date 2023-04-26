@@ -1,4 +1,4 @@
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
+import { useInfiniteQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { FlexDiv, MaxWidthDiv } from '../components/global/globalStyle'
@@ -33,14 +33,6 @@ function Search() {
         !lastPage.isLast ? lastPage.nextLastPostId : undefined
     }
   )
-
-  // const { data, refetch } = useQuery({
-  //   queryKey: ["GET_PRODUCTS"],
-  //   queryFn: async () => {
-  //     const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/products?name=${searchData.productName}&location=${searchData.location}`)
-  //     return res.data.data;
-  //   }
-  // })
 
   useEffect(()=>{
     setSearchData(getStoreData);

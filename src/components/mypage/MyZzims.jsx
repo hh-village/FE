@@ -5,25 +5,27 @@ import styled from 'styled-components';
 import { Div } from '../global/globalStyle'
 
 function MyZzims({data}) {
-    const navi = useNavigate();
+  const navi = useNavigate();
 
   return (
-    <Div gap="1rem" width="100%">
-      {data?.myList.map((item) => 
-      <CardDiv
-        key={nanoid()}
-        width="100%"
-        gap="1rem"
-        border="1px solid black"
-        onClick={()=>{navi(`/detail/${item?.id}`)}}
-      >
-        <Img src={item?.image} alt="" />
-        <Div jc="center" bgColor="#e6e6e6" gap="1rem">
-          <h3>{item?.productTitle}</h3>
-        </Div>
-      </CardDiv>
-      )}
-    </Div>
+    data?.myList.length === 0
+    ? <Div width="100%" jc="center" alignItem="center" style={{color:"#767676"}}>찜한 상품이 없습니다</Div>
+    : <Div gap="1rem" width="100%">
+        {data?.myList.map((item) => 
+            <CardDiv
+              key={nanoid()}
+              width="100%"
+              gap="1rem"
+              border="1px solid black"
+              onClick={()=>{navi(`/detail/${item?.id}`)}}
+            >
+              <Img src={item?.image} alt="" />
+              <Div jc="center" bgColor="#e6e6e6" gap="1rem">
+                <h3>{item?.productTitle}</h3>
+              </Div>
+            </CardDiv>
+        )}
+      </Div>
   )
 }
 
