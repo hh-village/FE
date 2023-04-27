@@ -1,25 +1,26 @@
 import { nanoid } from "@reduxjs/toolkit";
 import { Stomp } from "@stomp/stompjs";
-import { isError, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useRef, useState, Suspense } from "react";
+import { useNavigate } from "react-router-dom";
 import SockJS from "sockjs-client";
-import { ChatBody, ChatInput, ChatTime, ChatWholeBody, MessageRoom, MychatBubble, NickName, OtherchatBubble, Room, RoomProfile, RoomTitle, TargetRoom } from "../components/chat/chatStyle";
+import { ChatBody, ChatInput, ChatTime, ChatWholeBody, MessageRoom, MychatBubble, NickName, OtherchatBubble, Room, RoomProfile, RoomTitle, TargetRoom, ChatDeleteBtn, Wrapper} from "../components/chat/chatStyle";
+import VillageHeader from "../components/chat/VillageHeader";
 import Footer from "../components/global/Footer";
 import { Div, FlexDiv, MaxWidthDiv } from "../components/global/globalStyle";
 import HeaderNav from "../components/global/HeaderNav";
-import Loading from "../components/global/Loading";
 import { getCookie } from "../shared/Cookies";
-
 var stompClient = null;
 
 const Chat = () => {
     const scrollRef = useRef();
+    const navigate = useNavigate();
     const accessToken = getCookie('token')
     const myNick = getCookie('nickname')
-    const {id} = useParams();
-    const [roomId, setRoomId] = useState(id);
+    const [roomId, setRoomId] = useState(
+        localStorage.getItem('roomId')
+    );
     const [chatList, setChatList] = useState([])
     const [roomList, setRoomList] = useState([])
     const [userData, setUserData] = useState({
@@ -27,18 +28,31 @@ const Chat = () => {
         sender: '',
         content: '',
     });
-    
     const GetChats = useQuery({
         queryKey:['GetChats'],
         queryFn : async() => {
-            const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/chat/room?roomId=${roomId}`,{
-                headers:{
-                    Authorization : `Bearer ${accessToken}`
-                }
-            })
-            return response.data.data
+            if(!roomId){
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/chat/room?`,{
+                    headers:{
+                        Authorization : `Bearer ${accessToken}`
+                    }
+                })
+                return response.data.data
+            }else{
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/chat/room?roomId=${roomId}`,{
+                    headers:{
+                        Authorization : `Bearer ${accessToken}`
+                    }
+                })
+                return response.data.data
+            }
         },
         onSuccess : (response) =>{
+            localStorage.removeItem('roomId')
+            if(response === null){
+                alert('대화중인 채팅방이 없습니다')
+                return navigate('/')
+            }
             setRoomList([...response.roomList])
             if(response){
                 stompClient.subscribe(`/sub/chat/room/${roomId}`,
@@ -54,20 +68,13 @@ const Chat = () => {
     const DeleteRoom = useMutation({
         mutationKey : ['DeleteRoom'],
         mutationFn : async(payload) => {
-            if (payload === id){
-                window.alert('입장한 방은 삭제할 수 없습니다. 최초 입장하지 않은 다른 방들을 삭제해주세요!')
-                return;
-            }else{
-                const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/chat/room/${payload}`)
-                return response
-            }
+            return await axios.delete(`${process.env.REACT_APP_SERVER_URL}/chat/room/${payload}`)
         },
         onSuccess : (response) => {
-            window.alert(response.data.message)
+            window.alert('채팅방이 성공적으로 삭제되었습니다.')
             window.location.reload();
         }
     })
-
 
     const registUsers = () => {
         const sockJS = new SockJS(`${process.env.REACT_APP_SERVER_URL}/ws`);
@@ -75,7 +82,7 @@ const Chat = () => {
             return sockJS;
             });
         stompClient.connect({}, () => GetChats.refetch())
-        }
+    }
 
     const onClickOtherChats = (id) => {
         stompClient.disconnect();
@@ -125,7 +132,6 @@ const Chat = () => {
         scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     },[chatList])
 
-
     return (
         <FlexDiv bgColor='#ededed' boxShadow="none">
             <HeaderNav/>
@@ -138,11 +144,21 @@ const Chat = () => {
                             ? (
                                 <>
                                     <TargetRoom key={nanoid()}>
-                                        <RoomProfile src={item.profile}/>
-                                        <div style={{display:"flex", flexDirection : 'column', gap:'0.5rem'}}>
-                                            <NickName>{item.nickname}</NickName>
-                                            
-                                        </div>
+                                        <Wrapper>
+                                            <RoomProfile src={item.profile}/>
+                                            <div style={{display:"flex", flexDirection : 'column', gap:'0.5rem'}}>
+                                                <NickName>{item.nickname}</NickName>
+                                                
+                                            </div>
+                                        </Wrapper>
+                                        <ChatDeleteBtn
+                                            onClick={()=>{
+                                                if(window.confirm('채팅방을 정말로 나가시겠습니까?')){
+                                                    return DeleteRoom.mutate(item.roomId)
+                                                }
+                                            }}>
+                                            삭제
+                                        </ChatDeleteBtn>
                                     </TargetRoom>
                                 </>
                             )
@@ -150,20 +166,23 @@ const Chat = () => {
                                 <>
                                     <Room key={nanoid()}
                                         onClick = {() => onClickOtherChats(item.roomId)}>
-                                        <RoomProfile src={item.profile}/>
-                                        <div style={{display:"flex", flexDirection : 'column', gap:'0.5rem'}}>
-                                            <NickName>{item.nickname}</NickName>
-                                            <div
-                                            style={{width:'450px', overflow:"hidden", wordBreak: 'keep-all'}}
-                                            >
-                                            {item.lastMessage ? item.lastMessage : '새로운 메세지를 보내보세요!'}
+                                        <Wrapper>
+                                            <RoomProfile src={item.profile}/>
+                                            <div style={{display:"flex", flexDirection : 'column', gap:'0.5rem'}}>
+                                                <NickName>{item.nickname}</NickName>
+                                                <div style={{width:'200%', overflow:"hidden", wordBreak: 'keep-all'}}>
+                                                    {item.lastMessage ? item.lastMessage : '새로운 메세지를 보내보세요!'}
+                                                </div>
                                             </div>
-                                        </div>
-                                        <button
+                                        </Wrapper>
+                                        <ChatDeleteBtn
                                             onClick={()=>{
-                                                DeleteRoom.mutate(item.roomId)
-                                            }}
-                                        >삭제</button>
+                                                if(window.confirm('채팅방이 정말로 나가시겠습니까?')){
+                                                    return DeleteRoom.mutate(item.roomId)
+                                                }
+                                            }}>
+                                            삭제
+                                        </ChatDeleteBtn>
                                     </Room>
                                 </>
                                 
@@ -173,26 +192,27 @@ const Chat = () => {
                 </MessageRoom>
                 <ChatWholeBody>
                     <ChatBody ref = {scrollRef}>
-                            {chatList?.map((item)=>{
-                                return (
-                                    (myNick === item.sender ? (
-                                        (
-                                        <div key={nanoid()}
-                                        style={{display:"flex", justifyContent:'flex-end'}}>
-                                            <ChatTime theme={'mychat'}>{item.createdAt}</ChatTime>
-                                            <MychatBubble>{item.content}</MychatBubble>
-                                            
-                                        </div>
-                                        )
-                                    ) : (
-                                        <div style={{display:"flex"}}>
-                                            <OtherchatBubble>{item.content}</OtherchatBubble>
-                                            <ChatTime theme={'otherchat'}>{item.createdAt}</ChatTime>
-                                        </div>  
+                        <VillageHeader/>
+                        {chatList?.map((item)=>{
+                            return (
+                                (myNick === item.sender ? (
+                                    (
+                                    <div key={nanoid()}
+                                    style={{display:"flex", justifyContent:'flex-end'}}>
+                                        <ChatTime theme={'mychat'}>{item.createdAt}</ChatTime>
+                                        <MychatBubble>{item.content}</MychatBubble>
+                                        
+                                    </div>
                                     )
-                                    )
-                                )     
-                            })}
+                                ) : (
+                                    <div style={{display:"flex"}}>
+                                        <OtherchatBubble>{item.content}</OtherchatBubble>
+                                        <ChatTime theme={'otherchat'}>{item.createdAt}</ChatTime>
+                                    </div>  
+                                )
+                                )
+                            )     
+                        })}
                     </ChatBody>
                     <form onSubmit={onSubmitHandler}
                     style={{display:"flex", justifyContent:'center'}}>

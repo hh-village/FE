@@ -4,14 +4,14 @@ export const MessageRoom = styled.div`
     display : flex;
     margin-top : 6em;
     flex-direction : column;
-    width:100vmax;
+    width:100%;
     height: calc(100vh - 23em);
     border-right : 1px solid #ededed;
     overflow: auto;
 `
 export const ChatWholeBody = styled.div`
     margin-top : 6em;
-    width:100vmax;
+    width:100%;
     height: calc(100vh - 23em);
 `
 export const ChatBody = styled.div`
@@ -27,7 +27,7 @@ export const ChatBody = styled.div`
     }
 `
 export const ChatInput = styled.input`
-    width:510px;
+    width:90%;
     height: 45px;
     border-radius:20px;
     border:none;
@@ -39,6 +39,7 @@ export const ChatInput = styled.input`
 export const TargetRoom = styled.div`
     display: flex;
     align-items : center;
+    justify-content : space-between;
     height: 105px;
     width : 100%;
     background-color : #EEEBFF;
@@ -47,6 +48,7 @@ export const TargetRoom = styled.div`
 
 export const Room = styled.div`
     display: flex;
+    justify-content : space-between;
     align-items : center;
     height: 105px;
     width : 100%;
@@ -109,4 +111,41 @@ export const ChatTime = styled.div`
                 `
         }
     }}
+`
+
+export const ChatDeleteBtn = styled.div`
+    width: 41px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2px 6px;
+    box-sizing: border-box;
+    background: #F5F5F5;
+    border: 1px solid #B6B6B6;
+    border-radius: 4px;
+    font-size : 12px;
+    margin: 0 5% 0 40%;
+    :hover{
+        background:#B6B6B6
+    }
+    &:active {
+        box-shadow: inset 1px 1px 5px rgb(0, 0, 0, 0.5);
+    }
+`
+
+export const Wrapper = styled.div`
+    display: flex;
+    flex-direction : row;
+    align-items : center;
+`
+export const VillageHead = styled.div`
+    position: static;
+    width: 100%;
+    height : 400px;
+    display: flex;
+    gap: 20px;
+    flex-direction : column;
+    justify-content : center;
+    align-items: center;
 `

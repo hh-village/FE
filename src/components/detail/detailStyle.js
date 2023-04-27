@@ -66,7 +66,7 @@ export const ButtonWrapper = styled.div`
     width: 567px;
     justify-content : flex-end;
     gap: 1rem;
-    margin-bottom : 36px;
+    margin-bottom : 45px;
 `
 export const DetailBtn = styled.button`
     width : 126px;
@@ -285,7 +285,7 @@ export const SellorInfoBox = styled.div`
     height: 100px;
     border: 1px solid #DADADA;
     border-radius : 10px;
-    transform: translate(39%, 69%);
+    transform: translate(33%, 69%);
     background: #ffffff;
     display: flex;
     justify-content :center;

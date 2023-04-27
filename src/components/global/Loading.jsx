@@ -8,7 +8,7 @@ export default () => {
     <FlexDiv>
         <HeaderNav/>
         <Background>
-            <LoadingText>작업을 완료하는 중입니다!</LoadingText>
+            <LoadingText>잠시만 기다려주세요</LoadingText>
             <img src= '/images/Ellipsis-3.6s-800px.gif' alt="로딩중" width="25%" />
         </Background>
     </FlexDiv>
@@ -23,7 +23,7 @@ const Background = styled.div`
     top: 0;
     left: 0;
     background: #ffffffb7;
-    z-index: 999;
+    z-index: 90;
     display: flex;
     flex-direction: column;
     align-items: center;

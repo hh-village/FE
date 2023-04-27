@@ -9,14 +9,17 @@ import HomeImgSlide from '../components/home/HomeImgSlide'
 import EventBanner from '../components/home/EventBanner'
 import Footer from '../components/global/Footer'
 import useGetMainPageData from '../hooks/useGetMainPageData'
+import Loading from '../components/global/Loading'
 
 function Home() {
-  const { data } = useGetMainPageData();
+  const { data, isError, isLoading } = useGetMainPageData();
   const [searchData, setSearchData] = useState({
     productName: "",
     location: ""
   });
-
+  if(isError || isLoading){
+    return <Loading/>
+  }
   return (
     <FlexDiv boxShadow="none">
 

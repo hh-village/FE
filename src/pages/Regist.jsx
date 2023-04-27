@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
-import React, { useState, lazy, Suspense, useEffect} from 'react'
+import React, { lazy, Suspense, useEffect} from 'react'
 import ImageBlock from '../components/regist/ImageBlock'
 import { Div, FlexDiv, MaxWidthDiv } from '../components/global/globalStyle'
 import HeaderNav from '../components/global/HeaderNav'

@@ -6,40 +6,42 @@ import ko from "date-fns/locale/ko"; // 달력을 한글 지원으로 바꾸는 
 import { getCookie } from "../../shared/Cookies";
 
 function Calander({ChatwithOwner,reservePost, id}){
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date())
-    const sDate = `${startDate.getFullYear()}-${String(startDate.getMonth()+1).padStart(2,'0')}-${String(startDate.getDate()).padStart(2,'0')}`
+    const [dateRange, setDateRange] = useState([new Date(), new Date()]);
+    const [startDate, endDate] = dateRange;
+    const sDate = `${startDate?.getFullYear()}-${String(startDate?.getMonth()+1).padStart(2,'0')}-${String(startDate?.getDate()).padStart(2,'0')}`
     const eDate = `${endDate?.getFullYear()}-${String(endDate?.getMonth()+1).padStart(2,'0')}-${String(endDate?.getDate()).padStart(2,'0')}`
     const nickname = getCookie('nickname')
 
     const CustomInput = ({ value, onClick }) => (
-        <ReservationDateClick onClick={onClick}>
+        <ReservationDateClick onClick={onClick} defaultValue = '날짜를 선택해주세요'>
         {value}
         </ReservationDateClick>
     );
     const onChangeDate = (dates) => {
-        const [start, end] = dates;
-        setStartDate(start);
-        setEndDate(end);
+        setDateRange(dates);
     }
     
 
     return (
         <Selections>
-            <div style ={{position : 'relative'}}>
+            <div>
                 <ReactDatePicker
                 locale={ko}
                 startDate={startDate}
-                showPopperArrow={false} // date 위에 화살표 모양 없애기    
+                showPopperArrow={false} 
                 endDate={endDate}
                 selected={startDate}
                 onChange={onChangeDate}
                 selectsRange
-                // showAnim={"slide"}
+                monthsShown={2}
                 minDate={new Date()} 
                 dateFormat={"yyyy.MM.dd (eee)"}
+                shouldCloseOnSelect={true}
+                // withPortal 모달창
                 customInput={<CustomInput />}
-                />
+                >
+                <div style={{ color: "red"}}>하루단위 예약만 가능합니다!</div>
+                </ReactDatePicker>
             </div>
             
             <Button 
