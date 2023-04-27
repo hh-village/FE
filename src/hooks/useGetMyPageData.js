@@ -3,7 +3,7 @@ import axios from 'axios';
 import { getCookie } from '../shared/Cookies';
 
 const useGetMyPageData = (currentBtn) => {
-    const { data, refetch } = useQuery({
+    const { data, refetch, isError } = useQuery({
         queryKey: [`${currentBtn}`],
         queryFn: async () => {
           const token = getCookie("token");
@@ -15,7 +15,7 @@ const useGetMyPageData = (currentBtn) => {
           return res?.data.data;
         } 
     })
-    return { data, refetch }
+    return { data, refetch, isError}
 }
 
 export default useGetMyPageData

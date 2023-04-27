@@ -6,11 +6,9 @@ import { useDispatch } from 'react-redux'
 import { storeLocation } from '../../redux/modules/Post';
 import { getCookie } from '../../shared/Cookies';
 import { MapBox, MapSearch, SearchButton, Searchdiv } from './RegistStyled';
-import { useLocation } from 'react-router-dom';
 import { Div } from '../global/globalStyle';
 import { useQuery } from '@tanstack/react-query';
 import { NotifiyIcon } from '../detail/detailStyle';
-
 
 function Map({theme, baseloc = '서울특별시 강남구 테헤란로44길 8'}) {
   const accessToken = getCookie('token')
@@ -109,7 +107,7 @@ function Map({theme, baseloc = '서울특별시 강남구 테헤란로44길 8'})
           </SearchButton>
         </Searchdiv>
       <MapBox theme={theme}>
-        <MapDiv style={{ width: '100%', height: '100%',zIndex:999 }}>
+        <MapDiv style={{ width: '100%', height: '100%',zIndex:9 }}>
           <NaverMap
             defaultCenter={new navermaps.LatLng(center.locY, center.locX)}
             defaultZoom={15}

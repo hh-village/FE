@@ -18,7 +18,7 @@ import Loading from '../components/global/Loading'
 import { useState } from 'react'
 import useDropdown from '../hooks/useDropdown'
 import ModalSeller from '../components/detail/ModalSeller'
-import { TitleInput } from '../components/regist/RegistStyled'
+import { PriceDiv, PriceInput, PriceSpan, TitleInput } from '../components/regist/RegistStyled'
 const MapComp = lazy(()=> import('../components/regist/Map'))
 
 function Detail() {
@@ -28,7 +28,7 @@ function Detail() {
   const [hide, setHide] = useState();
   const { id } = useParams();
   const {image} = useSelector(state => state.Post);
-  const { data, isLoading } = useGetDetail(id);
+  const { data, isLoading, isError } = useGetDetail(id);
   const { UpdatePost } = useUpdateDetail(id);
   const { DeletePost } = useDeleteDetail(id);
   const {values,onChange} = useInput({
@@ -43,6 +43,11 @@ function Detail() {
   },[])
 
   if(isLoading || UpdatePost.isLoading || DeletePost.isLoading){
+    return(
+      <Loading/>
+    )
+  }
+  if(isError){
     return(
       <Loading/>
     )
@@ -118,15 +123,19 @@ function Detail() {
           : <div style={{height:'730px', border:'0.5px solid #D7D7D7'}}></div>
           }
           {/* 오른쪽 div 영역 */}
-          <Div width="100%" gap="2rem" style={{boxSizing:"border-box"}}>
+          <Div width="100%" gap="1rem" style={{boxSizing:"border-box"}}>
             <Div width="100%">
-              <Div fDirection="row" width="100%" jc="space-between">
+              <Div fDirection="row" width="100%" jc="space-between" >
                 {data.checkOwner ? (
-                  <TitleInput
-                  name='title'
-                  onChange={onChange}
-                  placeholder = {data.title}
-                  />
+                  <PriceDiv>
+                    <PriceSpan>제목</PriceSpan>
+                      <PriceInput
+                        name='title'
+                        onChange={onChange}
+                        placeholder = {`${data.title}`}
+                        maxLength={20}
+                      />
+                  </PriceDiv>
                 ) : (
                   <>
                     <Title>{data?.title}</Title>
@@ -138,31 +147,47 @@ function Detail() {
                 )}
               </Div>
               <Div width = '100%'fDirection = 'row' alignItem = 'center' gap ='10px'>
-                <PriceTitle> {data?.price}원 <span style ={{fontSize:'13px'}}>/ 1일 기준</span></PriceTitle>
-                <SellerInfo
-                onMouseOver={()=>setHide(true)}
-                onMouseLeave={()=>setHide(false)}
-                >판매자 정보</SellerInfo>
-                {hide && (
-                  <SellorInfoBox>
-                    <div style={{width : '100%', paddingLeft :'17px', fontSize : '20px'}}>
-                     {data.ownerNickname}
-                    </div>
-                    <Div fDirection = 'row' jc = 'center' gap = '13px' >
-                      <Div alignItem = 'center' fDirection = 'row' gap='7px'>
-                        <NotifiyIcon src='/images/check.png'/>
-                        <Span>대여완료 {data.ownerReturned}명</Span>
-                      </Div>
-                      <Div alignItem = 'center' fDirection = 'row' gap='7px'>
-                        <NotifiyIcon src='/images/profile1.png'/>
-                        <Span>대여진행중 {data.ownerAccepted}명</Span>
-                      </Div>
-                      <Div alignItem = 'center' fDirection = 'row' gap='7px'>
-                        <NotifiyIcon src='/images/profile.png'/>
-                        <Span>대기중 {data.ownerWaiting}명</Span>
-                      </Div>
-                    </Div>
-                  </SellorInfoBox>
+                {data?.checkOwner ? (
+                  <Div marginTop = '1rem'>
+                    <PriceDiv>
+                      <PriceSpan>가격</PriceSpan>
+                      <PriceInput
+                        name='price'
+                        type={'number'}
+                        onChange={onChange}
+                        placeholder = {`${data.price}원`}
+                      />
+                    </PriceDiv>
+                  </Div>
+                ) : (
+                  <>
+                    <PriceTitle> {data?.price}원 <span style ={{fontSize:'13px'}}>/ 1일 기준</span></PriceTitle>
+                    <SellerInfo
+                    onMouseOver={()=>setHide(true)}
+                    onMouseLeave={()=>setHide(false)}
+                    >판매자 정보</SellerInfo>
+                    {hide && (
+                      <SellorInfoBox>
+                        <div style={{width : '100%', paddingLeft :'17px', fontSize : '20px'}}>
+                        {data.ownerNickname}
+                        </div>
+                        <Div fDirection = 'row' jc = 'center' gap = '13px' >
+                          <Div alignItem = 'center' fDirection = 'row' gap='7px'>
+                            <NotifiyIcon src='/images/check.png'/>
+                            <Span>대여완료 {data.ownerReturned}명</Span>
+                          </Div>
+                          <Div alignItem = 'center' fDirection = 'row' gap='7px'>
+                            <NotifiyIcon src='/images/profile1.png'/>
+                            <Span>대여진행중 {data.ownerAccepted}명</Span>
+                          </Div>
+                          <Div alignItem = 'center' fDirection = 'row' gap='7px'>
+                            <NotifiyIcon src='/images/profile.png'/>
+                            <Span>대기중 {data.ownerWaiting}명</Span>
+                          </Div>
+                        </Div>
+                      </SellorInfoBox>
+                  )}
+                  </>
                 )}
               </Div>
               
@@ -189,7 +214,7 @@ function Detail() {
                       images : image,
                       location : data?.location,
                       title:  values.title,
-                      price : data?.price
+                      price : values.price
 
                     })}}>수정하기</DetailBtn>
                     <DetailBtn theme = {'cancel'} onClick={()=>{DeletePost.mutate(id)}}>삭제하기</DetailBtn>

@@ -5,8 +5,10 @@ import { Div } from "../global/globalStyle";
 import DropDown from "./DropDown";
 import { ChatBtn, SelectOption, SelectWrapper } from "./detailStyle"
 import { nanoid } from "@reduxjs/toolkit";
+import { getCookie } from "../../shared/Cookies";
 
 const RegisterReserve = (props) => {
+    const Mynick = getCookie('nickname') 
     const navigate = useNavigate();
     const getRoom = useMutation({
       mutationKey:['getRoomId'],
@@ -14,7 +16,8 @@ const RegisterReserve = (props) => {
         return await axios.post(`${process.env.REACT_APP_SERVER_URL}/chat/room/${props.id}/${nickname}`)
         },
         onSuccess : (response) => {
-          navigate(`/chat/${response.data.data}`)
+          localStorage.setItem('roomId',response.data.data)
+          navigate(`/chat/${Mynick}`)
         }
       }
     )

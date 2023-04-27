@@ -20,11 +20,11 @@ export const FirstPreview = styled.div`
     background: #C4C4C4;
     overflow: hidden;
 `
-export const OtherPreview = styled.img`
+export const OtherPreview = styled.div`
     border: 1px dotted gray;
     border-radius : 10px;
     height: 100px;
-    width: 100%;
+    width: 127.5px;
     overflow: hidden;
     ${({theme})=>{
         switch(theme){
@@ -81,7 +81,6 @@ export const MapBox = styled.div`
                 `
         }
     }}
-    
 `
 
 export const SearchButton = styled.button`
@@ -117,6 +116,7 @@ export const PriceDiv = styled.div`
     justify-content: center;
     align-items: center;
     border-radius: 10px;
+    overflow: hidden;
 `
 export const PriceInput = styled.input`
     font-size : 1rem;

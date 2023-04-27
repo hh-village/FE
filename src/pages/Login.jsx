@@ -18,7 +18,7 @@ function Login() {
   }
   
   const onClickAdmin = async() => {
-    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/test/login/test123`)
+    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/test/login/test789`)
     setCookie('token',response.headers.authorization.substring(7))
     setCookie('nickname', response.data.data)
     if(localStorage.getItem("alwaysOpen")){

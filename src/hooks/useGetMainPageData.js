@@ -3,7 +3,7 @@ import axios from "axios";
 import { getCookie } from "../shared/Cookies";
 
 const useGetMainPageData = () => {
-    const { data } = useQuery({
+    const { data,  isError , isLoading } = useQuery({
         queryKey: ["GET_MAINPAGE"],
         queryFn: async () => {
           const token = getCookie("token");
@@ -21,7 +21,9 @@ const useGetMainPageData = () => {
         }
     })
     return {
-      data
+      data,
+       isError,
+       isLoading
     }
 }
 

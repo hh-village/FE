@@ -11,6 +11,7 @@ const ConsumerRegister = (props) => {
     const queryClient = useQueryClient();
     const navigate = useNavigate();
     const accessToken = getCookie('token')
+    const nickname = getCookie('nickname')
     const reservePost = useMutation({
         mutationKey:['reservePost'],
         mutationFn: async(reserveDate) => {
@@ -63,7 +64,8 @@ const ConsumerRegister = (props) => {
             })
         },
         onSuccess : (response)=>{
-            navigate(`/chat/${response.data.data}`)
+            localStorage.setItem('roomId',response.data.data)
+            navigate(`/chat/${nickname}`)
         },
         onError : () => {
             window.alert('로그인이 필요한 서비스입니다.')
