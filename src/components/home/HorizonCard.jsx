@@ -15,16 +15,16 @@ function HorizonCard({data}) {
                     key={nanoid()}
                     onClick={()=>{navi(`/detail/${item?.id}`)}}
                 >
-                    <Div height="100%">
+                    <Div bgColor="#000000">
                         <CardImg src={item?.image} alt="" />
                     </Div>
                     <Div jc="space-between" width="100%" height="100%" padding="1rem 1rem 1rem 0" style={{boxSizing: "border-box"}}>
                         <Div gap="1rem">
-                            <span style={{fontWeight:"700"}}>{item?.title}</span>
-                            <span>{item?.location}</span>
+                            <PriceSpan style={{margin:"auto 0 auto 0"}}>{(item?.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</PriceSpan>
+                            <TitleSpan>{item?.title}</TitleSpan>
+                            <LocationSpan>{item?.location}</LocationSpan>
                         </Div>
-                        <Div fDirection="row" width="100%" jc="space-between">
-                            <span style={{margin:"auto 0 auto 0"}}>1일 기준 {item?.price}원</span>
+                        <Div fDirection="row" width="100%" jc="end">
                             {!item?.checkZzim
                             ? <img src="/images/eHeart.png" alt="" style={{width:"2rem", height:"2rem"}}/>
                             : <img src="/images/fHeart.png" alt="" style={{width:"2rem", height:"2rem"}}/>
@@ -45,6 +45,7 @@ const Span = styled.span`
     font-weight: 700;
     margin-bottom: 2rem;
 `
+
 const Cards = styled.div`
     display: flex;
     flex-direction: row;
@@ -60,4 +61,31 @@ const Cards = styled.div`
 const CardImg = styled.img`
   width: 210px;
   height: 100%;
+  object-fit: contain;
+`
+
+const TitleSpan = styled.span`
+  margin-top: auto;
+  margin-bottom: auto;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`
+
+const LocationSpan = styled.span`
+  font-size: 14px;
+  width: 100%;
+  color: #999999;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`
+
+const PriceSpan = styled.span`
+  font-weight: 700;
+  font-size: 20px;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `
