@@ -39,9 +39,9 @@ function SearchCards({data, isFetchingNextPage, fetchNextPage}) {
                                 }
                                 <CardImg src={item?.image} alt="" style={{width:"100%", height:"100%", objectFit: "cover"}}/>
                             </Div>
-                            <Div width="100%" padding="0.5rem" style={{boxSizing: "border-box"}} gap="0.5rem">
+                            <Div width="100%" padding="1rem" gap="1rem" style={{boxSizing: "border-box"}}>
                                 <Div fDirection="row" width="100%" jc="space-between" style={{textOverflow:"ellipsis"}}>
-                                    <span style={{marginTop:"auto", marginBottom:"auto", fontWeight:"700"}}>{item?.title}</span>
+                                    <TitleSpan>{item?.title}</TitleSpan>
                                     {token == null||undefined
                                         ? null
                                         : <img 
@@ -51,9 +51,9 @@ function SearchCards({data, isFetchingNextPage, fetchNextPage}) {
                                         />
                                     }
                                 </Div>
-                                <Div margin="0 0 0.5rem 0" gap="0.5rem" style={{color:"#191919"}}>
-                                    <span>위치 {item?.location}</span>
-                                    <span>1일 기준 {item?.price}원</span>
+                                <Div width="100%" gap="0.5rem" style={{color:"#191919"}}>
+                                    <LocationSpan>위치 {item?.location}</LocationSpan>
+                                    <PriceSpan>1일 기준 {(item?.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</PriceSpan>
                                 </Div>
                             </Div>
                         </Cards>
@@ -72,7 +72,7 @@ const Cards = styled.div`
   flex-direction: column;
   width: 100%;
   height: ${({height}) => height};
-  border-radius: 5px;
+  border: 1px solid #e6e6e6;
   overflow: hidden;
   &:hover {
     cursor: pointer;
@@ -93,4 +93,30 @@ const Hot = styled.div`
 const CardImg = styled.img`
   width: 210px;
   height: 210px;
+`
+
+const TitleSpan = styled.span`
+  margin-top: auto;
+  margin-bottom: auto;
+  font-weight: 700;
+  font-size: 18px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`
+
+const LocationSpan = styled.span`
+  font-size: 14px;
+  width: 100%;
+  color: #999999;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`
+
+const PriceSpan = styled.span`
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `
