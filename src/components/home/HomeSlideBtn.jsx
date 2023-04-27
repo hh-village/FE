@@ -39,8 +39,8 @@ const PrevBtn = styled.button`
   top : 50%;
   left : 2%;
   transform: translateY(-50%);
-  width: 2%;
-  height: 8%;
+  width: 24px;
+  height: 36px;
   border : none;
   border-radius: 5px;
   background-color: transparent;
@@ -52,8 +52,8 @@ const NextBtn = styled.button`
   top : 50%;
   right : 2%;
   transform: translateY(-50%);
-  width: 2%;
-  height: 8%;
+  width: 24px;
+  height: 36px;
   border : none;
   border-radius: 5px;
   background-color: transparent;

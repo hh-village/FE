@@ -33,7 +33,7 @@ function VerticalCard({data}) {
 
     return (
         <Div marginTop="6rem">
-            <Span>새로 등록된 대여 물품을 확인해보세요!</Span>
+            <NewRegistTitle>새로 등록된 대여 물품을 확인해보세요!</NewRegistTitle>
             <GridDiv width="100%" gridTC="repeat(4, 1fr)">
                 {data?.productList?.map((item) => 
                     <Cards
@@ -50,9 +50,9 @@ function VerticalCard({data}) {
                           }
                           <CardImg src={item?.image} alt="" style={{width:"100%", height:"100%", objectFit: "cover"}}/>
                         </Div>
-                        <Div width="100%" padding="0.5rem" style={{boxSizing: "border-box"}} gap="0.5rem">
-                            <Div fDirection="row" width="100%" jc="space-between" style={{textOverflow:"ellipsis"}}>
-                                <span style={{marginTop:"auto", marginBottom:"auto", fontSize:"18px", fontWeight:"700"}}>{item?.title}</span>
+                        <Div width="100%" padding="1rem" gap="1rem" style={{boxSizing: "border-box"}}>
+                            <Div fDirection="row" width="100%" jc="space-between">
+                                <CardTitle>{item?.title}</CardTitle>
                                 <img
                                     src={item?.checkZzim ? "/images/fHeart.png" : "/images/eHeart.png"}
                                     alt="zzimStatus"
@@ -60,9 +60,9 @@ function VerticalCard({data}) {
                                     onClick={()=>{mutate("")}}
                                 />
                             </Div>
-                            <Div marginBottom="0.5rem" gap="0.5rem" style={{color:"#191919"}}>
-                                <span>{item?.location}</span>
-                                <span>가격 {item?.price}원</span>
+                            <Div width="100%" gap="0.5rem">
+                                <LocationSpan>{item?.location}</LocationSpan>
+                                <PriceSpan>1일 기준 {(item?.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</PriceSpan>
                             </Div>
                         </Div>
                     </Cards>
@@ -74,10 +74,35 @@ function VerticalCard({data}) {
 
 export default VerticalCard
 
-const Span = styled.span`
+const NewRegistTitle = styled.span`
     font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 2rem;
+`
+
+const CardTitle = styled.span`
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: 18px;
+  font-weight: 700;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`
+
+const LocationSpan = styled.span`
+  width: 100%;
+  color: #999999;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`
+
+const PriceSpan = styled.span`
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `
 
 const Cards = styled.div`
