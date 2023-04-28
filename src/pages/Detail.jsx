@@ -35,9 +35,9 @@ function Detail() {
   const { DeletePost } = useDeleteDetail(id);
   const navigate = useNavigate();
   const {values,onChange} = useInput({
-    title : '',
-    price : '',
-    description : '',
+    title : data?.title,
+    price : data?.price,
+    description : data?.description,
     image : [],
   });
 
@@ -156,6 +156,7 @@ function Detail() {
                         onChange={onChange}
                         placeholder = {`${data.title}`}
                         maxLength={20}
+                        defaultValue = {data.title}
                       />
                   </PriceDiv>
                 ) : (
@@ -178,6 +179,7 @@ function Detail() {
                         type={'number'}
                         onChange={onChange}
                         placeholder = {`${data.price}원`}
+                        defaultValue = {data.price}
                       />
                     </PriceDiv>
                   </Div>

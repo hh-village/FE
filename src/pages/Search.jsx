@@ -16,7 +16,6 @@ function Search() {
   });
 
   const getSearchData = async(lastPostId, size) => {
-    console.log(lastPostId);
     const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/products?name=${searchData.productName}&location=${searchData.location}&lastId=${lastPostId}&size=${size}`)
     const productList = res?.data.data.productList
     const nextLastPostId = productList[productList.length - 1]?.id

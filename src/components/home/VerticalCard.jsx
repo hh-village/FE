@@ -33,7 +33,7 @@ function VerticalCard({data}) {
 
     return (
         <Div marginTop="6rem">
-            <NewRegistTitle>새로 등록된 대여 물품을 확인해보세요!</NewRegistTitle>
+            <NewRegistTitle>오늘의 추천 상품을 확인해보세요</NewRegistTitle>
             <GridDiv width="100%" gridTC="repeat(4, 1fr)">
                 {data?.productList?.map((item) => 
                     <Cards
