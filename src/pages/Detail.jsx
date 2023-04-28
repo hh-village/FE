@@ -43,20 +43,20 @@ function Detail() {
 
   useEffect(()=>{
     window.scrollTo(0, 0)
-    try{
-      {data?.checkOwner && autofocus.current !== undefined &&(
-        autofocus.current.focus()
-      )}
-    }catch{
-      if(UpdatePost.isError||isLoading){
-        console.log('1')
-        setTimeout(()=>{
-          window.alert('오류로 인해 홈으로 이동합니다.')
-          navigate('/')
-        },5000)
-      }
-    }
-  },[modalControl])
+    // try{
+    //   {data?.checkOwner && autofocus.current !== undefined &&(
+    //     autofocus.current.focus()
+    //   )}
+    // }catch{
+    //   if(UpdatePost.isError||isLoading){
+    //     console.log('1')
+    //     setTimeout(()=>{
+    //       window.alert('오류로 인해 홈으로 이동합니다.')
+    //       navigate('/')
+    //     },5000)
+    //   }
+    // }
+  },[])
 
   if(isLoading || UpdatePost.isLoading || DeletePost.isLoading){
     return(
