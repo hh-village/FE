@@ -15,7 +15,7 @@ function HorizonCard({data}) {
                     key={nanoid()}
                     onClick={()=>{navi(`/detail/${item?.id}`)}}
                 >
-                    <Div bgColor="#000000">
+                    <Div bgColor="#e6e6e6">
                         <CardImg src={item?.image} alt="" />
                     </Div>
                     <Div jc="space-between" width="100%" height="100%" padding="1rem 1rem 1rem 0" style={{boxSizing: "border-box"}}>
