@@ -39,6 +39,7 @@ function Regist() {
     onSuccess : (response) => {
       window.alert(response.data.message);
       navigate('/search')
+      window.location.reload();
     },
     onError : () => {
       window.alert('게시글에 필요한 내용들을 모두 입력해주세요.')

@@ -18,6 +18,7 @@ const useDeleteDetail = (id) => {
         onSuccess : (response) => {
           window.alert(response.data.message)
           navigate('/search')
+          window.location.reload();
         }
       })
 
