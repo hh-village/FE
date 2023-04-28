@@ -1,9 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { getCookie } from "../../shared/Cookies";
 
 const Zzim = ({zzim, zzimCount,id}) => {
+    const navigate = useNavigate();
     const queryClient = useQueryClient();
     const token = getCookie('token')
     const MutateZzim = useMutation({
@@ -16,8 +18,15 @@ const Zzim = ({zzim, zzimCount,id}) => {
         },
         onSuccess : (response) => {
           queryClient.invalidateQueries(['GET_DETAIL'])
-        }
-      });
+        },
+        onError : (error) => {
+          if(error.response.data.message === "Token Error"){
+            alert('로그인 후 빌리지를 이용해주세요!')
+            navigate('/login')
+          }else{
+            alert('다시 시도 해주세요!')
+          }
+      }});
 
     return (
         <ZzimDiv onClick={()=>{MutateZzim.mutate("")}}>

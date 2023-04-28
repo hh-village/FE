@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container as MapDiv, useNavermaps, NaverMap, Marker } from 'react-naver-maps'
 import useInput from '../../hooks/useInput'
 import { useDispatch } from 'react-redux'
@@ -9,8 +9,9 @@ import { MapBox, MapSearch, SearchButton, Searchdiv } from './RegistStyled';
 import { Div } from '../global/globalStyle';
 import { useQuery } from '@tanstack/react-query';
 import { NotifiyIcon } from '../detail/detailStyle';
+import { useNavigate } from 'react-router-dom';
 
-function Map({theme, baseloc = '서울특별시 강남구 테헤란로44길 8'}) {
+function Map({theme, baseloc = ''}) {
   const accessToken = getCookie('token')
   const navermaps = useNavermaps();
   const [map, setMap] = useState(null);
@@ -20,6 +21,19 @@ function Map({theme, baseloc = '서울특별시 강남구 테헤란로44길 8'})
   const {values, onChange} = useInput({
     address : baseloc
   })
+
+  if(!accessToken){
+    values.address = ''
+  }
+
+  useEffect(()=>{
+    if(!accessToken){
+      setLocation('로그인 후 이용해주세요')
+    }
+    if(!baseloc){
+      setLocation('서울특별시 강남구 테헤란로44길 8 아이콘역삼빌딩 팀 스파르타')
+    }
+  },[accessToken])
 
   const Geocode = useQuery({
     queryKey:['GET_GEOCODE'],
@@ -60,7 +74,14 @@ function Map({theme, baseloc = '서울특별시 강남구 테헤란로44길 8'})
       }catch{
         window.alert('다시 입력해주세요.')
       }
-    }
+    },
+    onError : (error) => {
+      if(error.response.data.message === "Token Error"){
+        alert('로그인 후 빌리지를 이용해주세요!')
+      }else{
+        alert('다시 시도 해주세요!')
+      }
+  }
   })
 
   
@@ -82,7 +103,6 @@ function Map({theme, baseloc = '서울특별시 강남구 테헤란로44길 8'})
       setLocation(response.data)
       dispatch(storeLocation(response.data))
     }
-    
   }
 
   
@@ -125,4 +145,4 @@ function Map({theme, baseloc = '서울특별시 강남구 테헤란로44길 8'})
   )
 }
 
-export default Map;
+export default React.memo(Map);

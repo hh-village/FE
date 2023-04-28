@@ -6,6 +6,7 @@ import { Div } from '../global/globalStyle';
 
 function ImageBlock({image, id}) {
     const [imageURL, setImageURL] = useState([]);
+    const dispatch = useDispatch();
 
     useEffect(()=>{
         if(image){
@@ -15,12 +16,8 @@ function ImageBlock({image, id}) {
         setImageURL([]);
        } 
     },[id, image])
-
-    const dispatch = useDispatch();
     
     const onImageChangeHandler = async(event) => {
-        setImageURL([])
-        event.preventDefault();
         const imageLists = event.target.files
         if(imageLists.length > 5){
             return window.alert('물품 이미지는 최대 5장까지만 등록 가능합니다')
@@ -28,6 +25,10 @@ function ImageBlock({image, id}) {
         //이미지 미리보기
         const ImageURLLists = []
         for (let i = 0; i < imageLists.length; i++) {
+            if(imageLists[i].size > 10000000){
+                return window.alert('10MB 미만의 이미지만 첨부해주세요!')
+            }
+            
             const currentImageUrl = URL.createObjectURL(imageLists[i]);
             ImageURLLists.push(currentImageUrl)
         }
@@ -38,7 +39,6 @@ function ImageBlock({image, id}) {
         formData.append('images', Object.values(imageLists))
         dispatch(storeImage(Object.values(imageLists)))
     }
-    console.log(imageURL)
   return (
     <Div width="100%" gap="1rem">
         <label htmlFor='file'>

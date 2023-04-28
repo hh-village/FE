@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import { getCookie } from '../../shared/Cookies';
 import { Div } from '../global/globalStyle'
 
-function UserCard({data, onNavigateChat, refetch}) {
+function UserCard({data, refetch}) {
     const navi = useNavigate();
     const [changeState, setChangeState] = useState(false);
     const [changedNickname, setChangedNickname] = useState("");
@@ -56,7 +56,7 @@ function UserCard({data, onNavigateChat, refetch}) {
             <Div width="50%" height="100%" gap="0.5rem" bgColor="#e6e6e6">
             <Button onClick={()=>{navi("/regist")}}>대여물품 등록하기</Button>
             <Button onClick={()=>{
-                onNavigateChat.mutate()
+                navi(`/chat/${getCookie('nickname')}`)
             }}>빌리지 채팅 관리</Button>
                 {changeState
                 ? 

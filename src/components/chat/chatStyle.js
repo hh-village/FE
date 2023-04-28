@@ -54,7 +54,7 @@ export const Room = styled.div`
     width : 100%;
     cursor : pointer;
     :hover{
-        background-color : #EEEBFF;
+        background-color : #ededed;
     }
 `
 export const RoomTitle = styled.div`
@@ -121,11 +121,12 @@ export const ChatDeleteBtn = styled.div`
     align-items: center;
     padding: 2px 6px;
     box-sizing: border-box;
-    background: #F5F5F5;
-    border: 1px solid #B6B6B6;
+    background: #ffffff;
+    color: :#EEEBFF;
     border-radius: 4px;
+    border: 2px solid #B6B6B6;
     font-size : 12px;
-    margin: 0 5% 0 40%;
+    margin: 0 5% 0 10%;
     :hover{
         background:#B6B6B6
     }

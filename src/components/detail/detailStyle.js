@@ -280,12 +280,13 @@ export const SellerInfo = styled.div`
 `
 
 export const SellorInfoBox = styled.div`
-    position: absolute;
     width: 428px;
     height: 100px;
     border: 1px solid #DADADA;
     border-radius : 10px;
-    transform: translate(33%, 69%);
+    position: absolute;
+    top: 115%;
+    left: 0%;
     background: #ffffff;
     display: flex;
     justify-content :center;
