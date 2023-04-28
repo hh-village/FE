@@ -8,7 +8,7 @@ function HorizonCard({data}) {
     const navi = useNavigate();
   return (
     <Div width="100%" marginTop="5rem">
-        <Span>오늘의 추천 상품을 확인해보세요</Span>
+        <Span>새로 등록된 대여 물품을 확인해보세요!</Span>
         <GridDiv gridTC="repeat(2, 1fr)">
             {data?.randomProduct?.map((item) => 
                 <Cards

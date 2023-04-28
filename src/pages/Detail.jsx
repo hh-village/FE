@@ -35,9 +35,9 @@ function Detail() {
   const { DeletePost } = useDeleteDetail(id);
   const navigate = useNavigate();
   const {values,onChange} = useInput({
-    title : '',
-    price : '',
-    description : '',
+    title : data?.title,
+    price : data?.price,
+    description : data?.description,
     image : [],
   });
 
@@ -49,14 +49,13 @@ function Detail() {
       )}
     }catch{
       if(UpdatePost.isError||isLoading){
-        console.log('1')
         setTimeout(()=>{
           window.alert('오류로 인해 홈으로 이동합니다.')
           navigate('/')
         },5000)
       }
     }
-  },[modalControl])
+  },[])
 
   if(isLoading || UpdatePost.isLoading || DeletePost.isLoading){
     return(
@@ -156,6 +155,7 @@ function Detail() {
                         onChange={onChange}
                         placeholder = {`${data.title}`}
                         maxLength={20}
+                        defaultValue = {data.title}
                       />
                   </PriceDiv>
                 ) : (
@@ -178,6 +178,7 @@ function Detail() {
                         type={'number'}
                         onChange={onChange}
                         placeholder = {`${data.price}원`}
+                        defaultValue = {data.price}
                       />
                     </PriceDiv>
                   </Div>

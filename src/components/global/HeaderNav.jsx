@@ -37,6 +37,8 @@ function HeaderNav() {
             <img src="/images/Village.png" alt="mainLogo" style={{width:"8rem", cursor:'pointer'}} onClick={()=>{navi("/")}} />
             <Span style={{marginTop: "auto", marginBottom: "auto"}} onClick={()=>{navi("/search")}}>전체상품조회</Span>
             <Span style={{marginTop: "auto", marginBottom: "auto"}} onClick={registBtnHandler}>물품등록</Span>
+            <Span style={{marginTop: "auto", marginBottom: "auto"}} onClick={()=>{navi('/service')}}>서비스소개</Span>
+            <Span style={{marginTop: "auto", marginBottom: "auto"}} onClick={()=>{navi('/team')}}>팀원소개</Span>
           </Div>
           <Div fDirection="row">
             {location.pathname === "/login"

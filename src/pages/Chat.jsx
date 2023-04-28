@@ -48,19 +48,22 @@ const Chat = () => {
             }
         },
         onSuccess : (response) =>{
-            localStorage.removeItem('roomId')
+            // localStorage.removeItem('roomId')
             if(response === null){
                 alert('대화중인 채팅방이 없습니다')
                 return navigate('/')
             }
-            setRoomList([...response.roomList])
-            if(response){
-                stompClient.subscribe(`/sub/chat/room/${roomId}`,
-                (message)=>{
-                    const payloadData = JSON.parse(message.body);
-                    return setChatList(prev => [...prev,payloadData])
-                });
+            if(!roomId){
+                setRoomId(response.roomList.filter(item => item.target === true)[0].roomId)
             }
+            setRoomList([...response.roomList])
+            // if(response){
+            //     stompClient.subscribe(`/sub/chat/room/${roomId}`,
+            //     (message)=>{
+            //         const payloadData = JSON.parse(message.body);
+            //         return setChatList(prev => [...prev,payloadData])
+            //     });
+            // }
             setChatList([...response.messageList])
         },
     })
@@ -80,8 +83,18 @@ const Chat = () => {
         const sockJS = new SockJS(`${process.env.REACT_APP_SERVER_URL}/ws`);
         stompClient = Stomp.over(function() {
             return sockJS;
-            });
-        stompClient.connect({}, () => GetChats.refetch())
+        });
+        stompClient.connect({}, () => {
+            GetChats.refetch();
+            if(GetChats.data){
+                stompClient.subscribe(`/sub/chat/room/${roomId}`,
+                (message)=>{
+                    const payloadData = JSON.parse(message.body);
+                    return setChatList(prev => [...prev,payloadData])
+                });
+            }
+        
+        })
     }
 
     const onClickOtherChats = (id) => {
@@ -107,7 +120,7 @@ const Chat = () => {
             {},
             JSON.stringify(userData),
         )
-        
+
         setUserData((prev)=>(prev = {
             sender : '',
             roomId : '',
