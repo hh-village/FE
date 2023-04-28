@@ -48,7 +48,7 @@ const Chat = () => {
             }
         },
         onSuccess : (response) =>{
-            // localStorage.removeItem('roomId')
+            localStorage.removeItem('roomId')
             if(response === null){
                 alert('대화중인 채팅방이 없습니다')
                 return navigate('/')

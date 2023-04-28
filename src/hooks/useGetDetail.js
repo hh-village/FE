@@ -5,7 +5,7 @@ import { getCookie } from "../shared/Cookies";
 const useGetDetail = (id) => {
     const token = getCookie('token')
 
-    const { data , isLoading, isError } = useQuery({
+    const { data , isLoading, isError} = useQuery({
         queryKey: ["GET_DETAIL"],
         queryFn: async () => {
           if(!token){
@@ -21,7 +21,8 @@ const useGetDetail = (id) => {
             });
             return response.data.data;
           }
-        }
+        },
+        keepPreviousData : false
       })
     return {
         data,

@@ -49,7 +49,7 @@ function UserCard({data, refetch}) {
             <Div margin="auto 0 auto 0" width="100%" fDirection="row" gap="1rem" bgColor="#e6e6e6">
             <img src={data?.profile} alt="rankingIcon" style={{width:"3rem", height: "3rem"}}/>
             {changeState
-                ? <Input type="text" placeholder={data?.nickname} onChange={changeInputHandler}/>
+                ? <Input type="text" defaultValue={data?.nickname} maxLength={6} onChange={changeInputHandler}/>
                 : <Span>{data?.nickname}</Span>
             }
             </Div>

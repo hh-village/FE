@@ -9,7 +9,6 @@ import { MapBox, MapSearch, SearchButton, Searchdiv } from './RegistStyled';
 import { Div } from '../global/globalStyle';
 import { useQuery } from '@tanstack/react-query';
 import { NotifiyIcon } from '../detail/detailStyle';
-import { useNavigate } from 'react-router-dom';
 
 function Map({theme, baseloc = ''}) {
   const accessToken = getCookie('token')
@@ -19,7 +18,7 @@ function Map({theme, baseloc = ''}) {
   const dispatch = useDispatch();
   const [location, setLocation] = useState(baseloc)
   const {values, onChange} = useInput({
-    address : baseloc
+    address : '서울특별시 강남구 테헤란로44길 8 역삼 아이콘빌딩 팀 스파르타'
   })
 
   if(!accessToken){
@@ -31,7 +30,7 @@ function Map({theme, baseloc = ''}) {
       setLocation('로그인 후 이용해주세요')
     }
     if(!baseloc){
-      setLocation('서울특별시 강남구 테헤란로44길 8 아이콘역삼빌딩 팀 스파르타')
+      setLocation('클릭으로 마커를 생성해주셔야 위치 정보가 입력 됩니다.')
     }
   },[accessToken])
 
@@ -86,11 +85,14 @@ function Map({theme, baseloc = ''}) {
 
   
   const onClickMarker = async(event) => {
+    if(!accessToken){
+      return window.alert('로그인 후 빌리지를 이용해주세요!')
+    }
     setCenter({
       locX : event.coord.x, 
       locY : event.coord.y
     })
-    const accessToken = getCookie('token')
+  
     const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/maps/gc?coords=${event.coord.x},${event.coord.y}&output=json&orders=roadaddr`,{
       headers:{
         Authorization: `Bearer ${accessToken}`
@@ -111,7 +113,7 @@ function Map({theme, baseloc = ''}) {
       <Searchdiv>
           <MapSearch 
             name='address'
-            value={values.address}
+            defaultValue={values.address}
             onChange={onChange}
             placeholder = '시/구/동/읍/면" 과 같은 주소로 검색해주세요.'
             />

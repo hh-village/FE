@@ -5,18 +5,23 @@ import { sendSearchData } from '../../redux/modules/Search'
 import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { Div } from './globalStyle'
+import { useQueryClient } from '@tanstack/react-query'
 
-function SearchInput({ searchData, setSearchData, rem }) {
+function SearchInput({ searchData, setSearchData, rem, refetch}) {
+  const queryClient = useQueryClient();
   const dispatch = useDispatch();
   const location = useLocation();
   const navi = useNavigate();
 
   const clickSearchHandler = () => {
     if(location.pathname === "/"){
-      navi("/search");
       dispatch(sendSearchData(searchData));
-    }
-  }
+      navi("/search");
+      queryClient.refetchQueries(['searchData'])
+    }else{
+      refetch();
+    }  
+}
 
   const locationName = [
     "서울", "부산", "대구", "인천", "광주", "대전", "울산", "세종", "경기", "강원", "충청북도", "충청남도", "전라북도", "전라남도", "경상북도", "경상남도", "제주"

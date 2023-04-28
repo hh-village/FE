@@ -6,6 +6,8 @@ import { FlexDiv, MaxWidthDiv } from '../components/global/globalStyle'
 import HeaderNav from '../components/global/HeaderNav'
 import { getCookie, setCookie } from '../shared/Cookies'
 
+
+
 function Login() {
   const token = getCookie('token')
   // const REDIRECT_URI = 'http://localhost:3000/oauth/social/callback';
@@ -16,16 +18,19 @@ function Login() {
   const kakaoLogin = () => {
     window.location.href = KAKAO_AUTH_URL
   }
+  const Login = [
+    'test1', 'test2', 'test3', 'test4', 'test5', 'test6', 'test7', 'test8', 'test9', 'test10'
+  ]
   
   const onClickAdmin = async() => {
-    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/test/login/test789`)
+    const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/test/login/${Login[Math.floor(Math.random() * 10)]}`)
     setCookie('token',response.headers.authorization.substring(7))
     setCookie('nickname', response.data.data)
     if(localStorage.getItem("alwaysOpen")){
-      navi('/')
+      navi('/service')
     }else{
       localStorage.setItem("alwaysOpen", true);
-      navi('/')
+      navi('/service')
     }
   }
 
