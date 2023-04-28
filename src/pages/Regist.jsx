@@ -11,9 +11,11 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Footer from '../components/global/Footer'
 import Loading from '../components/global/Loading'
+import { useRef } from 'react'
 const MapComp = lazy(()=> import('../components/regist/Map'))
 
 function Regist() {
+  const autofocus = useRef();
   const navigate = useNavigate();  
   const { image, location } = useSelector(state => state.Post)
   const accessToken = getCookie('token')
@@ -54,6 +56,7 @@ function Regist() {
 
   useEffect(()=>{
     window.scrollTo(0, 0); 
+    autofocus.current.focus();
   },[])
 
   useEffect(()=>{
@@ -79,6 +82,7 @@ function Regist() {
         <Div width="100%" marginTop="2rem" fDirection="row" jc="space-between" gap="2rem">
           <Div gap="1rem">
             <TitleInput
+              ref={autofocus}
               name='title'
               placeholder='제목 : 상품명이 드러나도록 제목을 적어주세요!'
               value={values.title}

@@ -132,6 +132,12 @@ const Chat = () => {
         scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     },[chatList])
 
+    useEffect(()=>{
+        if(!accessToken){
+            navigate('/login')
+        }
+    })
+
     return (
         <FlexDiv bgColor='#ededed' boxShadow="none">
             <HeaderNav/>
@@ -170,7 +176,7 @@ const Chat = () => {
                                             <RoomProfile src={item.profile}/>
                                             <div style={{display:"flex", flexDirection : 'column', gap:'0.5rem'}}>
                                                 <NickName>{item.nickname}</NickName>
-                                                <div style={{width:'200%', overflow:"hidden", wordBreak: 'keep-all'}}>
+                                                <div style={{width:'200px',height:'100%', overflow:"hidden", wordBreak: 'keep-all',whiteSpace: 'nowrap', textOverflow: 'ellipsis'}}>
                                                     {item.lastMessage ? item.lastMessage : '새로운 메세지를 보내보세요!'}
                                                 </div>
                                             </div>

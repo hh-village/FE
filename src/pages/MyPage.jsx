@@ -27,20 +27,6 @@ function MyPage() {
     setCurrentBtn(e.target.name);
   }
 
-  const onNavigateChat = useMutation({
-    mutationKey:['onNavigateChat'],
-    mutationFn: async()=>{
-      return await axios.get(`${process.env.REACT_APP_SERVER_URL}/chat/room?`,{
-        headers : {
-          Authorization: `Bearer ${token}`
-        }
-      })
-    },
-    onSuccess : (response) => {
-      navi(`/chat/${response.data.data.roomList.filter(item => item.target === true)[0].roomId}`)
-    }
-  })
-
   useEffect(()=>{
     if(!token){
       navi('/login')
@@ -58,7 +44,6 @@ function MyPage() {
         {/* components/mypage */}
         <UserCard 
           data={data}
-          onNavigateChat={onNavigateChat}
           refetch={refetch}
         />
 

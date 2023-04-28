@@ -1,9 +1,9 @@
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { FlexDiv, MaxWidthDiv, Div } from '../components/global/globalStyle'
 import HeaderNav from '../components/global/HeaderNav'
 import ConsumerRegister from '../components/detail/ConsumerRegister'
 import RegisterReserve from '../components/detail/RegisterReserve'
-import { ButtonWrapper, Cancel, DescriptionDiv, DetailBtn, DetailTitle, LocationBox, LocationButton, ModalBackground, ModalText, NotifiyIcon, PriceTitle, Registertext, ReserveDesc, SellerInfo, SellorInfoBox, Span, Title, UnderImage } from '../components/detail/detailStyle'
+import { ButtonWrapper, DescriptionDiv, DetailBtn, DetailTitle, LocationBox, LocationButton, NotifiyIcon, PriceTitle, Registertext, ReserveDesc, SellerInfo, SellorInfoBox, Span, Title, UnderImage } from '../components/detail/detailStyle'
 import { useSelector } from 'react-redux'
 import ImageBlock from '../components/regist/ImageBlock'
 import useInput from '../hooks/useInput'
@@ -19,9 +19,11 @@ import { useState } from 'react'
 import useDropdown from '../hooks/useDropdown'
 import ModalSeller from '../components/detail/ModalSeller'
 import { PriceDiv, PriceInput, PriceSpan, TitleInput } from '../components/regist/RegistStyled'
+import { useRef } from 'react'
 const MapComp = lazy(()=> import('../components/regist/Map'))
 
 function Detail() {
+  const autofocus = useRef();
   const alwaysOpen = JSON.parse(localStorage.getItem('alwaysOpen'))
   const { handleClose, isOpen } = useDropdown(true);
   const { handleToggle:modalControl, isOpen:modalOpen } = useDropdown();
@@ -31,6 +33,7 @@ function Detail() {
   const { data, isLoading, isError } = useGetDetail(id);
   const { UpdatePost } = useUpdateDetail(id);
   const { DeletePost } = useDeleteDetail(id);
+  const navigate = useNavigate();
   const {values,onChange} = useInput({
     title : '',
     price : '',
@@ -39,15 +42,34 @@ function Detail() {
   });
 
   useEffect(()=>{
-    window.scrollTo(0, 0); 
-  },[])
+    window.scrollTo(0, 0)
+    try{
+      {data?.checkOwner && autofocus.current !== undefined &&(
+        autofocus.current.focus()
+      )}
+    }catch{
+      if(UpdatePost.isError||isLoading){
+        console.log('1')
+        setTimeout(()=>{
+          window.alert('오류로 인해 홈으로 이동합니다.')
+          navigate('/')
+        },5000)
+      }
+    }
+  },[modalControl])
 
   if(isLoading || UpdatePost.isLoading || DeletePost.isLoading){
     return(
       <Loading/>
     )
   }
+
   if(isError){
+    setTimeout(()=>{
+      window.alert('오류로 인해 홈으로 이동합니다.');
+      navigate('/');
+      window.location.reload();
+    },5000)
     return(
       <Loading/>
     )
@@ -165,7 +187,8 @@ function Detail() {
                     <SellerInfo
                     onMouseOver={()=>setHide(true)}
                     onMouseLeave={()=>setHide(false)}
-                    >판매자 정보</SellerInfo>
+                    >판매자 정보
+                    {/* </SellerInfo> */}
                     {hide && (
                       <SellorInfoBox>
                         <div style={{width : '100%', paddingLeft :'17px', fontSize : '20px'}}>
@@ -187,6 +210,7 @@ function Detail() {
                         </Div>
                       </SellorInfoBox>
                   )}
+                   </SellerInfo>
                   </>
                 )}
               </Div>
@@ -195,6 +219,7 @@ function Detail() {
             <Div width="100%">
               {data?.checkOwner ? (
                 <Registertext
+                  ref={autofocus}
                   name='description'
                   onChange={onChange}
                   placeholder={data?.description}
@@ -217,7 +242,11 @@ function Detail() {
                       price : values.price
 
                     })}}>수정하기</DetailBtn>
-                    <DetailBtn theme = {'cancel'} onClick={()=>{DeletePost.mutate(id)}}>삭제하기</DetailBtn>
+                    <DetailBtn theme = {'cancel'} onClick={()=>{
+                      if(window.confirm('해당 게시글을 정말 삭제 하시겠습니까?')){
+                        return DeletePost.mutate(id)}
+                      }
+                      }>삭제하기</DetailBtn>
                   </ButtonWrapper>)
               }
               <Div fDirection="row" width="100%" gap="1rem" alignItem="center">
