@@ -20,9 +20,11 @@ import useDropdown from '../hooks/useDropdown'
 import ModalSeller from '../components/detail/ModalSeller'
 import { PriceDiv, PriceInput, PriceSpan, TitleInput } from '../components/regist/RegistStyled'
 import { useRef } from 'react'
+import { useQueryClient } from '@tanstack/react-query'
 const MapComp = lazy(()=> import('../components/regist/Map'))
 
 function Detail() {
+  const queryClient = useQueryClient();
   const autofocus = useRef();
   const alwaysOpen = JSON.parse(localStorage.getItem('alwaysOpen'))
   const { handleClose, isOpen } = useDropdown(true);
@@ -34,7 +36,7 @@ function Detail() {
   const { UpdatePost } = useUpdateDetail(id);
   const { DeletePost } = useDeleteDetail(id);
   const navigate = useNavigate();
-  const {values,onChange} = useInput({
+  const {values,setValues, onChange} = useInput({
     title : data?.title,
     price : data?.price,
     description : data?.description,
@@ -43,19 +45,15 @@ function Detail() {
 
   useEffect(()=>{
     window.scrollTo(0, 0)
-    // try{
-    //   {data?.checkOwner && autofocus.current !== undefined &&(
-    //     autofocus.current.focus()
-    //   )}
-    // }catch{
-    //   if(UpdatePost.isError||isLoading){
-    //     console.log('1')
-    //     setTimeout(()=>{
-    //       window.alert('오류로 인해 홈으로 이동합니다.')
-    //       navigate('/')
-    //     },5000)
-    //   }
-    // }
+    return () => {
+      queryClient.getQueryCache().clear();
+      setValues({
+        title : '',
+        price : '',
+        description : '',
+        image : []
+      })
+    }
   },[])
 
   if(isLoading || UpdatePost.isLoading || DeletePost.isLoading){
@@ -133,7 +131,7 @@ function Detail() {
               {modalOpen && (
                 <LocationBox>
                   <Suspense>
-                    <MapComp baseloc = {data.location}/>
+                    <MapComp baseloc = {data?.location}/>
                   </Suspense>
                 </LocationBox>
               )}
@@ -156,7 +154,7 @@ function Detail() {
                         onChange={onChange}
                         placeholder = {`${data.title}`}
                         maxLength={20}
-                        defaultValue = {data.title}
+                        defaultValue = {data?.title}
                       />
                   </PriceDiv>
                 ) : (
@@ -176,10 +174,11 @@ function Detail() {
                       <PriceSpan>가격</PriceSpan>
                       <PriceInput
                         name='price'
+                        min={1}
                         type={'number'}
                         onChange={onChange}
-                        placeholder = {`${data.price}원`}
-                        defaultValue = {data.price}
+                        placeholder = {`${data?.price}원`}
+                        defaultValue = {data?.price}
                       />
                     </PriceDiv>
                   </Div>
@@ -225,7 +224,7 @@ function Detail() {
                   name='description'
                   onChange={onChange}
                   placeholder={data?.description}
-                  defaultValue={values.description}
+                  defaultValue={data.description}
                   />
               ):(
                 <DescriptionDiv>

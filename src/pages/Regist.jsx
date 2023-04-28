@@ -29,6 +29,9 @@ function Regist() {
   const { mutate, isLoading } = useMutation({
     mutationKey:['mutate'],
     mutationFn: async(values)=>{
+      if(values.location == ''){
+        return window.alert('장소를 마커로 찍어주세요!')
+      }
       return await axios.post(`${process.env.REACT_APP_SERVER_URL}/products`,values,{
         headers:{
           Authorization: `Bearer ${accessToken}`,
@@ -86,7 +89,7 @@ function Regist() {
               ref={autofocus}
               name='title'
               placeholder='제목 : 상품명이 드러나도록 제목을 적어주세요!'
-              value={values.title}
+              defaultValue={values.title}
               onChange={onChange}
               maxLength={20}
             />
@@ -98,17 +101,18 @@ function Regist() {
               <PriceDiv>
                 <PriceSpan>가격</PriceSpan>
                 <PriceInput
+                    min={1}
                     type={'number'}
                     name='price'
                     placeholder='가격을 책정해주세요'
-                    value={values.price}
+                    defaultValue={values.price}
                     onChange={onChange}
                 />
               </PriceDiv>
             <DescInput
               name='description'
               placeholder='해당 물품의 기종, 상태, 구매일자 등 상세하게 적어주세요!'
-              value={values.description}
+              defaultValue={values.description}
               onChange={onChange}
             />
             <Suspense>

@@ -18,6 +18,7 @@ const useInput = (initialValues) => {
   return {
     values,
     onChange,
+    setValues
   };
 };
 

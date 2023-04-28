@@ -1,4 +1,4 @@
-import { useInfiniteQuery } from '@tanstack/react-query'
+import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { FlexDiv, MaxWidthDiv } from '../components/global/globalStyle'
@@ -7,20 +7,35 @@ import SearchInput from '../components/global/SearchInput'
 import SearchCards from '../components/search/SearchCards'
 import Footer from '../components/global/Footer'
 import { useSelector } from 'react-redux'
+import { getCookie } from '../shared/Cookies'
 
 function Search() {
-  const getStoreData = useSelector((state) => state.Search)
+  const queryClient = useQueryClient();
+  const accessToken = getCookie('token')
+  const {productName, location} = useSelector((state) => state.Search)
   const [searchData, setSearchData] = useState({
-    productName: "",
-    location: ""
+    productName: productName,
+    location: location
   });
 
   const getSearchData = async(lastPostId, size) => {
-    const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/products?name=${searchData.productName}&location=${searchData.location}&lastId=${lastPostId}&size=${size}`)
-    const productList = res?.data.data.productList
-    const nextLastPostId = productList[productList.length - 1]?.id
-    const isLast = productList.length < size
-    return {productList, nextLastPostId, isLast}
+    if(!accessToken){
+      const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/products?name=${searchData.productName}&location=${searchData.location}&lastId=${lastPostId}&size=${size}`)
+      const productList = res?.data.data.productList
+      const nextLastPostId = productList[productList.length - 1]?.id
+      const isLast = productList.length < size
+      return {productList, nextLastPostId, isLast}
+    }else{
+      const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/products?name=${searchData.productName}&location=${searchData.location}&lastId=${lastPostId}&size=${size}`,{
+        headers : {
+          Authorization : `Bearer ${accessToken}`
+        }
+      })
+      const productList = res?.data.data.productList
+      const nextLastPostId = productList[productList.length - 1]?.id
+      const isLast = productList.length < size
+      return {productList, nextLastPostId, isLast}
+    }
   }
 
 
@@ -34,12 +49,14 @@ function Search() {
   )
 
   useEffect(()=>{
-    setSearchData(getStoreData);
-  },[])
-
-  useEffect(()=>{
-    refetch()
-  },[searchData]);
+    return () => {
+      queryClient.getQueryCache().clear();
+    }
+    // setSearchData({
+    //   productName: productName,
+    //   location: location
+    // });
+  },[searchData])
 
   return (
     <FlexDiv boxShadow="none">
@@ -53,6 +70,7 @@ function Search() {
           searchData={searchData}
           setSearchData={setSearchData}
           rem={8}
+          refetch={refetch}
         />
 
         {/* components/search */}
