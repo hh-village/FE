@@ -40,11 +40,10 @@ function FloatingMenu({data}) {
 export default FloatingMenu
 
 const FloatDiv = styled.div`
-    position: sticky;
+    position: fixed;
     height: 0px;
-    top: 0;
-    left: 82.5%;
-    transform: translateY(9.85rem);
+    bottom: 16%;
+    right: 2%;
 `
 
 const FloatInnerCont = styled.div`
