@@ -10,10 +10,14 @@ function DealList({data}) {
       <Div width="100%" height="2rem" position="relative" overflow="hidden" borderBottom="1px solid #e6e6e6">
         <Slide>
           {data?.dealList?.map((item) => 
-            <Span key={nanoid()}>{item?.customerNickname}님이 {item?.ownerNickname}님의 물건을 대여하였습니다!</Span>
+            <Span key={nanoid()}>
+              <strong>{item?.customerNickname}</strong>님이 <strong>{item?.ownerNickname}</strong>님의 물건을 대여하였습니다!
+            </Span>
           )}
           {data?.dealList?.map((item) => 
-            <Span key={nanoid()}>{item?.customerNickname}님이 {item?.ownerNickname}님의 물건을 대여하였습니다!</Span>
+            <Span key={nanoid()}>
+              <strong>{item?.customerNickname}</strong>님이 <strong>{item?.ownerNickname}</strong>님의 물건을 대여하였습니다!
+            </Span>
           )}
         </Slide>
       </Div>

@@ -35,7 +35,7 @@ function VerticalCard({data}) {
         <Div marginTop="6rem">
             <NewRegistTitle>오늘의 추천 상품을 확인해보세요</NewRegistTitle>
             <GridDiv width="100%" gridTC="repeat(4, 1fr)">
-                {data?.productList?.map((item) => 
+                {data?.randomProduct?.map((item) => 
                     <Cards
                     key={nanoid()}
                     fDirection="row"
