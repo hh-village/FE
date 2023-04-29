@@ -10,7 +10,7 @@ function Footer({topRem, botRem}) {
     <Div width="100%" margin={`${topRem}rem 0 ${botRem}rem 0`} style={{borderTop:"1px solid #e6e6e6"}}>
         <MaxWidthDiv marginTop="2rem" gap="2rem">
           <Div fDirection="row" gap="2rem">
-            <FooterItems cursor="pointer" onClick={()=>{navi("/service")}}>서비스소개</FooterItems>
+            <FooterItems cursor="pointer" borderRight="1px solid #e6e6e6" onClick={()=>{navi("/service")}}>서비스소개</FooterItems>
             <FooterItems cursor="pointer" onClick={()=>{navi("/team")}}>팀원소개</FooterItems>
           </Div>
           <Div gap="0.5rem">
@@ -19,11 +19,11 @@ function Footer({topRem, botRem}) {
           </Div>
           <Div gap="0.5rem">
             <FooterSpan>운영시간 9시-21시(일요일 제외 휴무 없음, 점심시간 자율, 1시간 반)</FooterSpan>
-            <Div fDirection="row" gap="2rem">
+            {/* <Div fDirection="row" gap="2rem">
               <FooterSpan>공지사항</FooterSpan>
               <FooterSpan>1:1 문의하기</FooterSpan>
               <FooterSpan>자주 묻는 질문</FooterSpan>
-            </Div>
+            </Div> */}
           </Div>
         </MaxWidthDiv>
     </Div>
@@ -34,7 +34,7 @@ export default Footer
 
 const FooterItems = styled.div`
   padding-right: 2rem;
-  border-right: 1px solid #999999;
+  border-right: ${({borderRight}) => borderRight};
   color: #999999;
   font-weight: 700;
   cursor: ${({cursor}) => cursor};

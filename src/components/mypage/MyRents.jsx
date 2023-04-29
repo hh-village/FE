@@ -9,7 +9,7 @@ function MyRents({data}) {
   
   return (
     data?.myList.length === 0
-    ? <Div width="100%" jc="center" alignItem="center" style={{color:"#e6e6e6"}}>대여중인 상품이 없습니다</Div>
+    ? <Div width="100%" jc="center" alignItem="center" style={{color:"#767676"}}>대여중인 상품이 없습니다</Div>
     : <Div gap="1rem" width="100%">
         {data?.myList.map((item) => 
         <CardDiv
