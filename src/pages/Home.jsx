@@ -10,6 +10,7 @@ import EventBanner from '../components/home/EventBanner'
 import Footer from '../components/global/Footer'
 import useGetMainPageData from '../hooks/useGetMainPageData'
 import Loading from '../components/global/Loading'
+import FloatingMenu from '../components/home/FloatingMenu'
 
 function Home() {
   const { data, isError, isLoading } = useGetMainPageData();
@@ -20,42 +21,49 @@ function Home() {
   if(isError || isLoading){
     return <Loading/>
   }
+
   return (
-    <FlexDiv boxShadow="none">
+    <>
+      <FlexDiv boxShadow="none">
+        {/* components/global */}
+        <HeaderNav />
+        <MaxWidthDiv>
+          <Div marginTop="8rem" width="100%">
 
-      {/* components/global */}
-      <HeaderNav />
-      <MaxWidthDiv>
-        <Div marginTop="8rem" width="100%">
+            {/* components/global */}
+            <SearchInput 
+              searchData={searchData}
+              setSearchData={setSearchData}
+            />
+          </Div>
+        </MaxWidthDiv>
 
-          {/* components/global */}
-          <SearchInput 
-            searchData={searchData}
-            setSearchData={setSearchData}
-          />
-        </Div>
-      </MaxWidthDiv>
+          {/* components/home */}
+          <HomeImgSlide />
+        <MaxWidthDiv>
 
-        {/* components/home */}
-        <HomeImgSlide />
-      <MaxWidthDiv>
-        
-        {/* components/home */}
-        <DealList data={data}/>
-        
-        {/* components/home */}
-        <VerticalCard data={data}/>
+          {/* components/home */}
+          <DealList data={data}/>
+        </MaxWidthDiv>
+      </FlexDiv>
+      <FlexDiv height="100%" boxShadow='none'>
+        <FloatingMenu data={data}/>
+        <MaxWidthDiv >
 
-        {/* components/home */}
-        <EventBanner />
+          {/* components/home */}
+          <VerticalCard data={data}/>
 
-        {/* components/home */}
-        <HorizonCard data={data}/>
-      </MaxWidthDiv>
+          {/* components/home */}
+          <EventBanner />
 
-      {/* components/global */}
-      <Footer topRem={6} botRem={2}/>
-    </FlexDiv>
+          {/* components/home */}
+          <HorizonCard data={data}/>
+        </MaxWidthDiv>
+
+        {/* components/global */}
+        <Footer topRem={6} botRem={2}/>
+      </FlexDiv>
+    </>
   )
 }
 
