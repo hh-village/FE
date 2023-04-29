@@ -24,6 +24,7 @@ const ConsumerRegister = (props) => {
             )
         },
         onSuccess : ()=>{
+            window.alert('예약이 완료되었습니다.')
             queryClient.invalidateQueries(['GET_DETAIL'])
         },
         onError : (error) => {
