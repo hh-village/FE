@@ -12,8 +12,6 @@ function Footer({topRem, botRem}) {
           <Div fDirection="row" gap="2rem">
             <FooterItems cursor="pointer" onClick={()=>{navi("/service")}}>서비스소개</FooterItems>
             <FooterItems cursor="pointer" onClick={()=>{navi("/team")}}>팀원소개</FooterItems>
-            <FooterItems>이용약관</FooterItems>
-            <FooterItems>운영정책</FooterItems>
           </Div>
           <Div gap="0.5rem">
             <FooterSpan>고객센터</FooterSpan>

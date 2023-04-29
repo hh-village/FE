@@ -8,6 +8,7 @@ function HomeImgSlide() {
     const [count, setCount] = useState(1);
 
     const test = [
+        "/images/main0.jpg",
         "/images/main1.jpg",
         "/images/main2.jpg",
         "/images/main3.jpg",
@@ -27,7 +28,11 @@ function HomeImgSlide() {
             <HomeSlideBtn count={count} setFunc={setCount} total={test.length}/>
             <Div position="relative" margin="auto" width="100%" height="100%" overflow="hidden">
                 <Slide etc={styleOption}>
-                    {test.map((imgs) => <Img src={imgs} alt={imgs} key={nanoid()}/>)}
+                    {test.map((imgs) => 
+                        count === 1
+                        ? <EventImg src={imgs} alt={imgs} key={nanoid()} onClick={()=>window.location.href="https://docs.google.com/forms/d/1buMv3vjJuCTB40_tYxWescJU4ijJesZVfEPwuGz1Tzs/viewform?edit_requested=true"}/>
+                        : <Img src={imgs} alt={imgs} key={nanoid()}/>
+                    )}
                 </Slide>
                 <CountDiv>
                 {test.map((item, index) => 
@@ -51,6 +56,14 @@ const Slide = styled.div`
 const Img = styled.img`
     width: 100%;
     object-fit: contain;
+`
+
+const EventImg = styled.img`
+    width: 100%;
+    object-fit: contain;
+    &:hover{
+        cursor: pointer;
+    }
 `
 
 const CountDiv = styled.div`
