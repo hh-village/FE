@@ -40,15 +40,9 @@ function Home() {
 
           {/* components/home */}
           <HomeImgSlide />
-        <MaxWidthDiv>
-
+        <MaxWidthDiv >
           {/* components/home */}
           <DealList data={data}/>
-        </MaxWidthDiv>
-      </FlexDiv>
-      <FlexDiv height="100%" boxShadow='none'>
-        <FloatingMenu data={data}/>
-        <MaxWidthDiv >
 
           {/* components/home */}
           <VerticalCard data={data}/>
@@ -59,6 +53,7 @@ function Home() {
           {/* components/home */}
           <HorizonCard data={data}/>
         </MaxWidthDiv>
+        <FloatingMenu data={data}/>
 
         {/* components/global */}
         <Footer topRem={6} botRem={2}/>
