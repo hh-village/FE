@@ -57,13 +57,13 @@ const Chat = () => {
                 setRoomId(response.roomList.filter(item => item.target === true)[0].roomId)
             }
             setRoomList([...response.roomList])
-            // if(response){
-            //     stompClient.subscribe(`/sub/chat/room/${roomId}`,
-            //     (message)=>{
-            //         const payloadData = JSON.parse(message.body);
-            //         return setChatList(prev => [...prev,payloadData])
-            //     });
-            // }
+            if(response){
+                stompClient.subscribe(`/sub/chat/room/${roomId}`,
+                (message)=>{
+                    const payloadData = JSON.parse(message.body);
+                    return setChatList(prev => [...prev,payloadData])
+                });
+            }
             setChatList([...response.messageList])
         },
     })
@@ -84,15 +84,16 @@ const Chat = () => {
         stompClient = Stomp.over(function() {
             return sockJS;
         });
+        stompClient.debug = function(str) {};
         stompClient.connect({}, () => {
             GetChats.refetch();
-            if(GetChats.data){
-                stompClient.subscribe(`/sub/chat/room/${roomId}`,
-                (message)=>{
-                    const payloadData = JSON.parse(message.body);
-                    return setChatList(prev => [...prev,payloadData])
-                });
-            }
+            // if(GetChats.data){
+            //     stompClient.subscribe(`/sub/chat/room/${roomId}`,
+            //     (message)=>{
+            //         const payloadData = JSON.parse(message.body);
+            //         return setChatList(prev => [...prev,payloadData])
+            //     });
+            // }
         
         })
     }

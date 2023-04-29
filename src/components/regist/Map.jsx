@@ -18,7 +18,7 @@ function Map({theme, baseloc = ''}) {
   const dispatch = useDispatch();
   const [location, setLocation] = useState(baseloc)
   const {values, onChange} = useInput({
-    address : '서울특별시 강남구 테헤란로44길 8 역삼 아이콘빌딩 팀 스파르타'
+    address : baseloc
   })
 
   if(!accessToken){
@@ -99,7 +99,7 @@ function Map({theme, baseloc = ''}) {
       }
     })
     if(response.data === 'null null null null null'){
-      window.alert('거래할 수 없는 지역입니다.')
+      window.alert('거래할 수 없는 지역입니다. 산, 바다, 도로중앙과 같은 지역은 거래 장소로 지정할 수 없습니다.')
     }
     else{
       setLocation(response.data)

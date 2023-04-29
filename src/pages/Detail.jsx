@@ -27,34 +27,54 @@ function Detail() {
   const queryClient = useQueryClient();
   const autofocus = useRef();
   const alwaysOpen = JSON.parse(localStorage.getItem('alwaysOpen'))
+  const {image} = useSelector(state => state.Post)
   const { handleClose, isOpen } = useDropdown(true);
   const { handleToggle:modalControl, isOpen:modalOpen } = useDropdown();
   const [hide, setHide] = useState();
   const { id } = useParams();
-  const {image} = useSelector(state => state.Post);
   const { data, isLoading, isError } = useGetDetail(id);
   const { UpdatePost } = useUpdateDetail(id);
   const { DeletePost } = useDeleteDetail(id);
   const navigate = useNavigate();
-  const {values,setValues, onChange} = useInput({
-    title : data?.title,
-    price : data?.price,
-    description : data?.description,
+  const {values, setValues, onChange} = useInput({
+    title : '',
+    price : '',
+    description : '',
     image : [],
+    location: ''
   });
 
   useEffect(()=>{
     window.scrollTo(0, 0)
     return () => {
       queryClient.getQueryCache().clear();
-      setValues({
-        title : '',
-        price : '',
-        description : '',
-        image : []
-      })
     }
   },[])
+
+  useEffect(()=>{
+    if(!values?.title){
+      setValues({
+        title : data?.title,
+        price : data?.price,
+        description : data?.description,
+        image : data?.imageList,
+        location : data?.location
+      })
+    }
+  },[values])
+
+  // useEffect(()=>{
+  //   if(data){
+  //     setValues({
+  //       ...values,
+  //       title : data?.title,
+  //       price : data?.price,
+  //       description : data?.description,
+  //     })
+  //   }else{
+      
+  //   }
+  // },[values])
 
   if(isLoading || UpdatePost.isLoading || DeletePost.isLoading){
     return(
@@ -76,6 +96,8 @@ function Detail() {
   const onClickMap = () => {
     modalControl();
   }
+
+  console.log(values)
   
   return (
     <FlexDiv boxShadow="none">
@@ -235,14 +257,7 @@ function Detail() {
             <Div width="100%" gap="1rem">
               {data?.checkOwner
                 && (<ButtonWrapper>
-                    <DetailBtn theme = {'modify'} onClick={()=>{ UpdatePost.mutate({
-                      description : values.description,
-                      images : image,
-                      location : data?.location,
-                      title:  values.title,
-                      price : values.price
-
-                    })}}>수정하기</DetailBtn>
+                    <DetailBtn theme = {'modify'} onClick={()=>{ UpdatePost.mutate(values)}}>수정하기</DetailBtn>
                     <DetailBtn theme = {'cancel'} onClick={()=>{
                       if(window.confirm('해당 게시글을 정말 삭제 하시겠습니까?')){
                         return DeletePost.mutate(id)}
