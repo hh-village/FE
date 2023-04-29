@@ -96,8 +96,6 @@ function Detail() {
   const onClickMap = () => {
     modalControl();
   }
-
-  console.log(values)
   
   return (
     <FlexDiv boxShadow="none">

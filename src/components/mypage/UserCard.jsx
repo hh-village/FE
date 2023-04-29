@@ -12,10 +12,15 @@ function UserCard({data, refetch}) {
     const [changedNickname, setChangedNickname] = useState("");
 
     const changeNicknameHandler = () => {
-        setChangeState(!changeState);
+      if(getCookie('nickname').includes('test')){
+            window.alert('테스트계정은 닉네임을 변경하실 수 없습니다.')
+        }else{
+          setChangeState(!changeState);
+        }
     }
 
     const changeInputHandler = (e) => {
+        
         setChangedNickname(e.target.value);
     }
 
