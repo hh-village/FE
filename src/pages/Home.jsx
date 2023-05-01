@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { FlexDiv, MaxWidthDiv, Div } from '../components/global/globalStyle'
+import useGetMainPageData from '../hooks/useGetMainPageData'
 import HeaderNav from '../components/global/HeaderNav'
 import SearchInput from '../components/global/SearchInput'
 import DealList from '../components/home/DealList'
@@ -8,9 +8,9 @@ import HorizonCard from '../components/home/HorizonCard'
 import HomeImgSlide from '../components/home/HomeImgSlide'
 import EventBanner from '../components/home/EventBanner'
 import Footer from '../components/global/Footer'
-import useGetMainPageData from '../hooks/useGetMainPageData'
 import Loading from '../components/global/Loading'
 import FloatingMenu from '../components/home/FloatingMenu'
+import { FlexDiv, MaxWidthDiv, Div } from '../components/global/globalStyle'
 
 function Home() {
   const { data, isError, isLoading } = useGetMainPageData();

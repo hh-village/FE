@@ -32,12 +32,12 @@ function SearchCards({data, isFetchingNextPage, fetchNextPage}) {
                         height="100%"
                         onClick={()=>{navi(`/detail/${item?.id}`)}}
                         >
-                            <Div width="100%" height="304px">
+                            <Div width="100%" height="304px" bgColor="#e6e6e6">
                                 {item?.hot
                                     ? <Hot>인기대여</Hot>
                                     : null
                                 }
-                                <CardImg src={item?.image} alt="" style={{width:"100%", height:"100%", objectFit: "cover"}}/>
+                                <CardImg src={item?.image} alt="" loading='lazy'/>
                             </Div>
                             <Div width="100%" padding="1rem" gap="1rem" style={{boxSizing: "border-box"}}>
                                 <Div fDirection="row" width="100%" jc="space-between" style={{textOverflow:"ellipsis"}}>
@@ -47,6 +47,7 @@ function SearchCards({data, isFetchingNextPage, fetchNextPage}) {
                                         : <img 
                                             src={item?.checkZzim ? "/images/fHeart.png" : "/images/eHeart.png"}
                                             alt="zzimStatus"
+                                            loading='lazy'
                                             style={{width:"28px", height: "28px"}}
                                         />
                                     }
@@ -91,8 +92,9 @@ const Hot = styled.div`
 `
 
 const CardImg = styled.img`
-  width: 210px;
-  height: 210px;
+  width: 282px;
+  height: 304px;
+  object-fit: contain;
 `
 
 const TitleSpan = styled.span`

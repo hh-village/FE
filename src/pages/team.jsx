@@ -8,7 +8,7 @@ function team() {
   return (
     <FlexDiv>
       <HeaderNav />
-      <ServiceImg src="/images/team.png" alt="" />
+      <ServiceImg src="/images/team.webp" alt="" />
       <Footer topRem={0} botRem={2}/>
     </FlexDiv>
   )

@@ -16,7 +16,7 @@ function HorizonCard({data}) {
                     onClick={()=>{navi(`/detail/${item?.id}`)}}
                 >
                     <Div bgColor="#e6e6e6">
-                        <CardImg src={item?.image} alt="" />
+                        <CardImg src={item?.image} alt="" loading='lazy'/>
                     </Div>
                     <Div jc="space-between" width="100%" height="100%" padding="1rem 1rem 1rem 0" style={{boxSizing: "border-box"}}>
                         <Div gap="1rem">
@@ -60,7 +60,7 @@ const Cards = styled.div`
 
 const CardImg = styled.img`
   width: 210px;
-  height: 100%;
+  height: 210px;
   object-fit: contain;
 `
 

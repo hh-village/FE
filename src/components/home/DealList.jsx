@@ -28,7 +28,7 @@ function DealList({data}) {
 export default DealList
 
 const marquee = keyframes`
-  0% {transform: translate3D(0.29%, 0, 0)}
+  0% {transform: translate3D(0.42%, 0, 0)}
   100% {transform: translate3D(-50%, 0, 0)}
 `
 
@@ -38,7 +38,7 @@ const Slide = styled.div`
   white-space: nowrap;
   position: absolute;
   overflow: hidden;
-  gap: 1rem;
+  gap: 3rem;
   animation: ${marquee} 30s linear infinite;
   ${({etc}) => etc};
 `

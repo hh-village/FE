@@ -1,10 +1,10 @@
-import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import axios from 'axios'
+import { useMutation } from '@tanstack/react-query'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import { getCookie } from '../../shared/Cookies';
 import { Div } from '../global/globalStyle'
+import { getCookie } from '../../shared/Cookies'
 
 function UserCard({data, refetch}) {
     const navi = useNavigate();
