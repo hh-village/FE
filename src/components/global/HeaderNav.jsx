@@ -1,13 +1,11 @@
-import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components';
-import { getCookie } from '../../shared/Cookies';
 import { NotifiyIcon } from '../detail/detailStyle';
-import { FlexDiv, MaxWidthDiv, Div, ChatBtn } from './globalStyle'
 import LoginBtn from './LoginBtn'
 import LogoutBtn from './LogoutBtn';
+import { FlexDiv, MaxWidthDiv, Div, ChatBtn } from './globalStyle'
+import { getCookie } from '../../shared/Cookies';
 
 function HeaderNav() {
   const accessToken = getCookie("token");
