@@ -1,5 +1,6 @@
 import { QueryClient, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import React from "react";
 import useDropdown from "../../hooks/useDropdown";
 import useSelectValue from "../../hooks/useSelectValue";
 import { getCookie } from "../../shared/Cookies";
@@ -81,4 +82,4 @@ const DropDown = ({status, id}) => {
     )
 }
 
-export default DropDown;
+export default React.memo(DropDown);

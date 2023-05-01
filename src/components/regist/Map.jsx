@@ -83,7 +83,6 @@ function Map({theme, baseloc = ''}) {
   }
   })
 
-  
   const onClickMarker = async(event) => {
     if(!accessToken){
       return window.alert('로그인 후 빌리지를 이용해주세요!')
@@ -107,7 +106,6 @@ function Map({theme, baseloc = ''}) {
     }
   }
 
-  
   return (
     <Div alignItem = 'center' style={{ marginTop:"0.5rem"}}>
       <Searchdiv>

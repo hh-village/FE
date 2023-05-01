@@ -17,7 +17,7 @@ const ImageSlider = ({imageList}) => {
     `;
 
     return (
-        <Div position="relative" width="567px" height="508px" overflow = 'hidden'>
+        <Div position="relative" width="567px" height="500px" overflow = 'hidden'>
             {imageList?.length > 1 && (
                 <SlideBtn count={count} setFunc={setCount} total={imageList?.length}/>
             )}
@@ -35,6 +35,6 @@ const Slide = styled.div`
     ${({etc}) => etc};
 `
 const Img = styled.img`
-    height: 508px;
+    height: 500px;
     width: 578px;
 `
