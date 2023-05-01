@@ -1,14 +1,11 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
-import axios from 'axios'
-import React, { useEffect } from 'react'
-import { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import useGetMyPageData from '../hooks/useGetMyPageData'
 import Footer from '../components/global/Footer'
-import { FlexDiv, MaxWidthDiv } from '../components/global/globalStyle'
 import HeaderNav from '../components/global/HeaderNav'
 import PagingTap from '../components/mypage/PagingTap'
 import UserCard from '../components/mypage/UserCard'
-import useGetMyPageData from '../hooks/useGetMyPageData'
+import { FlexDiv, MaxWidthDiv } from '../components/global/globalStyle'
 import { getCookie } from '../shared/Cookies'
 
 function MyPage() {

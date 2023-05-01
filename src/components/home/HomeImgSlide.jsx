@@ -8,10 +8,10 @@ function HomeImgSlide() {
     const [count, setCount] = useState(1);
 
     const test = [
-        "/images/main0.jpg",
-        "/images/main1.jpg",
-        "/images/main2.jpg",
-        "/images/main3.jpg",
+        "/images/main0.webp",
+        "/images/main1.webp",
+        "/images/main2.webp",
+        "/images/main3.webp",
     ]
 
     const styleOption = `
@@ -30,8 +30,8 @@ function HomeImgSlide() {
                 <Slide etc={styleOption}>
                     {test.map((imgs) => 
                         count === 1
-                        ? <EventImg src={imgs} alt={imgs} key={nanoid()} onClick={()=>window.location.href="https://docs.google.com/forms/d/1buMv3vjJuCTB40_tYxWescJU4ijJesZVfEPwuGz1Tzs/viewform?edit_requested=true"}/>
-                        : <Img src={imgs} alt={imgs} key={nanoid()}/>
+                        ? <EventImg src={imgs} alt={imgs} fetchpriority="high" key={nanoid()} onClick={()=>window.location.href="https://docs.google.com/forms/d/1buMv3vjJuCTB40_tYxWescJU4ijJesZVfEPwuGz1Tzs/viewform?edit_requested=true"}/>
+                        : <Img src={imgs} alt={imgs} loading="lazy" decoding='async' key={nanoid()}/>
                     )}
                 </Slide>
                 <CountDiv>
