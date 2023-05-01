@@ -1,41 +1,36 @@
-import { useNavigate, useParams } from 'react-router-dom'
-import { FlexDiv, MaxWidthDiv, Div } from '../components/global/globalStyle'
 import HeaderNav from '../components/global/HeaderNav'
-import ConsumerRegister from '../components/detail/ConsumerRegister'
-import RegisterReserve from '../components/detail/RegisterReserve'
-import { ButtonWrapper, DescriptionDiv, DetailBtn, DetailTitle, LocationBox, LocationButton, NotifiyIcon, PriceTitle, Registertext, ReserveDesc, SellerInfo, SellorInfoBox, Span, Title, UnderImage } from '../components/detail/detailStyle'
-import { useSelector } from 'react-redux'
-import ImageBlock from '../components/regist/ImageBlock'
-import useInput from '../hooks/useInput'
 import Footer from '../components/global/Footer'
-import Zzim from '../components/detail/Zzim'
-import ImageSlider from '../components/detail/ImageSlider'
+import Loading from '../components/global/Loading'
+import useInput from '../hooks/useInput'
 import useGetDetail from '../hooks/useGetDetail'
 import useUpdateDetail from '../hooks/useUpdateDetail'
 import useDeleteDetail from '../hooks/useDeleteDetail'
-import { lazy, Suspense, useEffect } from 'react'
-import Loading from '../components/global/Loading'
-import { useState } from 'react'
 import useDropdown from '../hooks/useDropdown'
-import ModalSeller from '../components/detail/ModalSeller'
-import { PriceDiv, PriceInput, PriceSpan, TitleInput } from '../components/regist/RegistStyled'
-import { useRef } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
+import { FlexDiv, MaxWidthDiv, Div } from '../components/global/globalStyle'
+import { ButtonWrapper, DescriptionDiv, DetailBtn, DetailTitle, LocationBox, LocationButton, NotifiyIcon, PriceTitle, Registertext, ReserveDesc, Title} from '../components/detail/detailStyle'
+import { PriceDiv, PriceInput, PriceSpan } from '../components/regist/RegistStyled'
 import { useQueryClient } from '@tanstack/react-query'
 const MapComp = lazy(()=> import('../components/regist/Map'))
+const ConsumerRegister = lazy(()=>import('../components/detail/ConsumerRegister'))
+const RegisterReserve = lazy(()=>import('../components/detail/RegisterReserve'))
+const ModalSeller = lazy(()=>import('../components/detail/ModalSeller'))
+const ImageSlider = lazy(()=>import('../components/detail/ImageSlider'))
+const ImageBlock = lazy(()=>import('../components/regist/ImageBlock'))
+const PostInfo = lazy(()=>import('../components/detail/PostInfo'))
+const Zzim = lazy(()=>import('../components/detail/Zzim'))
+const SellorInfo = lazy(()=>import('../components/detail/SellorInfo'))
 
-function Detail() {
-  const queryClient = useQueryClient();
-  const autofocus = useRef();
+function Detail() { 
   const alwaysOpen = JSON.parse(localStorage.getItem('alwaysOpen'))
-  const {image} = useSelector(state => state.Post)
+  const queryClient = useQueryClient();
   const { handleClose, isOpen } = useDropdown(true);
   const { handleToggle:modalControl, isOpen:modalOpen } = useDropdown();
-  const [hide, setHide] = useState();
   const { id } = useParams();
   const { data, isLoading, isError } = useGetDetail(id);
   const { UpdatePost } = useUpdateDetail(id);
   const { DeletePost } = useDeleteDetail(id);
-  const navigate = useNavigate();
   const {values, setValues, onChange} = useInput({
     title : '',
     price : '',
@@ -43,6 +38,9 @@ function Detail() {
     image : [],
     location: ''
   });
+  const onClickMap = () => {
+      modalControl();
+    }
 
   useEffect(()=>{
     window.scrollTo(0, 0)
@@ -63,40 +61,12 @@ function Detail() {
     }
   },[values])
 
-  // useEffect(()=>{
-  //   if(data){
-  //     setValues({
-  //       ...values,
-  //       title : data?.title,
-  //       price : data?.price,
-  //       description : data?.description,
-  //     })
-  //   }else{
-      
-  //   }
-  // },[values])
-
   if(isLoading || UpdatePost.isLoading || DeletePost.isLoading){
     return(
       <Loading/>
     )
   }
 
-  if(isError){
-    setTimeout(()=>{
-      window.alert('오류로 인해 홈으로 이동합니다.');
-      navigate('/');
-      window.location.reload();
-    },5000)
-    return(
-      <Loading/>
-    )
-  }
-
-  const onClickMap = () => {
-    modalControl();
-  }
-  
   return (
     <FlexDiv boxShadow="none">
       <HeaderNav />
@@ -113,34 +83,19 @@ function Detail() {
           {/* 왼쪽 div 영역 */}
           <Div width="100%">
             <Div width="100%">
-            {data?.checkOwner
-            ? <ImageBlock image={data?.imageList} id={data?.id}/>
-            : <ImageSlider imageList={data?.imageList}/>
-            }
+              <Suspense>
+                {data?.checkOwner
+                ? <ImageBlock image={data?.imageList} id={data?.id}/>
+                : <ImageSlider imageList={data?.imageList}/>
+                }
+              </Suspense>
             </Div>
             <Div>
-            {data?.checkOwner || (
-              <div>
-                <UnderImage>
-                  <div style={{display:'flex', alignItems:'center',gap:'4px'}}>
-                    <NotifiyIcon src='/images/check.png'/>
-                    <span>대여완료 {data?.reservationList.filter((item)=> item.status === 'returned').length}명 </span>
-                  </div>
-                  <div style={{display:'flex', alignItems:'center', gap:'4px'}}>
-                    <NotifiyIcon src='/images/fHeart.png'/>
-                    관심 {data?.zzimCount}명
-                  </div>
-                  <div style={{display:'flex', alignItems:'center', gap:'4px'}}>
-                    <NotifiyIcon src='/images/eye 1.png'/>
-                    조회 xx회
-                  </div>
-                </UnderImage>
-                <div style={{display:'flex', justifyContent:'center', alignItems:'center', gap:'4px'}}>
-                  <NotifiyIcon src='/images/map.png'/>
-                  <span>{data?.location}</span>
-                </div>
-              </div>
-            )}
+              <Suspense>
+                {data?.checkOwner || (
+                  <PostInfo reservationList={data?.reservationList} zzimCount = {data?.zzimCount} location ={data?.location}/>
+                )}
+              </Suspense>
             </Div>
             <Div width="100%" marginTop="2rem" style={{position:"relative"}}>
               <img style = {{width :'567px', height :'115px'}} src='/images/mapBG.png' alt=''/>
@@ -166,26 +121,28 @@ function Detail() {
           <Div width="100%" gap="1rem" style={{boxSizing:"border-box"}}>
             <Div width="100%">
               <Div fDirection="row" width="100%" jc="space-between" >
-                {data.checkOwner ? (
-                  <PriceDiv>
-                    <PriceSpan>제목</PriceSpan>
-                      <PriceInput
-                        name='title'
-                        onChange={onChange}
-                        placeholder = {`${data.title}`}
-                        maxLength={20}
-                        defaultValue = {data?.title}
-                      />
-                  </PriceDiv>
-                ) : (
-                  <>
-                    <Title>{data?.title}</Title>
-                    <Zzim 
-                      zzim={data?.zzimStatus} 
-                      zzimCount = {data?.zzimCount} 
-                      id = {data?.id}/>
-                  </>
-                )}
+                <Suspense>
+                  {data?.checkOwner ? (
+                    <PriceDiv>
+                      <PriceSpan>제목</PriceSpan>
+                        <PriceInput
+                          name='title'
+                          onChange={onChange}
+                          placeholder = {`${data.title}`}
+                          maxLength={20}
+                          defaultValue = {data?.title}
+                        />
+                    </PriceDiv>
+                  ) : (
+                    <>
+                      <Title>{data?.title}</Title>
+                      <Zzim 
+                        zzim={data?.zzimStatus} 
+                        zzimCount = {data?.zzimCount} 
+                        id = {data?.id}/>
+                    </>
+                  )}
+                </Suspense>
               </Div>
               <Div width = '100%'fDirection = 'row' alignItem = 'center' gap ='10px'>
                 {data?.checkOwner ? (
@@ -203,36 +160,15 @@ function Detail() {
                     </PriceDiv>
                   </Div>
                 ) : (
-                  <>
+                  <Suspense>
                     <PriceTitle> {data?.price}원 <span style ={{fontSize:'13px'}}>/ 1일 기준</span></PriceTitle>
-                    <SellerInfo
-                    onMouseOver={()=>setHide(true)}
-                    onMouseLeave={()=>setHide(false)}
-                    >판매자 정보
-                    {/* </SellerInfo> */}
-                    {hide && (
-                      <SellorInfoBox>
-                        <div style={{width : '100%', paddingLeft :'17px', fontSize : '20px'}}>
-                        {data.ownerNickname}
-                        </div>
-                        <Div fDirection = 'row' jc = 'center' gap = '13px' >
-                          <Div alignItem = 'center' fDirection = 'row' gap='7px'>
-                            <NotifiyIcon src='/images/check.png'/>
-                            <Span>대여완료 {data.ownerReturned}명</Span>
-                          </Div>
-                          <Div alignItem = 'center' fDirection = 'row' gap='7px'>
-                            <NotifiyIcon src='/images/profile1.png'/>
-                            <Span>대여진행중 {data.ownerAccepted}명</Span>
-                          </Div>
-                          <Div alignItem = 'center' fDirection = 'row' gap='7px'>
-                            <NotifiyIcon src='/images/profile.png'/>
-                            <Span>대기중 {data.ownerWaiting}명</Span>
-                          </Div>
-                        </Div>
-                      </SellorInfoBox>
-                  )}
-                   </SellerInfo>
-                  </>
+                    <SellorInfo 
+                    ownerNickname = {data?.ownerNickname}
+                    ownerReturned = {data?.ownerReturned} 
+                    ownerAccepted = {data?.ownerAccepted}
+                    ownerWaiting = {data?.ownerWaiting}
+                    />
+                  </Suspense>
                 )}
               </Div>
               
@@ -240,11 +176,10 @@ function Detail() {
             <Div width="100%">
               {data?.checkOwner ? (
                 <Registertext
-                  ref={autofocus}
                   name='description'
                   onChange={onChange}
                   placeholder={data?.description}
-                  defaultValue={data.description}
+                  defaultValue={data?.description}
                   />
               ):(
                 <DescriptionDiv>
@@ -271,17 +206,23 @@ function Detail() {
                 </span>
               </Div>
               <Div width="100%">
-                {data?.checkOwner
-                ? <RegisterReserve reservationList = {data?.reservationList} id = {data?.id}/>
-                : <ConsumerRegister reservationList = {data?.reservationList} id = {data?.id}/>
-                }
+                <Suspense>
+                  {data?.checkOwner
+                  ? <RegisterReserve reservationList = {data?.reservationList} id = {data?.id}/>
+                  : <ConsumerRegister reservationList = {data?.reservationList} id = {data?.id}/>
+                  }
+                </Suspense>
+                
               </Div>
             </Div>
           </Div>
         </Div>
-        {data.checkOwner && isOpen && alwaysOpen &&(
-          <ModalSeller handleClose = {handleClose}/>
-        )}
+        <Suspense>
+          {data?.checkOwner && isOpen && alwaysOpen &&(
+            <ModalSeller handleClose = {handleClose}/>
+          )}
+        </Suspense>
+        
       </MaxWidthDiv>
       <Footer topRem={6} botRem={2}/>
     </FlexDiv>

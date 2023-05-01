@@ -29,6 +29,7 @@ function Regist() {
   const { mutate, isLoading } = useMutation({
     mutationKey:['mutate'],
     mutationFn: async(values)=>{
+      console.log(values)
       if(values.location == ''){
         return window.alert('장소를 마커로 찍어주세요!')
       }
@@ -120,10 +121,10 @@ function Regist() {
             </Suspense>
             <RegistBtn> 등록하기 </RegistBtn>
             </form>
+            <link as='image' rel='preload' href='check.png'/>
           </Div>
         </Div>
       </MaxWidthDiv>
-
       {/* components/global */}
       <Footer topRem={6} botRem={2}/>
     </FlexDiv>

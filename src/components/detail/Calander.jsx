@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import ReactDatePicker from "react-datepicker"
 import { Button, ReservationDateClick, Selections } from "./detailStyle";
 import "react-datepicker/dist/react-datepicker.css"; // 이렇게 가져와야 기본 디자인이 설정된다
@@ -66,4 +66,4 @@ function Calander({ChatwithOwner,reservePost, id}){
     )
 }
 
-export default Calander;
+export default React.memo(Calander);

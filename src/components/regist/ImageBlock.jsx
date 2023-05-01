@@ -39,11 +39,12 @@ function ImageBlock({image, id}) {
         formData.append('images', Object.values(imageLists))
         dispatch(storeImage(Object.values(imageLists)))
     }
+
   return (
     <Div width="100%" gap="1rem">
         <label htmlFor='file'>
             <FirstPreview>
-                {imageURL[0] ? <img src = {imageURL[0]} style={{width:'100%', height:'100%'}} alt=''/> : <></>}
+                {imageURL[0] ? <img src = {imageURL[0]} style={{width:'567px', height:'500px'}} alt=''/> : <></>}
                 <div style={{position:'absolute',top :'45%', left : '13%', color:'white',fontSize:'30px', display:'flex', flexDirection:'column', alignItems:'center'}}>
                     <span>'여기'를 클릭해서</span>
                     <span>물품 이미지를 첨부해주세요(최대5장)</span>
@@ -52,20 +53,20 @@ function ImageBlock({image, id}) {
         </label>
         <PreviewContainer>
             <OtherPreview theme ={'primary'} children={
-                imageURL[1] ? <img src={imageURL[1]} style={{width:'100%', height : '100%'}} alt=''/> : <></>
+                imageURL[1] ? <img src={imageURL[1]} style={{width:'127.5px', height : '100px'}} alt=''/> : <></>
             }/>
             <OtherPreview children={
-                imageURL[2] ? <img src={imageURL[2]} style={{width:'100%', height : '100%'}} alt=''/> : <></>
+                imageURL[2] ? <img src={imageURL[2]} style={{width:'127.5px', height : '100px'}} alt=''/> : <></>
             }/>
             <OtherPreview children={
-                imageURL[3] ? <img src={imageURL[3]} style={{width:'100%', height : '100%'}} alt=''/> : <></>
+                imageURL[3] ? <img src={imageURL[3]} style={{width:'127.5px', height : '100px'}} alt=''/> : <></>
             }/>
             <OtherPreview children={
-                imageURL[4] ? <img src={imageURL[4]} style={{width:'100%', height : '100%'}} alt=''/> : <></>
+                imageURL[4] ? <img src={imageURL[4]} style={{width:'127.5px', height : '100px'}} alt=''/> : <></>
             }/>
         </PreviewContainer>
         
-        <input type={'file'} id='file' multiple style={{display:'none'}} onChange={onImageChangeHandler}/>
+        <input type={'file'} id='file' accept="image/*" multiple style={{display:'none'}} onChange={onImageChangeHandler}/>
     </Div>
     
 )
