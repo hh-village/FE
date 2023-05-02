@@ -8,7 +8,6 @@ function HomeImgSlide() {
     const [count, setCount] = useState(1);
 
     const test = [
-        "/images/main0.webp",
         "/images/main1.webp",
         "/images/main2.webp",
         "/images/main3.webp",
@@ -29,9 +28,7 @@ function HomeImgSlide() {
             <Div position="relative" margin="auto" width="100%" height="100%" overflow="hidden">
                 <Slide etc={styleOption}>
                     {test.map((imgs) => 
-                        count === 1
-                        ? <EventImg src={imgs} alt={imgs} fetchpriority="high" key={nanoid()} onClick={()=>window.location.href="https://docs.google.com/forms/d/1buMv3vjJuCTB40_tYxWescJU4ijJesZVfEPwuGz1Tzs/viewform?edit_requested=true"}/>
-                        : <Img src={imgs} alt={imgs} loading="lazy" decoding='async' key={nanoid()}/>
+                        <Img src={imgs} alt={imgs} loading="lazy" decoding='async' key={nanoid()}/>
                     )}
                 </Slide>
                 <CountDiv>
@@ -56,14 +53,6 @@ const Slide = styled.div`
 const Img = styled.img`
     width: 100%;
     object-fit: contain;
-`
-
-const EventImg = styled.img`
-    width: 100%;
-    object-fit: contain;
-    &:hover{
-        cursor: pointer;
-    }
 `
 
 const CountDiv = styled.div`
