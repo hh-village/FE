@@ -12,6 +12,7 @@ import { FlexDiv, MaxWidthDiv, Div } from '../components/global/globalStyle'
 import { ButtonWrapper, DescriptionDiv, DetailBtn, DetailTitle, LocationBox, LocationButton, NotifiyIcon, PriceTitle, Registertext, ReserveDesc, Title} from '../components/detail/detailStyle'
 import { PriceDiv, PriceInput, PriceSpan } from '../components/regist/RegistStyled'
 import { useQueryClient } from '@tanstack/react-query'
+import { useSelector } from 'react-redux'
 const MapComp = lazy(()=> import('../components/regist/Map'))
 const ConsumerRegister = lazy(()=>import('../components/detail/ConsumerRegister'))
 const RegisterReserve = lazy(()=>import('../components/detail/RegisterReserve'))
@@ -25,6 +26,7 @@ const SellorInfo = lazy(()=>import('../components/detail/SellorInfo'))
 function Detail() { 
   const alwaysOpen = JSON.parse(localStorage.getItem('alwaysOpen'))
   const queryClient = useQueryClient();
+  const { image:storeImage } = useSelector(state => state.Post)
   const { handleClose, isOpen } = useDropdown(true);
   const { handleToggle:modalControl, isOpen:modalOpen } = useDropdown();
   const { id } = useParams();
@@ -35,7 +37,7 @@ function Detail() {
     title : '',
     price : '',
     description : '',
-    image : [],
+    images : [],
     location: ''
   });
   const onClickMap = () => {
@@ -55,17 +57,29 @@ function Detail() {
         title : data?.title,
         price : data?.price,
         description : data?.description,
-        image : data?.imageList,
+        images : data?.imageList,
         location : data?.location
       })
     }
   },[values])
 
+  useEffect(()=>{
+    if(storeImage){
+      setValues({
+        ...values,
+        images:storeImage
+      })
+    }
+  },[storeImage])
+  
+
   if(isLoading || UpdatePost.isLoading || DeletePost.isLoading){
     return(
       <Loading/>
     )
-  }
+  } 
+
+  console.log(values)
 
   return (
     <FlexDiv boxShadow="none">

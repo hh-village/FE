@@ -3,6 +3,7 @@ import { FirstPreview, OtherPreview, PreviewContainer } from './RegistStyled';
 import { useDispatch } from 'react-redux'
 import { storeImage } from '../../redux/modules/Post';
 import { Div } from '../global/globalStyle';
+import imageCompression from 'browser-image-compression';
 
 function ImageBlock({image, id}) {
     const [imageURL, setImageURL] = useState([]);
@@ -28,23 +29,38 @@ function ImageBlock({image, id}) {
             if(imageLists[i].size > 10000000){
                 return window.alert('10MB 미만의 이미지만 첨부해주세요!')
             }
-            
+            console.log('originalFile instanceof Blob', imageLists[i] instanceof Blob); // true
+            console.log(`originalFile size ${imageLists[i].size} MB`);
+
             const currentImageUrl = URL.createObjectURL(imageLists[i]);
             ImageURLLists.push(currentImageUrl)
         }
         setImageURL(ImageURLLists)
 
+        
+        const compressedImageList = []
+        for(let i = 0; i < imageLists.length; i++){
+            const compressedFile = await imageCompression(imageLists[i], {
+                maxSizeMB: 1,
+                maxWidthOrHeight: 567
+            });
+           
+            console.log('compressedFile instanceof Blob', compressedFile instanceof Blob); // true
+            console.log(`compressedFile size ${compressedFile.size} MB`); // smaller than maxSizeMB
+            compressedImageList.push(compressedFile)
+        }
+
         //여기서부터 서버통신 시작
         const formData = new FormData()
-        formData.append('images', Object.values(imageLists))
-        dispatch(storeImage(Object.values(imageLists)))
+        formData.append('images', compressedImageList)
+        dispatch(storeImage(compressedImageList))
     }
 
   return (
     <Div width="100%" gap="1rem">
         <label htmlFor='file'>
             <FirstPreview>
-                {imageURL[0] ? <img src = {imageURL[0]} style={{width:'567px', height:'500px'}} alt=''/> : <></>}
+                {imageURL[0] ? <img src = {imageURL[0]} style={{width:'567px', height:'500px', objectFit : 'contain'}} alt=''/> : <></>}
                 <div style={{position:'absolute',top :'45%', left : '13%', color:'white',fontSize:'30px', display:'flex', flexDirection:'column', alignItems:'center'}}>
                     <span>'여기'를 클릭해서</span>
                     <span>물품 이미지를 첨부해주세요(최대5장)</span>
@@ -53,16 +69,16 @@ function ImageBlock({image, id}) {
         </label>
         <PreviewContainer>
             <OtherPreview theme ={'primary'} children={
-                imageURL[1] ? <img src={imageURL[1]} style={{width:'127.5px', height : '100px'}} alt=''/> : <></>
+                imageURL[1] ? <img src={imageURL[1]} style={{width:'127.5px', height : '100px', objectFit : 'contain'}} alt=''/> : <></>
             }/>
             <OtherPreview children={
-                imageURL[2] ? <img src={imageURL[2]} style={{width:'127.5px', height : '100px'}} alt=''/> : <></>
+                imageURL[2] ? <img src={imageURL[2]} style={{width:'127.5px', height : '100px', objectFit : 'contain'}} alt=''/> : <></>
             }/>
             <OtherPreview children={
-                imageURL[3] ? <img src={imageURL[3]} style={{width:'127.5px', height : '100px'}} alt=''/> : <></>
+                imageURL[3] ? <img src={imageURL[3]} style={{width:'127.5px', height : '100px', objectFit : 'contain'}} alt=''/> : <></>
             }/>
             <OtherPreview children={
-                imageURL[4] ? <img src={imageURL[4]} style={{width:'127.5px', height : '100px'}} alt=''/> : <></>
+                imageURL[4] ? <img src={imageURL[4]} style={{width:'127.5px', height : '100px', objectFit : 'contain'}} alt=''/> : <></>
             }/>
         </PreviewContainer>
         
