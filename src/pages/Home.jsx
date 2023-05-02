@@ -1,16 +1,19 @@
-import React, { useState } from 'react'
+import React, { lazy, Suspense, useState } from 'react'
 import useGetMainPageData from '../hooks/useGetMainPageData'
 import HeaderNav from '../components/global/HeaderNav'
 import SearchInput from '../components/global/SearchInput'
 import DealList from '../components/home/DealList'
-import VerticalCard from '../components/home/VerticalCard'
-import HorizonCard from '../components/home/HorizonCard'
+// import VerticalCard from '../components/home/VerticalCard'
+// import HorizonCard from '../components/home/HorizonCard'
 import HomeImgSlide from '../components/home/HomeImgSlide'
-import EventBanner from '../components/home/EventBanner'
+// import EventBanner from '../components/home/EventBanner'
 import Footer from '../components/global/Footer'
 import Loading from '../components/global/Loading'
 import FloatingMenu from '../components/home/FloatingMenu'
 import { FlexDiv, MaxWidthDiv, Div } from '../components/global/globalStyle'
+const VerticalCard = lazy(()=>import('../components/home/VerticalCard')) 
+const HorizonCard = lazy(() => import('../components/home/HorizonCard'))
+const EventBanner = lazy(()=>import('../components/home/EventBanner'))
 
 function Home() {
   const { data, isError, isLoading } = useGetMainPageData();
@@ -45,13 +48,16 @@ function Home() {
           <DealList data={data}/>
 
           {/* components/home */}
-          <VerticalCard data={data}/>
+          <Suspense>
+            <VerticalCard data={data}/>
 
-          {/* components/home */}
-          <EventBanner />
+            {/* components/home */}
+            <EventBanner />
 
-          {/* components/home */}
-          <HorizonCard data={data}/>
+            {/* components/home */}
+            <HorizonCard data={data}/>
+          </Suspense>
+          
         </MaxWidthDiv>
         <FloatingMenu data={data}/>
 
