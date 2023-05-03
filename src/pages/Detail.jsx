@@ -6,13 +6,14 @@ import useGetDetail from '../hooks/useGetDetail'
 import useUpdateDetail from '../hooks/useUpdateDetail'
 import useDeleteDetail from '../hooks/useDeleteDetail'
 import useDropdown from '../hooks/useDropdown'
-import { lazy, Suspense, useEffect } from 'react'
+import React, { lazy, Suspense, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { FlexDiv, MaxWidthDiv, Div } from '../components/global/globalStyle'
-import { ButtonWrapper, DescriptionDiv, DetailBtn, DetailTitle, LocationBox, LocationButton, NotifiyIcon, PriceTitle, Registertext, ReserveDesc, Title} from '../components/detail/detailStyle'
+import { ButtonWrapper, DescriptionDiv, DetailBtn, DetailTitle, LocationBox, LocationButton, ModalBackground, NotifiyIcon, PriceTitle, Registertext, ReserveDesc, Title} from '../components/detail/detailStyle'
 import { PriceDiv, PriceInput, PriceSpan } from '../components/regist/RegistStyled'
 import { useQueryClient } from '@tanstack/react-query'
 import { useSelector } from 'react-redux'
+import { getCookie } from '../shared/Cookies'
 const MapComp = lazy(()=> import('../components/regist/Map'))
 const ConsumerRegister = lazy(()=>import('../components/detail/ConsumerRegister'))
 const RegisterReserve = lazy(()=>import('../components/detail/RegisterReserve'))
@@ -41,7 +42,11 @@ function Detail() {
     location: ''
   });
   const onClickMap = () => {
-      modalControl();
+      if(!getCookie('token')){
+        return window.alert('로그인 후 빌리지를 이용해주세요')
+      }else{
+        modalControl();
+      }
     }
 
   useEffect(()=>{
@@ -118,11 +123,15 @@ function Detail() {
                 거래위치 지도에서 보기
               </LocationButton>
               {modalOpen && (
-                <LocationBox>
-                  <Suspense>
-                    <MapComp baseloc = {data?.location}/>
-                  </Suspense>
-                </LocationBox>
+              <>
+                <ModalBackground theme={'regist'} onClick = {onClickMap}/>
+                  <LocationBox>
+                    <Suspense>
+                      <MapComp baseloc = {data?.location}/>
+                    </Suspense>
+                  </LocationBox>
+              </>
+                
               )}
             </Div>
           </Div>
@@ -233,7 +242,9 @@ function Detail() {
         </Div>
         <Suspense>
           {data?.checkOwner && isOpen && alwaysOpen &&(
-            <ModalSeller handleClose = {handleClose}/>
+            <ModalSeller handleClose = {handleClose} 
+            word1 = {'해당 페이지를 통해 게시글의 요소들을'}
+            word2 = {'간단히 수정하실 수 있습니다.'}/>
           )}
         </Suspense>
         

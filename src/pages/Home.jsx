@@ -3,10 +3,7 @@ import useGetMainPageData from '../hooks/useGetMainPageData'
 import HeaderNav from '../components/global/HeaderNav'
 import SearchInput from '../components/global/SearchInput'
 import DealList from '../components/home/DealList'
-// import VerticalCard from '../components/home/VerticalCard'
-// import HorizonCard from '../components/home/HorizonCard'
 import HomeImgSlide from '../components/home/HomeImgSlide'
-// import EventBanner from '../components/home/EventBanner'
 import Footer from '../components/global/Footer'
 import Loading from '../components/global/Loading'
 import FloatingMenu from '../components/home/FloatingMenu'
@@ -50,13 +47,17 @@ function Home() {
           {/* components/home */}
           <Suspense>
             <VerticalCard data={data}/>
-
+          </Suspense>
+          <Suspense>
             {/* components/home */}
             <EventBanner />
-
+          </Suspense>
+          <Suspense>
             {/* components/home */}
             <HorizonCard data={data}/>
           </Suspense>
+            
+          
           
         </MaxWidthDiv>
         <FloatingMenu data={data}/>

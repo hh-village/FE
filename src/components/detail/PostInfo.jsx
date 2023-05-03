@@ -6,7 +6,7 @@ const PostInfo = ({reservationList, zzimCount, location}) => {
             <UnderImage>
                 <div style={{display:'flex', alignItems:'center',gap:'4px'}}>
                 <NotifiyIcon src='/images/check.png'/>
-                <span>대여완료 {reservationList.filter((item)=> item.status === 'returned').length}명 </span>
+                <span>대여완료 {reservationList?.filter((item)=> item.status === 'returned').length}명 </span>
                 </div>
                 <div style={{display:'flex', alignItems:'center', gap:'4px'}}>
                 <NotifiyIcon src='/images/fHeart.png'/>

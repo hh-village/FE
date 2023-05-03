@@ -21,11 +21,17 @@ export const FirstPreview = styled.div`
     overflow: hidden;
 `
 export const OtherPreview = styled.div`
+    position: relative;
     border: 1px dotted gray;
     border-radius : 10px;
     height: 100px;
     width: 127.5px;
     overflow: hidden;
+    :hover{
+        position: static;
+        height: 300px;
+        width: 300px;
+    }
     ${({theme})=>{
         switch(theme){
             case 'primary':

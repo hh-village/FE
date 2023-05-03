@@ -8,6 +8,7 @@ const useUpdateDetail = (id) => {
     const UpdatePost = useMutation({
         mutationKey : ['UpdatePost'],
         mutationFn : async(payload) => {
+          console.log(payload,'이건데?')
           return await axios.patch(`${process.env.REACT_APP_SERVER_URL}/products/${id}`,payload,{
             headers : {
               Authorization : `Bearer ${token}`,

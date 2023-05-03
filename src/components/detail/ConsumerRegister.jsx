@@ -6,8 +6,9 @@ import { useNavigate } from "react-router-dom";
 import {getCookie} from '../../shared/Cookies'
 import { Div } from "../global/globalStyle";
 import StatusBlock from "./StatusBlock";
+import React from "react";
 
-const ConsumerRegister = (props) => {
+const ConsumerRegister = ({reservationList, id}) => {
     const queryClient = useQueryClient();
     const navigate = useNavigate();
     const accessToken = getCookie('token')
@@ -15,16 +16,24 @@ const ConsumerRegister = (props) => {
     const reservePost = useMutation({
         mutationKey:['reservePost'],
         mutationFn: async(reserveDate) => {
-            await axios.post(`${process.env.REACT_APP_SERVER_URL}/products/${props?.id}/reserve`,reserveDate,
-            { 
-                headers: {
-                    Authorization:`Bearer ${accessToken}`
-                }
-            },
-            )
+            if(reserveDate.endDate === 'undefined-NaN-undefined'){
+                return alert('날짜를 다시 입력해주세요')
+            }else{
+                return await axios.post(`${process.env.REACT_APP_SERVER_URL}/products/${id}/reserve`,reserveDate,
+                { 
+                    headers: {
+                        Authorization:`Bearer ${accessToken}`
+                    }
+                })
+            }
+            
         },
-        onSuccess : ()=>{
-            window.alert('예약이 완료되었습니다.')
+        onSuccess : (response)=>{
+            if(!reservationList.filter(item => item.status === 'waiting').length){
+                window.alert(`${response.data.message} 등록자 승인 후, 채팅을 통해 확인 메세지가 전송됩니다.`)
+            }else{
+                window.alert(`${response.data.message} ${reservationList.filter(item => item.status === 'waiting').length+1}번째 대기순서이므로, 순서가 되면 채팅을 통해 확인 메세지가 전송됩니다.`)
+            }
             queryClient.invalidateQueries(['GET_DETAIL'])
         },
         onError : (error) => {
@@ -41,13 +50,14 @@ const ConsumerRegister = (props) => {
     const DeleteReservation = useMutation({
         mutationKey:['DeleteReservation'],
         mutationFn: async(id)=>{
-            await axios.delete(`${process.env.REACT_APP_SERVER_URL}/products/reservation/${id}`,{
+            return await axios.delete(`${process.env.REACT_APP_SERVER_URL}/products/reservation/${id}`,{
                 headers:{
                     Authorization:`Bearer ${accessToken}`
                 }
             })
         },
-        onSuccess:()=>{
+        onSuccess:(response)=>{
+            window.alert(response.data.message)
             queryClient.invalidateQueries(['GET_DETAIL'])
         },
         onError:(error)=>{
@@ -58,7 +68,7 @@ const ConsumerRegister = (props) => {
     const ChatwithOwner = useMutation({
         mutationKey:['ChatwithOwner'],
         mutationFn: async(nickname) => {
-            return await axios.post(`${process.env.REACT_APP_SERVER_URL}/chat/room/${props.id}/${nickname}`,null,{
+            return await axios.post(`${process.env.REACT_APP_SERVER_URL}/chat/room/${id}/${nickname}`,null,{
                 headers:{
                     Authorization:`Bearer ${accessToken}`
                 }
@@ -76,7 +86,7 @@ const ConsumerRegister = (props) => {
     return (
         <Div width="100%" gap="1.5rem">
             <SelectWrapper>
-                {props.reservationList?.map((item)=>{
+                {reservationList?.reverse().map((item)=>{
                     return(
                     <SelectOption>
                         <StatusBlock status = {item.status}/>
@@ -98,4 +108,4 @@ const ConsumerRegister = (props) => {
     )
 }
 
-export default ConsumerRegister;
+export default React.memo(ConsumerRegister);

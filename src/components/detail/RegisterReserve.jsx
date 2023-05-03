@@ -6,6 +6,7 @@ import DropDown from "./DropDown";
 import { ChatBtn, SelectOption, SelectWrapper } from "./detailStyle"
 import { nanoid } from "@reduxjs/toolkit";
 import { getCookie } from "../../shared/Cookies";
+import React from "react";
 
 const RegisterReserve = (props) => {
     const Mynick = getCookie('nickname') 
@@ -51,4 +52,4 @@ const RegisterReserve = (props) => {
     )
 }
 
-export default RegisterReserve; 
+export default React.memo(RegisterReserve); 
