@@ -6,11 +6,13 @@ import HeaderNav from '../components/global/HeaderNav'
 import SearchInput from '../components/global/SearchInput'
 import SearchCards from '../components/search/SearchCards'
 import Footer from '../components/global/Footer'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getCookie } from '../shared/Cookies'
+import { sendSearchData } from '../redux/modules/Search'
 
 function Search() {
   const queryClient = useQueryClient();
+  const dispatch = useDispatch();
   const accessToken = getCookie('token')
   const {productName, location} = useSelector((state) => state.Search)
   const [searchData, setSearchData] = useState({
@@ -38,7 +40,6 @@ function Search() {
     }
   }
 
-
   const {data, fetchNextPage, isFetchingNextPage, refetch} = useInfiniteQuery(
     ['searchData'],
     ({pageParam = 999999}) => getSearchData(pageParam, 8),
@@ -51,11 +52,11 @@ function Search() {
   useEffect(()=>{
     return () => {
       queryClient.getQueryCache().clear();
+      dispatch(sendSearchData({
+        productName: "",
+        location: ""
+      }))
     }
-    // setSearchData({
-    //   productName: productName,
-    //   location: location
-    // });
   },[searchData])
 
   return (
