@@ -296,7 +296,7 @@ export const SellorInfoBox = styled.div`
 export const ModalBackground = styled.div`
     position: fixed;
     background: rgba(0,0,0,0.3);
-    z-index: 4;
+    z-index: 9;
     width:100vw;
     height: 100vh;
     top: 0;
@@ -307,6 +307,15 @@ export const ModalBackground = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    ${({theme})=>{
+        switch(theme){
+            case'regist':
+                return css`
+                    background: none;
+                    cursor: pointer;
+                `
+        }
+    }}
 `;
 
 export const ModalText = styled.div`

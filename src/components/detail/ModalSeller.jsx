@@ -2,9 +2,8 @@ import { useState } from "react";
 import { Div } from "../global/globalStyle";
 import { Cancel, ModalBackground, ModalText, NotifiyIcon } from "./detailStyle";
 
-const ModalSeller = ({handleClose}) => {
+const ModalSeller = ({handleClose, word1, word2}) => {
     const [always, setAlways] = useState(false);
-
     return(
         <ModalBackground>
             <ModalText>
@@ -19,10 +18,10 @@ const ModalSeller = ({handleClose}) => {
               <Div fDirection = 'column' alignItem = 'center'>
                 <span style={{display:'flex', alignItems:'center', gap:'5px'}}>
                   <NotifiyIcon src='/images/edit 1.png'/>
-                  해당 페이지를 통해 게시글의 요소들을
+                  {word1}
                 </span>
                 <span>
-                  간단히 수정하실 수 있습니다.
+                  {word2}
                 </span>
               </Div>
               <Div fDirection ='row' alignItem = 'center' gap = '10px'>

@@ -7,6 +7,7 @@ import SlideBtn from "./SlideBtn";
 const ImageSlider = ({imageList}) => {
     const [count, setCount] = useState(1);
     const styleOption = `
+        object-fit : contain;
         display: flex;
         width: fit-content; 
         height: 100%;
@@ -35,6 +36,7 @@ const Slide = styled.div`
     ${({etc}) => etc};
 `
 const Img = styled.img`
+    object-fit : contain;
     height: 500px;
     width: 578px;
 `

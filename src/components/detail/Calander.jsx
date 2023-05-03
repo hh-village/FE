@@ -21,7 +21,6 @@ function Calander({ChatwithOwner,reservePost, id}){
         setDateRange(dates);
     }
     
-
     return (
         <Selections>
             <div>
@@ -58,7 +57,7 @@ function Calander({ChatwithOwner,reservePost, id}){
                 startDate : sDate,
                 endDate : eDate
             })}>
-                등록하기
+                대여하기
             </Button>
         </Selections>
         

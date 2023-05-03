@@ -12,6 +12,8 @@ import { useNavigate } from 'react-router-dom'
 import Footer from '../components/global/Footer'
 import Loading from '../components/global/Loading'
 import { useRef } from 'react'
+import ModalSeller from '../components/detail/ModalSeller'
+import useDropdown from '../hooks/useDropdown'
 const MapComp = lazy(()=> import('../components/regist/Map'))
 
 function Regist() {
@@ -19,6 +21,7 @@ function Regist() {
   const navigate = useNavigate();  
   const { image, location } = useSelector(state => state.Post)
   const accessToken = getCookie('token')
+  const { handleClose, isOpen } = useDropdown(true);
   const { values, onChange } = useInput({
     title: "",
     description: "",
@@ -30,23 +33,32 @@ function Regist() {
     mutationKey:['mutate'],
     mutationFn: async(values)=>{
       console.log(values)
-      if(values.location == ''){
+      if(values.location === ''){
         return window.alert('장소를 마커로 찍어주세요!')
-      }
-      return await axios.post(`${process.env.REACT_APP_SERVER_URL}/products`,values,{
+      }else if(values.title === ''){
+        return window.alert('제목을 기입해주세요!')
+      }else if(values.description === ''){
+        return window.alert('물건 상세정보를 작성해주세요!')
+      }else if(!values.price){
+        return window.alert('대여 금액을 작성해주세요!')
+      }else if(!values.images){
+        return window.alert('물품 이미지를 업로드 해주세요!')
+      }else{
+        return await axios.post(`${process.env.REACT_APP_SERVER_URL}/products`,values,{
         headers:{
           Authorization: `Bearer ${accessToken}`,
           "Content-Type": "multipart/form-data"
-        }
-      })
+          }
+        })
+      }
     },
     onSuccess : (response) => {
       window.alert(response.data.message);
       navigate('/search')
       window.location.reload();
     },
-    onError : () => {
-      window.alert('게시글에 필요한 내용들을 모두 입력해주세요.')
+    onError : (error) => {
+      window.alert(error.response.data.message)
     }
   })
 
@@ -73,7 +85,6 @@ function Regist() {
   if(isLoading){
     return <Loading/>
   }
-  
 
   return (
     <FlexDiv boxShadow="none">
@@ -124,6 +135,7 @@ function Regist() {
             <link as='image' rel='preload' href='check.png'/>
           </Div>
         </Div>
+        {isOpen && <ModalSeller handleClose = {handleClose} word1 = {'이미지는 "한번에" 5장까지 첨부 가능합니다!'}/>}
       </MaxWidthDiv>
       {/* components/global */}
       <Footer topRem={6} botRem={2}/>
