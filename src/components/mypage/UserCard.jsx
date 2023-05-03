@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { Div } from '../global/globalStyle'
-import { getCookie } from '../../shared/Cookies'
+import { getCookie, setCookie } from '../../shared/Cookies'
 
 function UserCard({data, refetch}) {
     const navi = useNavigate();
@@ -20,12 +20,12 @@ function UserCard({data, refetch}) {
     }
 
     const changeInputHandler = (e) => {
-        
-        setChangedNickname(e.target.value);
+      setChangedNickname(e.target.value);
     }
 
     const { mutate } = useMutation({
         mutationFn: async (payload) => {
+          setCookie("nickname", payload, {path: "/"});
           const token = getCookie("token");
           return await axios.patch(`${process.env.REACT_APP_SERVER_URL}/users`, payload, {
             headers: {

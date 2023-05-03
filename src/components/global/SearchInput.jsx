@@ -18,10 +18,14 @@ function SearchInput({ searchData, setSearchData, rem, refetch}) {
       dispatch(sendSearchData(searchData));
       navi("/search");
       queryClient.refetchQueries(['searchData'])
+      setSearchData({
+        productName: "",
+        location:""
+      });
     }else{
       refetch();
     }  
-}
+  }
 
   const locationName = [
     "서울", "부산", "대구", "인천", "광주", "대전", "울산", "세종", "경기", "강원", "충청북도", "충청남도", "전라북도", "전라남도", "경상북도", "경상남도", "제주"
@@ -34,8 +38,8 @@ function SearchInput({ searchData, setSearchData, rem, refetch}) {
 
   return (
     <Div fDirection="row" width="100%" boxShadow="none" padding={`${rem}rem 0rem 0rem 0rem`} gap="1rem">
-      <Select name="location" onChange={catchSearchDataHandler}>
-        <option value="">지역검색</option>
+      <Select name="location" value={searchData?.location} onChange={catchSearchDataHandler}>
+        <option value="">지역검색(전체)</option>
         {locationName?.map((item) => 
           <option value={item}>{item}</option>
         )}
