@@ -19,11 +19,6 @@ function Footer({topRem, botRem}) {
           </Div>
           <Div gap="0.5rem">
             <FooterSpan>운영시간 9시-21시(일요일 제외 휴무 없음, 점심시간 자율, 1시간 반)</FooterSpan>
-            {/* <Div fDirection="row" gap="2rem">
-              <FooterSpan>공지사항</FooterSpan>
-              <FooterSpan>1:1 문의하기</FooterSpan>
-              <FooterSpan>자주 묻는 질문</FooterSpan>
-            </Div> */}
           </Div>
         </MaxWidthDiv>
     </Div>
@@ -35,13 +30,13 @@ export default Footer
 const FooterItems = styled.div`
   padding-right: 2rem;
   border-right: ${({borderRight}) => borderRight};
-  color: #999999;
+  color: #767676;
   font-weight: 700;
   cursor: ${({cursor}) => cursor};
 `
 
 const FooterSpan = styled.span`
-  color: #999999;
+  color: #767676;
   font-size: ${({fontSize}) => fontSize};
   font-weight: ${({fontWeight}) => fontWeight};
 `

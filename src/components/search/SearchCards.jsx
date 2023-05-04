@@ -133,5 +133,4 @@ const PriceSpan = styled.span`
 
 const NothingSpan = styled.span`
     width: 100%;
-
 `

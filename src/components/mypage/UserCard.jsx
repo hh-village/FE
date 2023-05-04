@@ -33,6 +33,15 @@ function UserCard({data, refetch}) {
             }
           });
         },
+        // onSuccess: ({data}) => {
+        //   setChangeState(!changeState);
+        //   alert(data.message);
+        //   refetch();
+        // },
+        // onError: ({response}) => {
+        //   setChangeState(!changeState);
+        //   alert(response.data.message);
+        // }
         onSuccess: ({data}) => {
           setChangeState(!changeState);
           alert(data.message);
@@ -46,37 +55,37 @@ function UserCard({data, refetch}) {
 
   return (
     <Div marginTop="2rem" width="100%" height="300px" fDirection="row">
-        <Div>
+      <Div>
         <img src="/images/demoProfile.png" alt="userProfileImg" style={{width:"300px", height: "300px"}}/>
-        </Div>
-        <Div width="100%" height="100%" jc="space-between" bgColor="#e6e6e6" padding="1rem" style={{boxSizing:"border-box"}}>
-        <Div width="100%" height="100%" fDirection="row" bgColor="#e6e6e6" padding="0 0 1rem 0" style={{boxSizing:"border-box", borderBottom:"1px solid #767676"}}>
-            <Div margin="auto 0 auto 0" width="100%" fDirection="row" gap="1rem" bgColor="#e6e6e6">
-            <img src={data?.profile} alt="rankingIcon" style={{width:"3rem", height: "3rem"}}/>
-            {changeState
-                ? <Input type="text" defaultValue={data?.nickname} maxLength={6} onChange={changeInputHandler}/>
-                : <Span>{data?.nickname}</Span>
-            }
-            </Div>
-            <Div width="50%" height="100%" gap="0.5rem" bgColor="#e6e6e6">
-            <Button onClick={()=>{navi("/regist")}}>대여물품 등록하기</Button>
-            <Button onClick={()=>{
-                navi(`/chat/${getCookie('nickname')}`)
-            }}>빌리지 채팅 관리</Button>
-                {changeState
-                ? 
-                    <Div width="100%" height="100%" fDirection="row" jc="space-between" gap="1rem" bgColor="#e6e6e6">
-                    <Button bgColor="#767676" color="white" onClick={changeNicknameHandler}>취소</Button>
-                    <Button bgColor="#644AFF" color="white" onClick={()=>{mutate({"nickname" : changedNickname})}}>수정완료</Button>
-                    </Div>
-                : <Button onClick={changeNicknameHandler}>닉네임 변경</Button>
-                }
-            </Div>
-        </Div>
-        <Div width="100%" height="100%" bgColor="#e6e6e6" padding="1rem 0 0 0" style={{boxSizing:"border-box"}}>
-            {/* 임시...공간? */}
-        </Div>
-        </Div>
+      </Div>
+      <Div width="100%" height="100%" jc="space-between" bgColor="#e6e6e6" padding="1rem" style={{boxSizing:"border-box"}}>
+      <Div width="100%" height="100%" fDirection="row" bgColor="#e6e6e6" padding="0 0 1rem 0" style={{boxSizing:"border-box", borderBottom:"1px solid #767676"}}>
+          <Div margin="auto 0 auto 0" width="100%" fDirection="row" gap="1rem" bgColor="#e6e6e6">
+          <img src={data?.profile} alt="rankingIcon" style={{width:"3rem", height: "3rem"}}/>
+          {changeState
+              ? <Input type="text" defaultValue={data?.nickname} maxLength={6} onChange={changeInputHandler}/>
+              : <Span>{data?.nickname}</Span>
+          }
+          </Div>
+          <Div width="50%" height="100%" gap="0.5rem" bgColor="#e6e6e6">
+          <Button onClick={()=>{navi("/regist")}}>대여물품 등록하기</Button>
+          <Button onClick={()=>{
+              navi(`/chat/${getCookie('nickname')}`)
+          }}>빌리지 채팅 관리</Button>
+              {changeState
+              ? 
+                  <Div width="100%" height="100%" fDirection="row" jc="space-between" gap="1rem" bgColor="#e6e6e6">
+                  <Button bgColor="#767676" color="white" onClick={changeNicknameHandler}>취소</Button>
+                  <Button bgColor="#644AFF" color="white" onClick={()=>{mutate({"nickname" : changedNickname})}}>수정완료</Button>
+                  </Div>
+              : <Button onClick={changeNicknameHandler}>닉네임 변경</Button>
+              }
+          </Div>
+      </Div>
+      <Div width="100%" height="100%" bgColor="#e6e6e6" padding="1rem 0 0 0" style={{boxSizing:"border-box"}}>
+        {/* 임시...공간? */}
+      </Div>
+      </Div>
     </Div>
   )
 }

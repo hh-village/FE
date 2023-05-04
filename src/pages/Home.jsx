@@ -9,7 +9,7 @@ import Loading from '../components/global/Loading'
 import FloatingMenu from '../components/home/FloatingMenu'
 import { FlexDiv, MaxWidthDiv, Div } from '../components/global/globalStyle'
 const VerticalCard = lazy(()=>import('../components/home/VerticalCard')) 
-const HorizonCard = lazy(() => import('../components/home/HorizonCard'))
+const HorizonCard = lazy(()=>import('../components/home/HorizonCard'))
 const EventBanner = lazy(()=>import('../components/home/EventBanner'))
 
 function Home() {
@@ -57,8 +57,6 @@ function Home() {
             <HorizonCard data={data}/>
           </Suspense>
             
-          
-          
         </MaxWidthDiv>
         <FloatingMenu data={data}/>
 
