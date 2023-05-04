@@ -50,7 +50,7 @@ function HeaderNav() {
                     <ChatBtn onClick={()=>{
                       navi(`/chat/${nickname}`)
                       }}> 
-                      <NotifiyIcon src='/images/chat 1.png'/>
+                      <NotifiyIcon src='/images/chat 1.png'  alt=''/>
                       빌리지 채팅 
                     </ChatBtn>
                     <span onClick={()=>{navi("/mypage")}} style={{cursor:"pointer"}}>마이페이지</span>

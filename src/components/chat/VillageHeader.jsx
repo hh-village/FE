@@ -4,7 +4,7 @@ import { VillageHead } from "./chatStyle"
 const VillageHeader = () => {
     return (
         <VillageHead>
-            <img src="/images/appLogo.png" style={{width : '20%'}}/>
+            <img src="/images/appLogo.png" style={{width : '20%'}}  alt=''/>
             빌리지 채팅을 이용해주셔서 감사합니다!
         </VillageHead>
     )
