@@ -25,7 +25,7 @@ function UserCard({data, refetch}) {
 
     const { mutate } = useMutation({
         mutationFn: async (payload) => {
-          setCookie("nickname", payload, {path: "/"});
+          setCookie("nickname", payload.nickname, {path: "/"});
           const token = getCookie("token");
           return await axios.patch(`${process.env.REACT_APP_SERVER_URL}/users`, payload, {
             headers: {
