@@ -87,14 +87,6 @@ const Chat = () => {
         stompClient.debug = function(str) {};
         stompClient.connect({}, () => {
             GetChats.refetch();
-            // if(GetChats.data){
-            //     stompClient.subscribe(`/sub/chat/room/${roomId}`,
-            //     (message)=>{
-            //         const payloadData = JSON.parse(message.body);
-            //         return setChatList(prev => [...prev,payloadData])
-            //     });
-            // }
-        
         })
     }
 
@@ -165,7 +157,7 @@ const Chat = () => {
                                 <>
                                     <TargetRoom key={nanoid()}>
                                         <Wrapper>
-                                            <RoomProfile src={item.profile}/>
+                                            <RoomProfile src={item.profile}  alt=''/>
                                             <div style={{display:"flex", flexDirection : 'column', gap:'0.5rem'}}>
                                                 <NickName>{item.nickname}</NickName>
                                                 
@@ -187,7 +179,7 @@ const Chat = () => {
                                     <Room key={nanoid()}
                                         onClick = {() => onClickOtherChats(item.roomId)}>
                                         <Wrapper>
-                                            <RoomProfile src={item.profile}/>
+                                            <RoomProfile src={item.profile} alt=''/>
                                             <div style={{display:"flex", flexDirection : 'column', gap:'0.5rem'}}>
                                                 <NickName>{item.nickname}</NickName>
                                                 <div style={{width:'200px',height:'100%', overflow:"hidden", wordBreak: 'keep-all',whiteSpace: 'nowrap', textOverflow: 'ellipsis'}}>
