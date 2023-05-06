@@ -19,7 +19,7 @@ const ConsumerRegister = ({reservationList, id}) => {
             if(reserveDate.endDate === 'undefined-NaN-undefined'){
                 return alert('날짜를 다시 입력해주세요')
             }else{
-                return await axios.post(`${process.env.REACT_APP_SERVER_URL}products/${id}/reserve`,reserveDate,
+                return await axios.post(`${process.env.REACT_APP_SERVER_URL}/products/${id}/reserve`,reserveDate,
                 { 
                     headers: {
                         Authorization:`Bearer ${accessToken}`
@@ -50,7 +50,7 @@ const ConsumerRegister = ({reservationList, id}) => {
     const DeleteReservation = useMutation({
         mutationKey:['DeleteReservation'],
         mutationFn: async(id)=>{
-            return await axios.delete(`${process.env.REACT_APP_SERVER_URL}products/reservation/${id}`,{
+            return await axios.delete(`${process.env.REACT_APP_SERVER_URL}/products/reservation/${id}`,{
                 headers:{
                     Authorization:`Bearer ${accessToken}`
                 }
@@ -68,7 +68,7 @@ const ConsumerRegister = ({reservationList, id}) => {
     const ChatwithOwner = useMutation({
         mutationKey:['ChatwithOwner'],
         mutationFn: async(nickname) => {
-            return await axios.post(`${process.env.REACT_APP_SERVER_URL}chat/room/${id}/${nickname}`,null,{
+            return await axios.post(`${process.env.REACT_APP_SERVER_URL}/chat/room/${id}/${nickname}`,null,{
                 headers:{
                     Authorization:`Bearer ${accessToken}`
                 }

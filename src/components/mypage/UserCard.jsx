@@ -27,7 +27,7 @@ function UserCard({data, refetch}) {
         mutationFn: async (payload) => {
           setCookie("nickname", payload.nickname, {path: "/"});
           const token = getCookie("token");
-          return await axios.patch(`${process.env.REACT_APP_SERVER_URL}users`, payload, {
+          return await axios.patch(`${process.env.REACT_APP_SERVER_URL}/users`, payload, {
             headers: {
               Authorization: `Bearer ${token}`
             }

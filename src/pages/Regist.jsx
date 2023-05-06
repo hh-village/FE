@@ -44,7 +44,7 @@ function Regist() {
       }else if(!values.images){
         return window.alert('물품 이미지를 업로드 해주세요!')
       }else{
-        return await axios.post(`${process.env.REACT_APP_SERVER_URL}products`,values,{
+        return await axios.post(`${process.env.REACT_APP_SERVER_URL}/products`,values,{
         headers:{
           Authorization: `Bearer ${accessToken}`,
           "Content-Type": "multipart/form-data"

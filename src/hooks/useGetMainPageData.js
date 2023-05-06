@@ -8,10 +8,10 @@ const useGetMainPageData = () => {
         queryFn: async () => {
           const token = getCookie("token");
           if(!token){
-            const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}main`)
+            const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/main`)
             return res.data.data;
           } else {
-            const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}main`, {
+            const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/main`, {
               headers: {
                 Authorization: `Bearer ${token}`,
               }

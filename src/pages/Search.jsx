@@ -23,13 +23,13 @@ function Search() {
 
   const getSearchData = async(lastPostId, size) => {
     if(!accessToken){
-      const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}products?name=${searchData.productName}&location=${searchData.location}&lastId=${lastPostId}&size=${size}`)
+      const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/products?name=${searchData.productName}&location=${searchData.location}&lastId=${lastPostId}&size=${size}`)
       const productList = res?.data.data.productList
       const nextLastPostId = productList[productList.length - 1]?.id
       const isLast = productList.length < size
       return {productList, nextLastPostId, isLast}
     }else{
-      const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}products?name=${searchData.productName}&location=${searchData.location}&lastId=${lastPostId}&size=${size}`,{
+      const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/products?name=${searchData.productName}&location=${searchData.location}&lastId=${lastPostId}&size=${size}`,{
         headers : {
           Authorization : `Bearer ${accessToken}`
         }
