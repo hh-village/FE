@@ -19,7 +19,7 @@ function VerticalCard({data}) {
 
     const { mutate } = useMutation({
         mutationFn: async (payload) => {
-          return await axios.post(`${process.env.REACT_APP_SERVER_URL}/products/${payload}/zzim`, payload, {
+          return await axios.post(`${process.env.REACT_APP_SERVER_URL}products/${payload}/zzim`, payload, {
             headers: {
               Authorization: `Bearer ${token}`
             }

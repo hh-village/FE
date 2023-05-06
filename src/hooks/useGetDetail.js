@@ -9,11 +9,11 @@ const useGetDetail = (id) => {
       queryKey: ["GET_DETAIL"],
       queryFn: async () => {
         if(!token){
-          const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/products/${parseInt(id)}`)
+          const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}products/${parseInt(id)}`)
           return response.data.data;
         }
         else{
-            const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/products/${parseInt(id)}`,
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}products/${parseInt(id)}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

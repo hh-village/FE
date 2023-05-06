@@ -20,16 +20,8 @@ function SearchCards({data, isFetchingNextPage, fetchNextPage}) {
     }, [inView])
 
     return (
-        // (data[0]?.productList.length) === 0 ? 
-        // <Div width="100%" marginTop="4rem" gap="2rem">
-        //     <h2>내 근처에서 대여할 물품을 찾아보세요!</h2>
-        //     <Div width="100%" height="20vh" jc="center" alignItem="center" marginTop="4rem">
-        //         <NothingSpan>조건과 일치하는 상품이 없습니다</NothingSpan>    
-        //     </Div>
-        // </Div> :
         <Div marginTop="4rem" gap="2rem">
             <h2>내 근처에서 대여할 물품을 찾아보세요!</h2>
-
             <GridDiv width="100%" gridTC="repeat(4, 1fr)">
                 {data?.map((item) => 
                     (item?.productList.map((item, index) => 

@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
 import { nanoid } from 'nanoid'
 import styled from 'styled-components'
 import { Div } from '../global/globalStyle';
 import MyProducts from './MyProducts';
-import MyRents from './MyRents';
-import MyZzims from './MyZzims';
+const MyRents = lazy(()=>import('./MyRents'))
+const MyZzims = lazy(()=>import('./MyZzims'))
 
 function PagingTap({data, btnInfo, currentBtn, buttonClickHandler}) {
 
@@ -28,10 +28,14 @@ function PagingTap({data, btnInfo, currentBtn, buttonClickHandler}) {
                     return <MyProducts data={data}/>
                 case "rents":
                     // components/mypage
-                    return <MyRents data={data}/>
+                    return <Suspense>
+                                <MyRents data={data}/>
+                            </Suspense>
                 case "zzims":
                     // components/mypage
-                    return <MyZzims data={data}/>
+                    return <Suspense>
+                                <MyZzims data={data}/>
+                            </Suspense>
                 default:
                     return null
             }

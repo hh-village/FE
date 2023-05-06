@@ -38,14 +38,14 @@ function Map({theme, baseloc = ''}) {
     queryKey:['GET_GEOCODE'],
     queryFn: async()=>{
       if(values.address){
-        return await axios.get(`${process.env.REACT_APP_SERVER_URL}/maps/geocode?address=${values.address}`,
+        return await axios.get(`${process.env.REACT_APP_SERVER_URL}maps/geocode?address=${values.address}`,
         {
           headers:{
               Authorization: `Bearer ${accessToken}`
             }
         })
       }else{
-        return await axios.get(`${process.env.REACT_APP_SERVER_URL}/maps/geocode?address=서울특별시 강남구 테헤란로44길 8`,
+        return await axios.get(`${process.env.REACT_APP_SERVER_URL}maps/geocode?address=서울특별시 강남구 테헤란로44길 8`,
         {
           headers:{
               Authorization: `Bearer ${accessToken}`
@@ -92,7 +92,7 @@ function Map({theme, baseloc = ''}) {
       locY : event.coord.y
     })
   
-    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/maps/gc?coords=${event.coord.x},${event.coord.y}&output=json&orders=roadaddr`,{
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}maps/gc?coords=${event.coord.x},${event.coord.y}&output=json&orders=roadaddr`,{
       headers:{
         Authorization: `Bearer ${accessToken}`
       }

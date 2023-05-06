@@ -27,7 +27,7 @@ function UserCard({data, refetch}) {
         mutationFn: async (payload) => {
           setCookie("nickname", payload.nickname, {path: "/"});
           const token = getCookie("token");
-          return await axios.patch(`${process.env.REACT_APP_SERVER_URL}/users`, payload, {
+          return await axios.patch(`${process.env.REACT_APP_SERVER_URL}users`, payload, {
             headers: {
               Authorization: `Bearer ${token}`
             }
@@ -56,7 +56,7 @@ function UserCard({data, refetch}) {
   return (
     <Div marginTop="2rem" width="100%" height="300px" fDirection="row">
       <Div>
-        <img src="/images/demoProfile.png" alt="userProfileImg" style={{width:"300px", height: "300px"}}/>
+        <img src="/images/default.webp" alt="userProfileImg" style={{width:"300px", height: "300px"}}/>
       </Div>
       <Div width="100%" height="100%" jc="space-between" bgColor="#e6e6e6" padding="1rem" style={{boxSizing:"border-box"}}>
       <Div width="100%" height="100%" fDirection="row" bgColor="#e6e6e6" padding="0 0 1rem 0" style={{boxSizing:"border-box", borderBottom:"1px solid #767676"}}>

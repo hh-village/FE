@@ -7,7 +7,7 @@ import { nanoid } from 'nanoid';
 function HomeImgSlide() {
     const [count, setCount] = useState(1);
 
-    const test = [
+    const banner = [
         "/images/main1.webp",
         "/images/main2.webp",
         "/images/main3.webp",
@@ -24,15 +24,15 @@ function HomeImgSlide() {
 
     return (
         <Div width="100%" marginTop="2rem" position="relative">
-            <HomeSlideBtn count={count} setFunc={setCount} total={test.length}/>
+            <HomeSlideBtn count={count} setFunc={setCount} total={banner.length}/>
             <Div position="relative" margin="auto" width="100%" height="100%" overflow="hidden">
                 <Slide etc={styleOption}>
-                    {test.map((imgs) => 
+                    {banner.map((imgs) => 
                         <Img src={imgs} alt={imgs} loading="lazy" decoding='async' key={nanoid()}/>
                     )}
                 </Slide>
                 <CountDiv>
-                {test.map((item, index) => 
+                {banner.map((item, index) => 
                     <CountBtn 
                     focused={count}
                     name={index+1}
