@@ -14,7 +14,7 @@ const RegisterReserve = (props) => {
     const getRoom = useMutation({
       mutationKey:['getRoomId'],
       mutationFn: async(nickname)=> {
-        return await axios.post(`${process.env.REACT_APP_SERVER_URL}/chat/room/${props.id}/${nickname}`)
+        return await axios.post(`${process.env.REACT_APP_SERVER_URL}chat/room/${props.id}/${nickname}`)
         },
         onSuccess : (response) => {
           localStorage.setItem('roomId',response.data.data)

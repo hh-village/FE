@@ -117,7 +117,7 @@ function Detail() {
               </Suspense>
             </Div>
             <Div width="100%" marginTop="2rem" style={{position:"relative"}}>
-              <img style = {{width :'567px', height :'115px'}} src='/images/mapBG.png' alt=''/>
+              <img style = {{width :'567px', height :'115px'}} src='/images/mapBG.webp' alt=''/>
               <LocationButton onClick={onClickMap}>
                 <NotifiyIcon src='/images/location 1.png'/>
                 거래위치 지도에서 보기

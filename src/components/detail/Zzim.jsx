@@ -10,7 +10,7 @@ const Zzim = ({zzim, zzimCount,id}) => {
     const token = getCookie('token')
     const MutateZzim = useMutation({
         mutationFn: async (payload) => {
-          return await axios.post(`${process.env.REACT_APP_SERVER_URL}/products/${id}/zzim`, payload, {
+          return await axios.post(`${process.env.REACT_APP_SERVER_URL}products/${id}/zzim`, payload, {
             headers: {
               Authorization: `Bearer ${token}`
             }
