@@ -32,14 +32,14 @@ const Chat = () => {
         queryKey:['GetChats'],
         queryFn : async() => {
             if(!roomId){
-                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}chat/room?`,{
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/chat/room?`,{
                     headers:{
                         Authorization : `Bearer ${accessToken}`
                     }
                 })
                 return response.data.data
             }else{
-                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}chat/room?roomId=${roomId}`,{
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/chat/room?roomId=${roomId}`,{
                     headers:{
                         Authorization : `Bearer ${accessToken}`
                     }
@@ -71,7 +71,7 @@ const Chat = () => {
     const DeleteRoom = useMutation({
         mutationKey : ['DeleteRoom'],
         mutationFn : async(payload) => {
-            return await axios.delete(`${process.env.REACT_APP_SERVER_URL}chat/room/${payload}`)
+            return await axios.delete(`${process.env.REACT_APP_SERVER_URL}/chat/room/${payload}`)
         },
         onSuccess : (response) => {
             window.alert('채팅방이 성공적으로 삭제되었습니다.')
@@ -80,7 +80,7 @@ const Chat = () => {
     })
 
     const registUsers = () => {
-        const sockJS = new SockJS(`${process.env.REACT_APP_SERVER_URL}ws`);
+        const sockJS = new SockJS(`${process.env.REACT_APP_SERVER_URL}/ws`);
         stompClient = Stomp.over(function() {
             return sockJS;
         });

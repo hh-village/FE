@@ -7,7 +7,7 @@ const useGetMyPageData = (currentBtn) => {
         queryKey: [`${currentBtn}`],
         queryFn: async () => {
           const token = getCookie("token");
-          const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}users?key=${currentBtn}`, {
+          const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/users?key=${currentBtn}`, {
             headers: {
               Authorization: `Bearer ${token}`,
             }

@@ -9,7 +9,7 @@ const useDeleteDetail = (id) => {
     const DeletePost = useMutation({
         mutationKey:['DeletePost'],
         mutationFn: async(id) => {
-          return await axios.delete(`${process.env.REACT_APP_SERVER_URL}products/${id}`,{
+          return await axios.delete(`${process.env.REACT_APP_SERVER_URL}/products/${id}`,{
             headers : {
               Authorization : `Bearer ${token}`
             }

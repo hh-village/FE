@@ -9,7 +9,7 @@ export default () => {
         <HeaderNav/>
         <Background>
             <LoadingText>잠시만 기다려주세요</LoadingText>
-            <img src= '/images/Ellipsis-3.6s-800px.gif' alt="로딩중" width="25%" />
+            <img src= '/images/Ellipsis.gif' alt="로딩중" width="25%" />
         </Background>
     </FlexDiv>
     

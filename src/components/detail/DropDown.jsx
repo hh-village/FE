@@ -14,7 +14,7 @@ const DropDown = ({status, id}) => {
     const { mutate } = useMutation({
       mutationKey:['statusChanged'],
       mutationFn: async(status) => {
-        return await axios.patch(`${process.env.REACT_APP_SERVER_URL}products/reservation/${id}/status`,status,{
+        return await axios.patch(`${process.env.REACT_APP_SERVER_URL}/products/reservation/${id}/status`,status,{
           headers : {
             Authorization : `Bearer ${accesToken}`
           }
