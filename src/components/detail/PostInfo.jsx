@@ -12,10 +12,10 @@ const PostInfo = ({reservationList, zzimCount, location}) => {
                 <NotifiyIcon src='/images/fHeart.png'/>
                 관심 {zzimCount}명
                 </div>
-                <div style={{display:'flex', alignItems:'center', gap:'4px'}}>
-                <NotifiyIcon src='/images/eye 1.png'/>
+                {/* <div style={{display:'flex', alignItems:'center', gap:'4px'}}>
+                <NotifiyIcon src='/images/eye.png'/>
                 조회 xx회
-                </div>
+                </div> */}
             </UnderImage>
             <div style={{display:'flex', justifyContent:'center', alignItems:'center', gap:'4px'}}>
                 <NotifiyIcon src='/images/map.png'/>

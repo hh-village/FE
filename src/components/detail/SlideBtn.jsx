@@ -19,13 +19,13 @@ function SlideBtn({ count, setFunc, total }) {
         onClick={() => buttonClickHandler("prev")}
         disabled={count === 1 ? true : false}
       >
-        <BtnImage src="/images/left.png" />
+        <BtnImage src="/images/left.webp" />
       </PrevBtn>
       <NextBtn
         onClick={() => buttonClickHandler("next")}
         disabled={count === total ? true : false}
       >
-        <BtnImage src="/images/right.png" />
+        <BtnImage src="/images/right.webp" />
       </NextBtn>
     </>
   )
