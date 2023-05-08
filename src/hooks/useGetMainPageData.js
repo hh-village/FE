@@ -9,6 +9,7 @@ const useGetMainPageData = () => {
           const token = getCookie("token");
           if(!token){
             const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/main`)
+            // const res = await axios.get("/main")
             return res.data.data;
           } else {
             const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/main`, {
