@@ -8,7 +8,8 @@ import Footer from '../components/global/Footer'
 import Loading from '../components/global/Loading'
 import FloatingMenu from '../components/home/FloatingMenu'
 import { FlexDiv, MaxWidthDiv, Div } from '../components/global/globalStyle'
-const VerticalCard = lazy(()=>import('../components/home/VerticalCard')) 
+// import VerticalCard from '../components/home/VerticalCard'
+const VerticalCard = lazy(()=>import('../components/home/VerticalCard'))
 const HorizonCard = lazy(()=>import('../components/home/HorizonCard'))
 const EventBanner = lazy(()=>import('../components/home/EventBanner'))
 
@@ -48,6 +49,7 @@ function Home() {
           <Suspense>
             <VerticalCard data={data}/>
           </Suspense>
+            {/* <VerticalCard data={data}/> */}
           <Suspense>
             {/* components/home */}
             <EventBanner />

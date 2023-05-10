@@ -38,7 +38,7 @@ function Login() {
     if(token){
       navi('/')
     }
-  })
+  }, [token]);
 
   return (
     <FlexDiv>

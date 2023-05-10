@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Div } from '../global/globalStyle'
 import HomeSlideBtn from '../home/HomeSlideBtn'
 import styled from 'styled-components';
-import { nanoid } from 'nanoid';
+import { nanoid } from 'nanoid'
 
 function HomeImgSlide() {
     const [count, setCount] = useState(1);
@@ -25,15 +25,16 @@ function HomeImgSlide() {
     return (
         <Div width="100%" marginTop="2rem" position="relative">
             <HomeSlideBtn count={count} setFunc={setCount} total={banner.length}/>
-            <Div position="relative" margin="auto" width="100%" height="100%" overflow="hidden">
+            <Div position="relative" margin="auto" width="100%" height="500px" overflow="hidden">
                 <Slide etc={styleOption}>
                     {banner.map((imgs) => 
-                        <Img src={imgs} alt={imgs} loading="lazy" decoding='async' key={nanoid()}/>
+                        <Img key={nanoid()} src={imgs} alt={imgs}/>
                     )}
                 </Slide>
                 <CountDiv>
                 {banner.map((item, index) => 
                     <CountBtn 
+                    key={nanoid()}
                     focused={count}
                     name={index+1}
                     onClick={()=>{setCount(index+1)}}></CountBtn>

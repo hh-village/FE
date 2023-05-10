@@ -48,7 +48,7 @@ function VerticalCard({data}) {
                           ? <Hot>인기대여</Hot>
                           : null
                           }
-                          <img src={item?.image} width="282px" height="304px" alt="" loading='lazy' style={{objectFit: "contain"}}/>
+                          <img src={item?.image} width="282px" height="304px" alt="" style={{objectFit: "contain"}}/>
                         </Div>
                         <Div width="100%" padding="1rem" gap="1rem" style={{boxSizing: "border-box"}}>
                             <Div fDirection="row" width="100%" jc="space-between">

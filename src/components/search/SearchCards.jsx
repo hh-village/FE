@@ -37,7 +37,7 @@ function SearchCards({data, isFetchingNextPage, fetchNextPage}) {
                                     ? <Hot>인기대여</Hot>
                                     : null
                                 }
-                                <CardImg src={item?.image} alt="" loading='lazy'/>
+                                <CardImg src={item?.image} alt=""/>
                             </Div>
                             <Div width="100%" padding="1rem" gap="1rem" style={{boxSizing: "border-box"}}>
                                 <Div fDirection="row" width="100%" jc="space-between" style={{textOverflow:"ellipsis"}}>
