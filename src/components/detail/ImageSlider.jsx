@@ -14,7 +14,7 @@ const ImageSlider = ({imageList}) => {
         flex-wrap: nowrap;
         transition: all 0.5s;
         flex: none;
-        transform: translateX(-${(count-1)*(false? 585: 584)}px);
+        transform: translateX(-${(count-1)*(false? 585: 567)}px);
     `;
 
     return (

@@ -14,6 +14,8 @@ import { PriceDiv, PriceInput, PriceSpan } from '../components/regist/RegistStyl
 import { useQueryClient } from '@tanstack/react-query'
 import { useSelector } from 'react-redux'
 import { getCookie } from '../shared/Cookies'
+// import ImageSlider from '../components/detail/ImageSlider'
+// import ImageBlock from '../components/regist/ImageBlock'
 const MapComp = lazy(()=> import('../components/regist/Map'))
 const ConsumerRegister = lazy(()=>import('../components/detail/ConsumerRegister'))
 const RegisterReserve = lazy(()=>import('../components/detail/RegisterReserve'))
@@ -108,6 +110,10 @@ function Detail() {
                 : <ImageSlider imageList={data?.imageList}/>
                 }
               </Suspense>
+                {/* {data?.checkOwner
+                ? <ImageBlock image={data?.imageList} id={data?.id}/>
+                : <ImageSlider imageList={data?.imageList}/>
+                } */}
             </Div>
             <Div>
               <Suspense>

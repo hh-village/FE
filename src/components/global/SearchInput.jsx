@@ -1,4 +1,3 @@
-
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { sendSearchData } from '../../redux/modules/Search'
@@ -6,6 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { Div } from './globalStyle'
 import { useQueryClient } from '@tanstack/react-query'
+import { nanoid } from 'nanoid'
 
 function SearchInput({ searchData, setSearchData, rem, refetch}) {
   const queryClient = useQueryClient();
@@ -41,7 +41,7 @@ function SearchInput({ searchData, setSearchData, rem, refetch}) {
       <Select name="location" value={searchData?.location} onChange={catchSearchDataHandler}>
         <option value="">지역검색(전체)</option>
         {locationName?.map((item) => 
-          <option value={item}>{item}</option>
+          <option key={nanoid()} value={item}>{item}</option>
         )}
       </Select>
       <Input

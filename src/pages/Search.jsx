@@ -8,7 +8,7 @@ import Footer from '../components/global/Footer'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCookie } from '../shared/Cookies'
 import { sendSearchData } from '../redux/modules/Search'
-const SearchCards = lazy(()=>import('../components/search/SearchCards'))
+import SearchCards from '../components/search/SearchCards'
 const NullCard = lazy(()=>import('../components/search/NullCard'))
 
 function Search() {
@@ -88,13 +88,11 @@ function Search() {
               <NullCard />
             </Suspense>
           : 
-            <Suspense>
-              <SearchCards
-                  data={data?.pages}
-                  isFetchingNextPage={isFetchingNextPage}
-                  fetchNextPage={fetchNextPage}
-                />
-            </Suspense>
+            <SearchCards
+                data={data?.pages}
+                isFetchingNextPage={isFetchingNextPage}
+                fetchNextPage={fetchNextPage}
+            />
         }
         
       </MaxWidthDiv>
