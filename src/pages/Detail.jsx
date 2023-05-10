@@ -1,6 +1,8 @@
 import HeaderNav from '../components/global/HeaderNav'
 import Footer from '../components/global/Footer'
 import Loading from '../components/global/Loading'
+import ImageSlider from '../components/detail/ImageSlider'
+import ImageBlock from '../components/regist/ImageBlock'
 import useInput from '../hooks/useInput'
 import useGetDetail from '../hooks/useGetDetail'
 import useUpdateDetail from '../hooks/useUpdateDetail'
@@ -14,14 +16,10 @@ import { PriceDiv, PriceInput, PriceSpan } from '../components/regist/RegistStyl
 import { useQueryClient } from '@tanstack/react-query'
 import { useSelector } from 'react-redux'
 import { getCookie } from '../shared/Cookies'
-// import ImageSlider from '../components/detail/ImageSlider'
-// import ImageBlock from '../components/regist/ImageBlock'
 const MapComp = lazy(()=> import('../components/regist/Map'))
 const ConsumerRegister = lazy(()=>import('../components/detail/ConsumerRegister'))
 const RegisterReserve = lazy(()=>import('../components/detail/RegisterReserve'))
 const ModalSeller = lazy(()=>import('../components/detail/ModalSeller'))
-const ImageSlider = lazy(()=>import('../components/detail/ImageSlider'))
-const ImageBlock = lazy(()=>import('../components/regist/ImageBlock'))
 const PostInfo = lazy(()=>import('../components/detail/PostInfo'))
 const Zzim = lazy(()=>import('../components/detail/Zzim'))
 const SellorInfo = lazy(()=>import('../components/detail/SellorInfo'))
@@ -104,16 +102,10 @@ function Detail() {
           {/* 왼쪽 div 영역 */}
           <Div width="100%">
             <Div width="100%">
-              <Suspense>
-                {data?.checkOwner
-                ? <ImageBlock image={data?.imageList} id={data?.id}/>
-                : <ImageSlider imageList={data?.imageList}/>
-                }
-              </Suspense>
-                {/* {data?.checkOwner
-                ? <ImageBlock image={data?.imageList} id={data?.id}/>
-                : <ImageSlider imageList={data?.imageList}/>
-                } */}
+              {data?.checkOwner
+              ? <ImageBlock image={data?.imageList} id={data?.id}/>
+              : <ImageSlider imageList={data?.imageList}/>
+              }
             </Div>
             <Div>
               <Suspense>
