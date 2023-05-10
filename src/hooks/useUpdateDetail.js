@@ -8,21 +8,28 @@ const useUpdateDetail = (id) => {
     const UpdatePost = useMutation({
         mutationKey : ['UpdatePost'],
         mutationFn : async(payload) => {
-          if(typeof payload.images[0] === 'string' || typeof payload.images[0] === [] ){
-            payload.images = null
-          }
-          return await axios.patch(`${process.env.REACT_APP_SERVER_URL}/products/${id}`,payload,{
+          if(payload.images === null){
+            return await axios.patch(`${process.env.REACT_APP_SERVER_URL}/products/${id}`,payload,{
             headers : {
               Authorization : `Bearer ${token}`,
               "Content-Type": "multipart/form-data"
             }
           })
+          } else {
+              payload.images = null
+              return await axios.patch(`${process.env.REACT_APP_SERVER_URL}/products/${id}`,payload,{
+                headers : {
+                  Authorization : `Bearer ${token}`,
+                  "Content-Type": "multipart/form-data"
+                }
+              })
+          }
         },
         onSuccess:(response)=>{
             queryClient.invalidateQueries(['GET_DETAIL'])
           window.alert(response.data.message)
         },
-        onError : (error)=> {
+        onError: (error)=> {
           alert('수정내역을 모두 작성해주세요.')
         }
       })
