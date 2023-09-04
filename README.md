@@ -1,4 +1,4 @@
-## 항해99 13기 실전프로젝트 3조 Backend github
+## 프로젝트 Frontend github
 
 ## 🏛 프로젝트 주제
 village (함께 사용하는 내 물품 대여서비스 빌리지)
